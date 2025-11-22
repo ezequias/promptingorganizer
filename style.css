@@ -58,5 +58,272 @@ main {
     margin: 20px auto; /* Center the main content */
     align-items: flex-start; /* Align items to the top */
 }
+
 .card {
     background-color: var(--md-surface-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: var(--md-shadow-2); /* Slight lift on hover */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+#categoryList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+    border-top: 1px solid var(--md-divider-color);
+}
+
+#categoryList li {
+    position: relative;
+    display: flex;
+    justify-content: space-between; /* Push text to left, button to right */
+    align-items: center;
+    padding: 12px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--md-divider-color);
+    color: var(--md-secondary-text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#categoryList li:first-of-type {
+    border-top: none;
+}
+
+#categoryList li.active {
+    background-color: var(--md-primary-color-light);
+    color: var(--md-primary-color-dark);
+    font-weight: 500;
+}
+
+#categoryList li:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+/* Category Delete Button (Trash Can) */
+.delete-category-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--md-secondary-text-color); /* Grey by default */
+    cursor: pointer;
+    font-size: 1.2rem; /* Size of the Material Icon */
+    padding: 5px;
+    border-radius: 50%;
+    width: 30px; /* Make hit area larger */
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    z-index: 2; /* Ensure it's above other elements if needed */
+    margin-left: 10px; /* Add some space from the category name */
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.delete-category-btn:hover {
+    background-color: #ffebee; /* Light red background on hover */
+    color: #f44336; /* Red color on hover */
+}
+
+
+/* Input group for New Category + Add Button */
+.input-group {
+    display: flex;
+    gap: 10px; /* Space between input and button */
+    margin-top: 1rem;
+    align-items: center; /* Vertically align items in the group */
+}
+
+/* Input Fields */
+input[type="text"],
+textarea,
+select {
+    width: 100%; /* Default to 100% for general cases */
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--md-divider-color);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: var(--md-text-color);
+    background-color: var(--md-surface-color);
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Specific styling for input inside .input-group */
+.input-group input[type="text"] {
+    flex-grow: 1; /* Allows the input to take up available space */
+    margin-bottom: 0; /* Remove bottom margin here for better alignment */
+}
+
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--md-primary-color);
+    box-shadow: 0 0 0 1px var(--md-primary-color); /* subtle focus ring */
+    outline: none;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+select {
+    appearance: none; /* Remove default dropdown arrow */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23757575%22%20d%3D%22M6%209L0%203h12z%22%2F%3E%3C%2Fsvg%3E"); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px; /* Space for arrow */
+}
+
+
+/* Material Design Buttons */
+.md-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    box-shadow: var(--md-shadow-1); /* Default shadow for buttons */
+    outline: none; /* Remove default focus outline */
+}
+
+.md-button:hover {
+    box-shadow: var(--md-shadow-2); /* Lift on hover */
+}
+
+/* Specific for Add Category button */
+.md-button#addCategoryBtn {
+    background-color: var(--md-primary-color);
+    color: var(--md-surface-color);
+    flex-shrink: 0; /* Prevent button from shrinking */
+    min-width: unset; /* Allow it to shrink to content if necessary */
+    padding: 10px 15px; /* Ensure padding is consistent */
+}
+
+.md-button#addCategoryBtn:hover {
+    background-color: var(--md-primary-color-dark);
+}
+
+
+.md-button-primary {
+    background-color: var(--md-accent-color); /* Accent color for primary actions */
+    color: var(--md-surface-color);
+}
+
+.md-button-primary:hover {
+    background-color: #e00057; /* Darker accent on hover */
+}
+
+/* Prompt Area & Cards */
+.prompt-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.prompt-card {
+    background-color: var(--md-surface-color); /* White background for prompt cards */
+    border: 1px solid var(--md-divider-color);
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    word-wrap: break-word;
+    position: relative;
+    box-shadow: none; /* No extra shadow on individual prompt cards by default */
+    transition: background-color 0.2s ease;
+}
+
+.prompt-card:hover {
+    background-color: #fcfcfc;
+}
+
+.prompt-card p {
+    margin: 0;
+    padding-right: 35px; /* Space for the delete button */
+    font-size: 0.95rem;
+}
+
+.delete-prompt-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent; /* Make background transparent */
+    color: var(--md-secondary-text-color); /* Use secondary text color for icon */
+    border: none;
+    width: 30px; /* Larger hit area */
+    height: 30px;
+    font-size: 1.2rem; /* Larger icon */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Make it round */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.delete-prompt-btn .material-icons {
+    font-size: 1.2rem; /* Ensure actual icon size */
+}
+
+.delete-prompt-btn:hover {
+    background-color: #f0f0f0; /* Light background on hover */
+    color: var(--md-text-color);
+}
+
+
+.no-prompts-message {
+    text-align: center;
+    color: var(--md-secondary-text-color);
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .input-group {
+        flex-direction: row; /* Keep as row for small screens */
+        flex-wrap: wrap; /* Allow wrapping if content is too wide */
+        gap: 5px;
+    }
+
+    .input-group input[type="text"] {
+        flex-grow: 1; /* Still takes most space */
+        width: auto; /* Let flexbox handle width */
+        margin-bottom: 0;
+    }
+
+    .md-button#addCategoryBtn {
+        width: auto; /* Let content dictate width */
+        flex-grow: 0; /* Don't grow */
+        white-space: nowrap;
+        margin-bottom: 0;
+    }
+}
