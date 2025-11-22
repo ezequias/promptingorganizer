@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryList = document.getElementById('categoryList');
     const newCategoryInput = document.getElementById('newCategoryInput');
     const addCategoryBtn = document.getElementById('addCategoryBtn');
-    addCategoryBtn.textContent = 'Add'; // Changed from "Add Category" to "Add"
     const newPromptText = document.getElementById('newPromptText');
     const promptCategorySelect = document.getElementById('promptCategorySelect');
     const addPromptBtn = document.getElementById('addPromptBtn');
@@ -27,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (categories.length === 0) {
             categoryList.innerHTML = '<p class="no-prompts-message">No categories yet. Add one!</p>';
             promptCategorySelect.innerHTML = '<option value="">No Categories Available</option>';
-            activeCategory = null; // No active category if none exist
-            renderPrompts(); // Update prompts display
+            activeCategory = null;
+            renderPrompts();
             return;
         }
 
@@ -36,51 +35,56 @@ document.addEventListener('DOMContentLoaded', () => {
             const li = document.createElement('li');
             li.dataset.category = category;
 
-            // Category Name Span - clicking this makes it active
             const categoryNameSpan = document.createElement('span');
             categoryNameSpan.textContent = category;
             categoryNameSpan.classList.add('category-name');
-            categoryNameSpan.style.flexGrow = '1'; // Allow it to take available space
-            categoryNameSpan.addEventListener('click', () => {
+            categoryNameSpan.style.flexGrow = '1';
+
+            // Double-click to edit
+            categoryNameSpan.addEventListener('dblclick', (e) => {
+                e.stopPropagation();
+                enterEditMode(li, category);
+            });
+
+            // Click to activate (single click, not double-click)
+            categoryNameSpan.addEventListener('click', (e) => {
+                e.stopPropagation();
                 if (activeCategory !== category) {
                     activeCategory = category;
-                    renderCategories(); // Re-render to update active class
+                    renderCategories();
                     renderPrompts();
                 }
             });
+
             li.appendChild(categoryNameSpan);
 
-            // Delete Button (Trash Can Icon Only)
             const deleteBtn = document.createElement('button');
             deleteBtn.classList.add('delete-category-btn');
             deleteBtn.innerHTML = '<i class="material-icons">delete</i>';
-            deleteBtn.title = `Delete "${category}" category`; // Add a tooltip for accessibility
+            deleteBtn.title = `Delete "${category}" category`;
             deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent category activation when deleting
+                e.stopPropagation();
                 deleteCategory(category);
             });
             li.appendChild(deleteBtn);
-
 
             if (category === activeCategory) {
                 li.classList.add('active');
             }
             categoryList.appendChild(li);
 
-            // Render for prompt category select
             const option = document.createElement('option');
             option.value = category;
             option.textContent = category;
             promptCategorySelect.appendChild(option);
         });
 
-        // Ensure the select box reflects the active category if possible, or default
         if (activeCategory && categories.includes(activeCategory)) {
             promptCategorySelect.value = activeCategory;
         } else if (categories.length > 0) {
             activeCategory = categories[0];
             promptCategorySelect.value = activeCategory;
-            renderCategories(); // Re-render to show active
+            renderCategories();
         } else {
             activeCategory = null;
         }
@@ -88,28 +92,107 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPrompts();
     }
 
-    // No need for toggleCategoryMenu or document click listener for menus anymore
+    function enterEditMode(categoryListItem, oldCategoryName) {
+        // Prevent multiple edit modes
+        if (categoryListItem.querySelector('.category-edit-input')) {
+            return;
+        }
+
+        const categoryNameSpan = categoryListItem.querySelector('.category-name');
+        const deleteBtn = categoryListItem.querySelector('.delete-category-btn');
+
+        // Hide original span and delete button
+        categoryNameSpan.style.display = 'none';
+        if (deleteBtn) deleteBtn.style.display = 'none';
+
+        // Create input field
+        const editInput = document.createElement('input');
+        editInput.type = 'text';
+        editInput.value = oldCategoryName;
+        editInput.classList.add('category-edit-input');
+        categoryListItem.prepend(editInput); // Add at the beginning of the li
+
+        editInput.focus();
+        editInput.select(); // Select text for easy editing
+
+        const saveChanges = () => {
+            const newCategoryName = editInput.value.trim();
+
+            if (newCategoryName === oldCategoryName) {
+                // No change, just revert
+                exitEditMode(categoryListItem, categoryNameSpan, deleteBtn, editInput);
+                return;
+            }
+
+            if (newCategoryName === '') {
+                alert('Category name cannot be empty.');
+                editInput.focus();
+                return;
+            }
+
+            if (categories.includes(newCategoryName)) {
+                alert(`Category "${newCategoryName}" already exists.`);
+                editInput.focus();
+                return;
+            }
+
+            // Update categories array
+            const oldIndex = categories.indexOf(oldCategoryName);
+            if (oldIndex > -1) {
+                categories[oldIndex] = newCategoryName;
+                saveCategories();
+            }
+
+            // Update prompts with the new category name
+            prompts.forEach(prompt => {
+                if (prompt.category === oldCategoryName) {
+                    prompt.category = newCategoryName;
+                }
+            });
+            savePrompts();
+
+            // Update active category if it was the one being edited
+            if (activeCategory === oldCategoryName) {
+                activeCategory = newCategoryName;
+            }
+
+            renderCategories(); // Re-render everything to reflect changes
+        };
+
+        editInput.addEventListener('blur', saveChanges); // Save on blur (lose focus)
+        editInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                editInput.blur(); // Trigger blur to save
+            }
+        });
+    }
+
+    function exitEditMode(categoryListItem, categoryNameSpan, deleteBtn, editInput) {
+        if (editInput && editInput.parentNode === categoryListItem) {
+            categoryListItem.removeChild(editInput);
+        }
+        categoryNameSpan.style.display = ''; // Show original span
+        if (deleteBtn) deleteBtn.style.display = ''; // Show delete button
+    }
+
 
     function deleteCategory(categoryToDelete) {
         if (!confirm(`Are you sure you want to delete the category "${categoryToDelete}"? All prompts within this category will also be deleted.`)) {
-            return; // User cancelled
+            return;
         }
 
-        // Remove category from list
         categories = categories.filter(c => c !== categoryToDelete);
         saveCategories();
 
-        // Remove associated prompts
         prompts = prompts.filter(p => p.category !== categoryToDelete);
         savePrompts();
 
-        // If the deleted category was active, set a new active category
         if (activeCategory === categoryToDelete) {
             activeCategory = categories.length > 0 ? categories[0] : null;
         }
 
-        renderCategories(); // Re-render to update display
-        renderPrompts();    // Re-render prompts (will show for new active or none)
+        renderCategories();
+        renderPrompts();
     }
 
 
