@@ -29,11 +29,33 @@ body {
 header {
     background-color: var(--md-primary-color);
     color: var(--md-surface-color);
-    padding: 1rem 0;
+    padding: 1rem 20px; /* Added horizontal padding */
     text-align: center;
     box-shadow: var(--md-shadow-1);
-    z-index: 10; /* Ensure header shadow is above other elements */
+    z-index: 10;
+
+    display: flex; /* Make it a flex container */
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center content */
+    gap: 15px; /* Space between icon and text */
 }
+
+/* New: Style for the header icon */
+.header-icon {
+    height: 40px; /* Adjust size as needed */
+    width: auto;
+    filter: invert(100%); /* Invert colors to make it white for dark background */
+}
+
+/* Ensure h1 inside header remains styled */
+header h1 {
+    font-weight: 500;
+    font-size: 2.2rem;
+    margin: 0; /* Remove default margin from h1 to prevent extra spacing */
+}
+
+/* You may need to review your @media (max-width: 768px) block if you want the header to behave differently on mobile,
+   but the current flex properties should adapt reasonably well. */
 
 h1 {
     font-weight: 500; /* Medium */
