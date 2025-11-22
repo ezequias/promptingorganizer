@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
     let activeCategory = categories.length > 0 ? categories[0] : null;
 
+    // Set button text on load
+    addCategoryBtn.textContent = 'Add';
+
     function saveCategories() {
         localStorage.setItem('promptCategories', JSON.stringify(categories));
     }
@@ -40,20 +43,27 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryNameSpan.classList.add('category-name');
             categoryNameSpan.style.flexGrow = '1';
 
-            // Double-click to edit
-            categoryNameSpan.addEventListener('dblclick', (e) => {
-                e.stopPropagation();
-                enterEditMode(li, category);
+            // IMPORTANT: Attach both click and dblclick directly to the span,
+            // and use event.detail for click to distinguish from dblclick
+            let clickTimeout = null;
+
+            categoryNameSpan.addEventListener('click', (e) => {
+                // Prevent single click from firing if a double-click is pending
+                if (e.detail === 1) { // e.detail is 1 for first click, 2 for second, etc.
+                    clickTimeout = setTimeout(() => {
+                        if (activeCategory !== category) {
+                            activeCategory = category;
+                            renderCategories();
+                            renderPrompts();
+                        }
+                    }, 200); // Small delay to allow dblclick to register first
+                }
             });
 
-            // Click to activate (single click, not double-click)
-            categoryNameSpan.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (activeCategory !== category) {
-                    activeCategory = category;
-                    renderCategories();
-                    renderPrompts();
-                }
+            categoryNameSpan.addEventListener('dblclick', (e) => {
+                clearTimeout(clickTimeout); // Clear pending single click if dblclick happens
+                e.stopPropagation(); // Stop event from bubbling up to li or document
+                enterEditMode(li, category);
             });
 
             li.appendChild(categoryNameSpan);
@@ -63,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteBtn.innerHTML = '<i class="material-icons">delete</i>';
             deleteBtn.title = `Delete "${category}" category`;
             deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
+                e.stopPropagation(); // Prevent category activation when deleting
                 deleteCategory(category);
             });
             li.appendChild(deleteBtn);
@@ -118,6 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const saveChanges = () => {
             const newCategoryName = editInput.value.trim();
 
+            // Check if input element is still in DOM before processing
+            if (!editInput.parentNode) {
+                return; // Input already removed, likely due to a re-render
+            }
+
             if (newCategoryName === oldCategoryName) {
                 // No change, just revert
                 exitEditMode(categoryListItem, categoryNameSpan, deleteBtn, editInput);
@@ -159,9 +174,11 @@ document.addEventListener('DOMContentLoaded', () => {
             renderCategories(); // Re-render everything to reflect changes
         };
 
-        editInput.addEventListener('blur', saveChanges); // Save on blur (lose focus)
+        // Important: Use `once: true` to prevent multiple blur listeners on rapid dblclicks
+        editInput.addEventListener('blur', saveChanges, { once: true });
         editInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent default enter behavior (like form submission)
                 editInput.blur(); // Trigger blur to save
             }
         });
