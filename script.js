@@ -35,13 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const li = document.createElement('li');
             li.dataset.category = category;
 
-            // Category Name Span
+            // Category Name Span - clicking this makes it active
             const categoryNameSpan = document.createElement('span');
             categoryNameSpan.textContent = category;
-            categoryNameSpan.classList.add('category-name'); // Add class to distinguish from button
-            categoryNameSpan.addEventListener('click', (e) => {
-                // Prevent event from bubbling to the parent li click which might trigger menu close
-                e.stopPropagation();
+            categoryNameSpan.classList.add('category-name');
+            categoryNameSpan.style.flexGrow = '1'; // Allow it to take available space
+            categoryNameSpan.addEventListener('click', () => {
                 if (activeCategory !== category) {
                     activeCategory = category;
                     renderCategories(); // Re-render to update active class
@@ -50,35 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             li.appendChild(categoryNameSpan);
 
-            // Three dots menu button
-            const menuBtn = document.createElement('button');
-            menuBtn.classList.add('category-actions-btn');
-            menuBtn.innerHTML = '<i class="material-icons">more_vert</i>';
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent li click
-                toggleCategoryMenu(li, category);
+            // Delete Button (Trash Can Icon Only)
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('delete-category-btn');
+            deleteBtn.innerHTML = '<i class="material-icons">delete</i>';
+            deleteBtn.title = `Delete "${category}" category`; // Add a tooltip for accessibility
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent category activation when deleting
+                deleteCategory(category);
             });
-            li.appendChild(menuBtn);
+            li.appendChild(deleteBtn);
 
-            // Menu container
-            const menu = document.createElement('div');
-            menu.classList.add('category-menu');
-            menu.innerHTML = `
-                <ul>
-                    <li class="delete-item" data-action="delete"><i class="material-icons">delete</i> Delete</li>
-                </ul>
-            `;
-            li.appendChild(menu);
-
-            // Event listener for menu items
-            menu.querySelector('.delete-item').addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent parent clicks
-                const action = e.currentTarget.dataset.action;
-                if (action === 'delete') {
-                    deleteCategory(category);
-                }
-                menu.classList.remove('active'); // Close menu after action
-            });
 
             if (category === activeCategory) {
                 li.classList.add('active');
@@ -106,26 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPrompts();
     }
 
-    function toggleCategoryMenu(categoryListItem, categoryName) {
-        // Close any other open menus first
-        document.querySelectorAll('.category-menu.active').forEach(openMenu => {
-            openMenu.classList.remove('active');
-        });
-
-        const menu = categoryListItem.querySelector('.category-menu');
-        if (menu) {
-            menu.classList.toggle('active');
-        }
-    }
-
-    // Close menu when clicking anywhere else on the document
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.category-actions-btn') && !e.target.closest('.category-menu')) {
-            document.querySelectorAll('.category-menu.active').forEach(openMenu => {
-                openMenu.classList.remove('active');
-            });
-        }
-    });
+    // No need for toggleCategoryMenu or document click listener for menus anymore
 
     function deleteCategory(categoryToDelete) {
         if (!confirm(`Are you sure you want to delete the category "${categoryToDelete}"? All prompts within this category will also be deleted.`)) {
