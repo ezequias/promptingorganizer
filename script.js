@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
-    let activeCategory = categories[0]; // Set initial active category
+    let activeCategory = categories.length > 0 ? categories[0] : null; // Set initial active category
 
     function saveCategories() {
         localStorage.setItem('promptCategories', JSON.stringify(categories));
@@ -77,17 +77,22 @@ document.addEventListener('DOMContentLoaded', () => {
         filteredPrompts.forEach(prompt => {
             const promptCard = document.createElement('div');
             promptCard.classList.add('prompt-card');
-            promptCard.innerHTML = `<p>${prompt.text}</p><button class="delete-prompt-btn" data-id="${prompt.id}">X</button>`;
+            // Using Material Icon for delete button
+            promptCard.innerHTML = `<p>${prompt.text}</p><button class="delete-prompt-btn" data-id="${prompt.id}"><i class="material-icons">close</i></button>`;
             promptDisplay.appendChild(promptCard);
         });
 
         // Add event listeners for delete buttons
         document.querySelectorAll('.delete-prompt-btn').forEach(button => {
             button.addEventListener('click', (e) => {
-                const promptIdToDelete = parseInt(e.target.dataset.id);
-                prompts = prompts.filter(p => p.id !== promptIdToDelete);
-                savePrompts();
-                renderPrompts();
+                // Find the closest button if the icon was clicked
+                const targetButton = e.target.closest('.delete-prompt-btn');
+                if (targetButton) {
+                    const promptIdToDelete = parseInt(targetButton.dataset.id);
+                    prompts = prompts.filter(p => p.id !== promptIdToDelete);
+                    savePrompts();
+                    renderPrompts();
+                }
             });
         });
     }
