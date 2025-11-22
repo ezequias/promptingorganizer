@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const addPromptBtn = document.getElementById('addPromptBtn');
     const promptDisplay = document.getElementById('promptDisplay');
 
+    // NEW: Data Management Buttons - Get references to the new elements
+    const downloadDataBtn = document.getElementById('downloadDataBtn');
+    const uploadFileInput = document.getElementById('uploadFileInput'); // The hidden file input
+    const uploadDataBtn = document.getElementById('uploadDataBtn'); // The visible upload button
+
+
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
     let activeCategory = categories.length > 0 ? categories[0] : null;
@@ -43,26 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryNameSpan.classList.add('category-name');
             categoryNameSpan.style.flexGrow = '1';
 
-            // IMPORTANT: Attach both click and dblclick directly to the span,
-            // and use event.detail for click to distinguish from dblclick
             let clickTimeout = null;
 
             categoryNameSpan.addEventListener('click', (e) => {
-                // Prevent single click from firing if a double-click is pending
-                if (e.detail === 1) { // e.detail is 1 for first click, 2 for second, etc.
+                if (e.detail === 1) {
                     clickTimeout = setTimeout(() => {
                         if (activeCategory !== category) {
                             activeCategory = category;
                             renderCategories();
                             renderPrompts();
                         }
-                    }, 200); // Small delay to allow dblclick to register first
+                    }, 200);
                 }
             });
 
             categoryNameSpan.addEventListener('dblclick', (e) => {
-                clearTimeout(clickTimeout); // Clear pending single click if dblclick happens
-                e.stopPropagation(); // Stop event from bubbling up to li or document
+                clearTimeout(clickTimeout);
+                e.stopPropagation();
                 enterEditMode(li, category);
             });
 
@@ -73,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteBtn.innerHTML = '<i class="material-icons">delete</i>';
             deleteBtn.title = `Delete "${category}" category`;
             deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent category activation when deleting
+                e.stopPropagation();
                 deleteCategory(category);
             });
             li.appendChild(deleteBtn);
@@ -83,18 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             categoryList.appendChild(li);
 
+            // Update category options for prompt input
             const option = document.createElement('option');
             option.value = category;
             option.textContent = category;
             promptCategorySelect.appendChild(option);
         });
 
+        // After rendering all categories, set the promptCategorySelect value
+        // to the active category if it still exists, or default to the first
         if (activeCategory && categories.includes(activeCategory)) {
             promptCategorySelect.value = activeCategory;
         } else if (categories.length > 0) {
             activeCategory = categories[0];
             promptCategorySelect.value = activeCategory;
-            renderCategories();
+            renderCategories(); // Re-render to show correct active category
         } else {
             activeCategory = null;
         }
@@ -103,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function enterEditMode(categoryListItem, oldCategoryName) {
-        // Prevent multiple edit modes
         if (categoryListItem.querySelector('.category-edit-input')) {
             return;
         }
@@ -111,30 +116,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoryNameSpan = categoryListItem.querySelector('.category-name');
         const deleteBtn = categoryListItem.querySelector('.delete-category-btn');
 
-        // Hide original span and delete button
         categoryNameSpan.style.display = 'none';
         if (deleteBtn) deleteBtn.style.display = 'none';
 
-        // Create input field
         const editInput = document.createElement('input');
         editInput.type = 'text';
         editInput.value = oldCategoryName;
         editInput.classList.add('category-edit-input');
-        categoryListItem.prepend(editInput); // Add at the beginning of the li
+        categoryListItem.prepend(editInput);
 
         editInput.focus();
-        editInput.select(); // Select text for easy editing
+        editInput.select();
 
         const saveChanges = () => {
+            if (!editInput.parentNode) {
+                return;
+            }
             const newCategoryName = editInput.value.trim();
 
-            // Check if input element is still in DOM before processing
-            if (!editInput.parentNode) {
-                return; // Input already removed, likely due to a re-render
-            }
-
             if (newCategoryName === oldCategoryName) {
-                // No change, just revert
                 exitEditMode(categoryListItem, categoryNameSpan, deleteBtn, editInput);
                 return;
             }
@@ -151,14 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Update categories array
             const oldIndex = categories.indexOf(oldCategoryName);
             if (oldIndex > -1) {
                 categories[oldIndex] = newCategoryName;
                 saveCategories();
             }
 
-            // Update prompts with the new category name
             prompts.forEach(prompt => {
                 if (prompt.category === oldCategoryName) {
                     prompt.category = newCategoryName;
@@ -166,20 +164,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             savePrompts();
 
-            // Update active category if it was the one being edited
             if (activeCategory === oldCategoryName) {
                 activeCategory = newCategoryName;
             }
 
-            renderCategories(); // Re-render everything to reflect changes
+            renderCategories();
         };
 
-        // Important: Use `once: true` to prevent multiple blur listeners on rapid dblclicks
         editInput.addEventListener('blur', saveChanges, { once: true });
         editInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                e.preventDefault(); // Prevent default enter behavior (like form submission)
-                editInput.blur(); // Trigger blur to save
+                e.preventDefault();
+                editInput.blur();
             }
         });
     }
@@ -188,8 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (editInput && editInput.parentNode === categoryListItem) {
             categoryListItem.removeChild(editInput);
         }
-        categoryNameSpan.style.display = ''; // Show original span
-        if (deleteBtn) deleteBtn.style.display = ''; // Show delete button
+        categoryNameSpan.style.display = '';
+        if (deleteBtn) deleteBtn.style.display = '';
     }
 
 
@@ -285,6 +281,91 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initial render
+    // --- NEW: Data Management Functions ---
+
+    // Function to download data as JSON
+    function downloadData() {
+        const data = {
+            categories: categories,
+            prompts: prompts
+        };
+        // Format filename with current date
+        const filename = `prompt_organizer_data_${new Date().toISOString().slice(0,10)}.json`;
+        const jsonStr = JSON.stringify(data, null, 2); // Pretty print JSON
+
+        // Create a Blob and a download link
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a); // Required for Firefox
+        a.click();
+        document.body.removeChild(a); // Clean up the element
+        URL.revokeObjectURL(url); // Free up memory
+        alert('Prompt data downloaded successfully!');
+    }
+
+    // Function to upload data from JSON
+    function uploadData(event) {
+        const file = event.target.files[0];
+        if (!file) {
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const loadedData = JSON.parse(e.target.result);
+
+                // Basic validation of the loaded JSON structure
+                if (!loadedData.categories || !Array.isArray(loadedData.categories) ||
+                    !loadedData.prompts || !Array.isArray(loadedData.prompts)) {
+                    throw new Error("Invalid JSON file format. Expected 'categories' and 'prompts' arrays.");
+                }
+
+                if (confirm('Uploading data will REPLACE your current prompts and categories. Do you want to proceed?')) {
+                    categories = loadedData.categories;
+                    prompts = loadedData.prompts;
+
+                    saveCategories();
+                    savePrompts();
+
+                    // Re-evaluate active category after load to ensure it's valid
+                    if (categories.length > 0 && categories.includes(activeCategory)) {
+                         // If the previously active category exists in the new data, keep it
+                    } else if (categories.length > 0) {
+                        // Otherwise, set the first category as active
+                        activeCategory = categories[0];
+                    } else {
+                        // No categories after upload
+                        activeCategory = null;
+                    }
+
+                    renderCategories(); // Re-render the UI with the new data
+                    alert('Prompt data uploaded and loaded successfully!');
+                }
+            } catch (error) {
+                alert('Error processing file: ' + error.message);
+                console.error('File upload error:', error);
+            } finally {
+                // Reset the file input to allow uploading the same file again if needed
+                event.target.value = '';
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    // Event Listeners for new buttons
+    downloadDataBtn.addEventListener('click', downloadData);
+
+    // Clicking the visible upload button will programmatically click the hidden file input
+    uploadDataBtn.addEventListener('click', () => {
+        uploadFileInput.click();
+    });
+    uploadFileInput.addEventListener('change', uploadData); // This listener fires when a file is selected
+
+
+    // Initial render of categories when the page loads
     renderCategories();
 });
