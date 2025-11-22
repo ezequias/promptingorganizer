@@ -256,3 +256,117 @@ select {
     color: var(--md-secondary-text-color);
     font-style: italic;
     padding: 2
+
+/* REMOVE BUTTON FUNCTIONALITY */
+/* Add to your existing style.css */
+
+/* Category List Items - Adjustment for action button */
+#categoryList li {
+    position: relative; /* For absolute positioning of the menu */
+    display: flex; /* Allow content and button to be on one line */
+    justify-content: space-between; /* Push text to left, button to right */
+    align-items: center; /* Vertically center content */
+    padding: 12px 10px; /* Reduced right padding because the button has its own */
+    cursor: pointer;
+    border-bottom: 1px solid var(--md-divider-color);
+    color: var(--md-secondary-text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#categoryList li:first-of-type {
+    border-top: none;
+}
+
+#categoryList li.active {
+    background-color: var(--md-primary-color-light);
+    color: var(--md-primary-color-dark);
+    font-weight: 500;
+}
+
+#categoryList li:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+/* Category Action Button (three dots) */
+.category-actions-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--md-secondary-text-color);
+    cursor: pointer;
+    font-size: 1.2rem; /* Size of the Material Icon */
+    padding: 5px;
+    border-radius: 50%; /* Make it round */
+    width: 30px; /* Make hit area larger */
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    z-index: 2; /* Ensure it's above other elements if needed */
+}
+
+.category-actions-btn:hover {
+    background-color: #e0e0e0;
+    color: var(--md-text-color);
+}
+
+/* Category Menu Dropdown */
+.category-menu {
+    position: absolute;
+    top: 100%; /* Position below the button */
+    right: 0;
+    background-color: var(--md-surface-color);
+    box-shadow: var(--md-shadow-1);
+    border-radius: 4px;
+    min-width: 120px;
+    z-index: 100; /* Ensure it's on top of everything */
+    padding: 8px 0;
+    display: none; /* Hidden by default */
+    transform-origin: top right;
+    animation: fadeInScale 0.2s ease-out forwards; /* Simple animation */
+}
+
+.category-menu.active {
+    display: block;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.category-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-menu li {
+    padding: 10px 15px;
+    color: var(--md-text-color);
+    cursor: pointer;
+    border-bottom: none; /* Override parent list item border */
+    transition: background-color 0.2s ease;
+    display: flex; /* For icon and text alignment */
+    align-items: center;
+    gap: 10px;
+}
+
+.category-menu li:hover {
+    background-color: #f0f0f0;
+}
+
+/* For delete menu item specifically */
+.category-menu li.delete-item {
+    color: #f44336; /* Red color for delete action */
+}
+
+.category-menu li.delete-item:hover {
+    background-color: #ffebee; /* Lighter red background on hover */
+}
