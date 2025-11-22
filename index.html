@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Organizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>My Prompt Organizer</h1>
+    </header>
+    <main>
+        <aside class="sidebar">
+            <h2>Categories</h2>
+            <ul id="categoryList">
+                </ul>
+            <input type="text" id="newCategoryInput" placeholder="New Category">
+            <button id="addCategoryBtn">Add Category</button>
+        </aside>
+        <section class="prompt-area">
+            <div class="prompt-input-section">
+                <h2>Add New Prompt</h2>
+                <textarea id="newPromptText" placeholder="Enter your prompt here..."></textarea>
+                <select id="promptCategorySelect">
+                    </select>
+                <button id="addPromptBtn">Add Prompt</button>
+            </div>
+
+            <div class="prompt-display-section">
+                <h2>Prompts</h2>
+                <div id="promptDisplay">
+                    <p class="no-prompts-message">Select a category or add new prompts.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
