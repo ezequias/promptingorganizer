@@ -1,19 +1,52 @@
+/* Color Palette */
+:root {
+    --md-primary-color: #3f51b5; /* Indigo */
+    --md-primary-color-dark: #303f9f;
+    --md-primary-color-light: #c5cae9;
+    --md-accent-color: #ff4081; /* Pink */
+    --md-text-color: #212121;
+    --md-secondary-text-color: #757575;
+    --md-divider-color: #bdbdbd;
+    --md-background-color: #f5f5f5; /* Light grey */
+    --md-surface-color: #ffffff; /* White for cards */
+
+    /* Shadows for elevation */
+    --md-shadow-1: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
+    --md-shadow-2: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+}
+
 body {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--md-background-color);
+    color: var(--md-text-color);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    line-height: 1.5;
 }
 
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1em 0;
+    background-color: var(--md-primary-color);
+    color: var(--md-surface-color);
+    padding: 1rem 0;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: var(--md-shadow-1);
+    z-index: 10; /* Ensure header shadow is above other elements */
+}
+
+h1 {
+    font-weight: 500; /* Medium */
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+h2 {
+    font-weight: 400; /* Regular */
+    font-size: 1.5rem;
+    color: var(--md-primary-color-dark);
+    margin-top: 0;
+    margin-bottom: 1rem;
 }
 
 main {
@@ -21,69 +54,146 @@ main {
     flex: 1;
     padding: 20px;
     gap: 20px;
+    max-width: 1200px; /* Constrain width for better readability */
+    margin: 20px auto; /* Center the main content */
+    align-items: flex-start; /* Align items to the top */
 }
 
-.sidebar {
-    background-color: #fff;
+.card {
+    background-color: var(--md-surface-color);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 250px;
-    flex-shrink: 0;
+    box-shadow: var(--md-shadow-1);
+    transition: box-shadow 0.3s ease-in-out;
 }
 
-.sidebar h2 {
-    margin-top: 0;
-    color: #4CAF50;
+.card:hover {
+    box-shadow: var(--md-shadow-2); /* Slight lift on hover */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
 }
 
 #categoryList {
     list-style: none;
     padding: 0;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
+    border-top: 1px solid var(--md-divider-color);
 }
 
 #categoryList li {
-    padding: 10px 5px;
+    padding: 12px 10px;
     cursor: pointer;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--md-divider-color);
+    color: var(--md-secondary-text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* To place a potential delete icon at the end */
 }
 
-#categoryList li:last-child {
-    border-bottom: none;
+#categoryList li:first-of-type {
+    border-top: none; /* No top border for the very first item if list has border-top */
 }
 
-#categoryList li.active,
-#categoryList li:hover {
-    background-color: #e0ffe0;
-    font-weight: bold;
-    color: #2e7d32;
-    border-radius: 4px;
+#categoryList li.active {
+    background-color: var(--md-primary-color-light);
+    color: var(--md-primary-color-dark);
+    font-weight: 500;
 }
 
-.sidebar input[type="text"] {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+#categoryList li:hover:not(.active) {
+    background-color: #f0f0f0; /* Lighter hover for non-active */
 }
 
-.sidebar button {
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+/* Input Fields */
+input[type="text"],
+textarea,
+select {
     width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
+    padding: 10px 12px;
+    margin-bottom: 10px; /* Adjusted for better spacing below */
+    border: 1px solid var(--md-divider-color);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: var(--md-text-color);
+    background-color: var(--md-surface-color);
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--md-primary-color);
+    box-shadow: 0 0 0 1px var(--md-primary-color); /* subtle focus ring */
+    outline: none;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+select {
+    appearance: none; /* Remove default dropdown arrow */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23757575%22%20d%3D%22M6%209L0%203h12z%22%2F%3E%3C%2Fsvg%3E"); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px; /* Space for arrow */
+}
+
+
+/* Material Design Buttons */
+.md-button {
+    padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    box-shadow: var(--md-shadow-1); /* Default shadow for buttons */
+    outline: none; /* Remove default focus outline */
 }
 
-.sidebar button:hover {
-    background-color: #45a049;
+.md-button:hover {
+    box-shadow: var(--md-shadow-2); /* Lift on hover */
 }
 
+.md-button#addCategoryBtn { /* Specific for Add Category button */
+    background-color: var(--md-primary-color);
+    color: var(--md-surface-color);
+    flex-grow: 0; /* Don't let it grow */
+    white-space: nowrap; /* Prevent text wrap */
+}
+
+.md-button#addCategoryBtn:hover {
+    background-color: var(--md-primary-color-dark);
+}
+
+
+.md-button-primary {
+    background-color: var(--md-accent-color); /* Accent color for primary actions */
+    color: var(--md-surface-color);
+}
+
+.md-button-primary:hover {
+    background-color: #e00057; /* Darker accent on hover */
+}
+
+/* Prompt Area & Cards */
 .prompt-area {
     flex-grow: 1;
     display: flex;
@@ -91,96 +201,58 @@ main {
     gap: 20px;
 }
 
-.prompt-input-section,
-.prompt-display-section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.prompt-input-section h2,
-.prompt-display-section h2 {
-    color: #4CAF50;
-    margin-top: 0;
-}
-
-#newPromptText {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    min-height: 80px;
-    resize: vertical;
-}
-
-#promptCategorySelect {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: white;
-}
-
-#addPromptBtn {
-    width: 100%;
-    padding: 10px;
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-#addPromptBtn:hover {
-    background-color: #0b7dda;
-}
-
 .prompt-card {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
-    padding: 15px;
+    background-color: var(--md-surface-color); /* White background for prompt cards */
+    border: 1px solid var(--md-divider-color);
+    padding: 15px 20px;
     margin-bottom: 10px;
     border-radius: 6px;
-    word-wrap: break-word; /* Ensures long prompts wrap */
+    word-wrap: break-word;
     position: relative;
+    box-shadow: none; /* No extra shadow on individual prompt cards by default */
+    transition: background-color 0.2s ease;
 }
 
-.prompt-card .delete-prompt-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    font-size: 0.8em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1; /* For better vertical alignment of 'X' */
-    opacity: 0.7;
-}
-
-.prompt-card .delete-prompt-btn:hover {
-    opacity: 1;
-    background-color: #d32f2f;
+.prompt-card:hover {
+    background-color: #fcfcfc;
 }
 
 .prompt-card p {
     margin: 0;
-    padding-right: 30px; /* Space for the delete button */
+    padding-right: 35px; /* Space for the delete button */
+    font-size: 0.95rem;
 }
+
+.delete-prompt-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent; /* Make background transparent */
+    color: var(--md-secondary-text-color); /* Use secondary text color for icon */
+    border: none;
+    width: 30px; /* Larger hit area */
+    height: 30px;
+    font-size: 1.2rem; /* Larger icon */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Make it round */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.delete-prompt-btn .material-icons {
+    font-size: 1.2rem; /* Ensure actual icon size */
+}
+
+.delete-prompt-btn:hover {
+    background-color: #f0f0f0; /* Light background on hover */
+    color: var(--md-text-color);
+}
+
 
 .no-prompts-message {
     text-align: center;
-    color: #666;
+    color: var(--md-secondary-text-color);
     font-style: italic;
-    padding: 20px;
-}
+    padding: 2
