@@ -45,7 +45,7 @@ header {
     height: 36px; /* Slightly smaller for better visual balance with text */
     width: auto;
     display: block; /* Treat as a block element to prevent extra baseline spacing */
-    filter: invert(100%); /* Invert colors to make it white for dark background */
+    /* removed filter: invert(100%); /* Invert colors to make it white for dark background */ */
     /* Ensure no default text styles interfere */
     font-size: initial;
     line-height: initial;
