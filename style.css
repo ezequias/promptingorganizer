@@ -288,14 +288,44 @@ select {
 }
 
 /* Category Action Button (three dots) */
-.category-actions-btn {
+/* Update your existing style.css */
+
+/* Category List Items - Adjustment for action button */
+#categoryList li {
+    position: relative;
+    display: flex;
+    justify-content: space-between; /* Push text to left, button to right */
+    align-items: center;
+    padding: 12px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--md-divider-color);
+    color: var(--md-secondary-text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#categoryList li:first-of-type {
+    border-top: none;
+}
+
+#categoryList li.active {
+    background-color: var(--md-primary-color-light);
+    color: var(--md-primary-color-dark);
+    font-weight: 500;
+}
+
+#categoryList li:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+/* New: Category Delete Button (Trash Can) */
+.delete-category-btn {
     background-color: transparent;
     border: none;
-    color: var(--md-secondary-text-color);
+    color: var(--md-secondary-text-color); /* Grey by default */
     cursor: pointer;
     font-size: 1.2rem; /* Size of the Material Icon */
     padding: 5px;
-    border-radius: 50%; /* Make it round */
+    border-radius: 50%;
     width: 30px; /* Make hit area larger */
     height: 30px;
     display: flex;
@@ -303,44 +333,24 @@ select {
     justify-content: center;
     transition: background-color 0.2s ease, color 0.2s ease;
     z-index: 2; /* Ensure it's above other elements if needed */
+    margin-left: 10px; /* Add some space from the category name */
+    flex-shrink: 0; /* Prevent it from shrinking */
 }
 
-.category-actions-btn:hover {
-    background-color: #e0e0e0;
-    color: var(--md-text-color);
+.delete-category-btn:hover {
+    background-color: #ffebee; /* Light red background on hover */
+    color: #f44336; /* Red color on hover */
 }
 
-/* Category Menu Dropdown */
-.category-menu {
-    position: absolute;
-    top: 100%; /* Position below the button */
-    right: 0;
-    background-color: var(--md-surface-color);
-    box-shadow: var(--md-shadow-1);
-    border-radius: 4px;
-    min-width: 120px;
-    z-index: 100; /* Ensure it's on top of everything */
-    padding: 8px 0;
-    display: none; /* Hidden by default */
-    transform-origin: top right;
-    animation: fadeInScale 0.2s ease-out forwards; /* Simple animation */
-}
-
-.category-menu.active {
-    display: block;
-}
-
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
+/* You can remove all the previous CSS for:
+    .category-actions-btn
+    .category-menu
+    @keyframes fadeInScale
+    .category-menu ul
+    .category-menu li
+    .category-menu li.delete-item
+*/
+/* Ensure you keep the existing .delete-prompt-btn for prompt cards */
 .category-menu ul {
     list-style: none;
     padding: 0;
