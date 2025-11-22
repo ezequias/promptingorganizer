@@ -352,4 +352,17 @@ select {
         white-space: nowrap;
         margin-bottom: 0;
     }
+    .category-edit-input {
+    flex-grow: 1; /* Allow it to take available space */
+    padding: 6px 8px; /* Slightly smaller padding than main inputs */
+    margin: -4px 0; /* Adjust to sit well within the list item */
+    border: 1px solid var(--md-primary-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--md-surface-color);
+    color: var(--md-text-color);
+    box-sizing: border-box;
+    outline: none;
+}
 }
