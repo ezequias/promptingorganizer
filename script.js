@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryList = document.getElementById('categoryList');
     const newCategoryInput = document.getElementById('newCategoryInput');
     const addCategoryBtn = document.getElementById('addCategoryBtn');
+    addCategoryBtn.textContent = 'Add'; // Changed from "Add Category" to "Add"
     const newPromptText = document.getElementById('newPromptText');
     const promptCategorySelect = document.getElementById('promptCategorySelect');
     const addPromptBtn = document.getElementById('addPromptBtn');
