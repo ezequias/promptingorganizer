@@ -380,6 +380,46 @@ select {
     padding: 20px;
 }
 
+/* Data Management Section */
+.data-management-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--md-divider-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between buttons */
+}
+
+.data-management-section h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--md-primary-color-dark);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+/* Style for download/upload buttons */
+.data-management-section .md-button {
+    background-color: var(--md-secondary-text-color); /* A neutral grey */
+    color: var(--md-surface-color);
+    display: flex; /* Allow icon and text */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between icon and text */
+    padding: 10px 15px;
+    box-shadow: var(--md-shadow-1);
+    border-radius: 4px;
+}
+
+.data-management-section .md-button:hover {
+    background-color: #616161; /* Darker grey on hover */
+    box-shadow: var(--md-shadow-2);
+}
+
+.data-management-section .md-button .material-icons {
+    font-size: 1.2rem;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     main {
