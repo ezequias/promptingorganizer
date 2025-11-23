@@ -17,32 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // NEW: Toast function
     function showToast(message, type = 'info', duration = 3000) {
-        const toastContainer = document.getElementById('toast-container');
-        if (!toastContainer) {
-            console.error('Toast container not found!');
-            return;
-        }
+        // ...
+    const toast = document.createElement('div');
+    toast.classList.add('toast'); // Adds the base toast class
+    if (type === 'success') toast.classList.add('success'); // Adds success class if type is 'success'
+    if (type === 'error') toast.classList.add('error');     // Adds error class if type is 'error'
+    toast.textContent = message;
+    toastContainer.appendChild(toast);
 
-        const toast = document.createElement('div');
-        toast.classList.add('toast');
-        if (type === 'success') toast.classList.add('success');
-        if (type === 'error') toast.classList.add('error');
-        toast.textContent = message;
+    // This setTimeout is crucial for the 'in' animation
+    setTimeout(() => {
+        toast.classList.add('show'); // Adds 'show' class
+    }, 10);
 
-        toastContainer.appendChild(toast);
-
-        // Animate in
-        setTimeout(() => {
-            toast.classList.add('show');
-        }, 10); // Small delay to allow reflow for transition
-
-        // Animate out and remove
-        setTimeout(() => {
-            toast.classList.remove('show');
-            toast.addEventListener('transitionend', () => {
-                toastContainer.removeChild(toast);
-            }, { once: true });
-        }, duration);
+    // This setTimeout is crucial for the 'out' animation and removal
+    setTimeout(() => {
+        toast.classList.remove('show'); // Removes 'show' class
+        toast.addEventListener('transitionend', () => { // Waits for animation to finish
+            toastContainer.removeChild(toast);
+        }, { once: true });
+    }, duration); // Uses the passed duration
     }
 
 
