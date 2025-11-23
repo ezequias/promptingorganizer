@@ -249,7 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPrompts() {
         promptDisplay.innerHTML = '';
         if (!activeCategory || categories.length === 0) {
-            promptDisplay.innerHTML = '<p class="no-prompts-message">Please select or add a category to view prompts.</p>';
+            /*promptDisplay.innerHTML = '<p class="no-prompts-message">Please select or add a category to view prompts.</p>'; */
+            showToast('Please select or add a category to view prompts.', 'info')
             return;
         }
 
