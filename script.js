@@ -17,26 +17,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // NEW: Toast function
     function showToast(message, type = 'info', duration = 3000) {
-        // ...
-    const toast = document.createElement('div');
-    toast.classList.add('toast'); // Adds the base toast class
-    if (type === 'success') toast.classList.add('success'); // Adds success class if type is 'success'
-    if (type === 'error') toast.classList.add('error');     // Adds error class if type is 'error'
-    toast.textContent = message;
-    toastContainer.appendChild(toast);
+        // THIS IS THE CORRECT AND CRUCIAL LINE PLACEMENT
+        const toastContainer = document.getElementById('toast-container');
 
-    // This setTimeout is crucial for the 'in' animation
-    setTimeout(() => {
-        toast.classList.add('show'); // Adds 'show' class
-    }, 10);
+        if (!toastContainer) {
+            console.error('Toast container not found!');
+            return;
+        }
+        const toast = document.createElement('div');
+        toast.classList.add('toast'); // Adds the base toast class
+        if (type === 'success') toast.classList.add('success'); // Adds success class if type is 'success'
+        if (type === 'error') toast.classList.add('error');     // Adds error class if type is 'error'
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
 
-    // This setTimeout is crucial for the 'out' animation and removal
-    setTimeout(() => {
-        toast.classList.remove('show'); // Removes 'show' class
-        toast.addEventListener('transitionend', () => { // Waits for animation to finish
-            toastContainer.removeChild(toast);
-        }, { once: true });
-    }, duration); // Uses the passed duration
+        // This setTimeout is crucial for the 'in' animation
+        setTimeout(() => {
+            toast.classList.add('show'); // Adds 'show' class
+        }, 10);
+
+        // This setTimeout is crucial for the 'out' animation and removal
+        setTimeout(() => {
+            toast.classList.remove('show'); // Removes 'show' class
+            toast.addEventListener('transitionend', () => { // Waits for animation to finish
+                toastContainer.removeChild(toast);
+            }, { once: true });
+        }, duration); // Uses the passed duration
     }
 
 
@@ -318,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
             prompts: prompts
         };
         // Format filename with current date
-        const filename = `prompt_organizer_data_${new Date().toISOString().slice(0,10)}.json`;
+        const filename = `prompt_organizer_data_${new Date().toISOString().slice(0, 10)}.json`;
         const jsonStr = JSON.stringify(data, null, 2); // Pretty print JSON
 
         // Create a Blob and a download link
@@ -361,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Re-evaluate active category after load to ensure it's valid
                     if (categories.length > 0 && categories.includes(activeCategory)) {
-                         // If the previously active category exists in the new data, keep it
+                        // If the previously active category exists in the new data, keep it
                     } else if (categories.length > 0) {
                         // Otherwise, set the first category as active
                         activeCategory = categories[0];
