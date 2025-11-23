@@ -485,15 +485,13 @@ select {
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
-        z-index: 1000;
+        z-index: 2147483647;
         /* Ensure it's above everything else */
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
         pointer-events: none;
-        /* Allows clicks to pass through container if empty */
-        /* Space between multiple toasts */
     }
 
     .toast {
@@ -506,7 +504,8 @@ select {
         box-shadow: var(--md-shadow-2);
         opacity: 0;
         /* Start hidden */
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        /* ANIMATION */
         min-width: 250px;
         max-width: 90%;
         /* Adjust for mobile */
@@ -514,8 +513,9 @@ select {
         font-size: 0.95rem;
         font-weight: 400;
         transform: translateY(20px);
-        /* ... other styles ... */
+        /* START POSITION FOR SLIDE UP */
         pointer-events: auto;
+        /* Allows interaction with individual toast */
     }
 
     .toast.show {
