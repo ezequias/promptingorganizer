@@ -387,7 +387,8 @@ select {
     border-top: 1px solid var(--md-divider-color);
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between buttons */
+    gap: 10px;
+    /* Space between buttons */
 }
 
 .data-management-section h3 {
@@ -400,19 +401,23 @@ select {
 
 /* Style for download/upload buttons */
 .data-management-section .md-button {
-    background-color: var(--md-secondary-text-color); /* A neutral grey */
+    background-color: var(--md-secondary-text-color);
+    /* A neutral grey */
     color: var(--md-surface-color);
-    display: flex; /* Allow icon and text */
+    display: flex;
+    /* Allow icon and text */
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Space between icon and text */
+    gap: 8px;
+    /* Space between icon and text */
     padding: 10px 15px;
     box-shadow: var(--md-shadow-1);
     border-radius: 4px;
 }
 
 .data-management-section .md-button:hover {
-    background-color: #616161; /* Darker grey on hover */
+    background-color: #616161;
+    /* Darker grey on hover */
     box-shadow: var(--md-shadow-2);
 }
 
@@ -507,17 +512,28 @@ select {
         font-size: 0.95rem;
         font-weight: 400;
         transform: translateY(20px);
+        /* ... other styles ... */
+        opacity: 0;
+        /* MUST be 0 initially */
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        /* MUST be present for animation */
+        transform: translateY(20px);
+        /* MUST be present for animation */
+
         /* Start slightly below final position */
     }
 
     .toast.show {
         opacity: 1;
         transform: translateY(0);
+        opacity: 1; /* MUST be 1 to show */
+    transform: translateY(0); /* MUST be 0 to slide up */
     }
 
     /* Optional: Different colors for success/error */
     .toast.success {
         background-color: rgba(76, 175, 80, 0.9);
+ 
         /* Green */
     }
 
