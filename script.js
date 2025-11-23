@@ -7,6 +7,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const addPromptBtn = document.getElementById('addPromptBtn');
     const promptDisplay = document.getElementById('promptDisplay');
 
+    // ... existing DOM element declarations ...
+
+    // NEW: Toast function
+    function showToast(message, type = 'info', duration = 3000) {
+        const toastContainer = document.getElementById('toast-container');
+        if (!toastContainer) {
+            console.error('Toast container not found!');
+            return;
+        }
+
+        const toast = document.createElement('div');
+        toast.classList.add('toast');
+        if (type === 'success') toast.classList.add('success');
+        if (type === 'error') toast.classList.add('error');
+        toast.textContent = message;
+
+        toastContainer.appendChild(toast);
+
+        // Animate in
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 10); // Small delay to allow reflow for transition
+
+        // Animate out and remove
+        setTimeout(() => {
+            toast.classList.remove('show');
+            toast.addEventListener('transitionend', () => {
+                toastContainer.removeChild(toast);
+            }, { once: true });
+        }, duration);
+    }
+
+
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
     let activeCategory = categories.length > 0 ? categories[0] : null;
@@ -139,14 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            if (newCategoryName === '') {
-                alert('Category name cannot be empty.');
+            if (newCategoryName === 'Category name cannot be empty.', 'error') {
+                showToast('Your message here', 'success');
                 editInput.focus();
                 return;
             }
 
             if (categories.includes(newCategoryName)) {
-                alert(`Category "${newCategoryName}" already exists.`);
+                showToast('already exists.', 'error');
                 editInput.focus();
                 return;
             }
@@ -257,10 +290,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeCategory = newCategory;
                 renderCategories();
             } else {
-                alert('Category already exists!');
+                showToast('Category already exists!', 'errors');
             }
         } else {
-             alert('Please enter a category name.');
+            showToast('Please enter a category name.', 'info');
         }
     });
 
@@ -281,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderPrompts();
             }
         } else {
-            alert('Please enter a prompt and select a category.');
+            showToast('Please enter a prompt and select a category.', 'info');
         }
     });
 
