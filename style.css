@@ -539,5 +539,39 @@ select {
     border-radius: 12px;
     box-shadow: var(--md-shadow-2);
     margin-bottom: 20px;
+    }
+
+.prompt-display-section.card { /* Targeting specifically this combined class */
+    /* Set a maximum height. '50vh' means 50% of the viewport height.
+       Adjust this value (e.g., 40vh, 60vh, or even a fixed px height like 400px)
+       if you want it taller or shorter. */
+    max-height: 50vh; 
+
+    /* This is the key: enables a vertical scrollbar when content overflows */
+    overflow-y: auto; 
+
+    /* Ensure content doesn't get cut off on the sides if there's a scrollbar */
+    padding-right: 15px; /* Adjust if needed to accommodate scrollbar + original padding */
+
+    /* Optional: Makes the scrollbar interaction smoother */
+    scroll-behavior: smooth;
+
+    /* Keep existing card styles if not already set here.
+       It's usually a flex container to manage its children like the h2 and #promptDisplay. */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--md-surface-color);
+    padding: 20px; /* Original padding */
+    border-radius: 12px;
+    box-shadow: var(--md-shadow-2);
+    margin-bottom: 20px;
 }
+
+/* Ensure #promptDisplay itself doesn't have an explicit height that fights this */
+#promptDisplay {
+    /* Reset any height/max-height that might be fighting the parent's scroll */
+    height: auto;
+    max-height: none; 
+    overflow-y: visible; /* Or remove this line if not present */
+    /* It should just grow to fill the available space provided by its scrolling parent */
 }
