@@ -321,10 +321,10 @@ select {
 
 /* Prompt Area & Cards */
 .prompt-area {
-    flex-grow: 1;
-    display: flex;
+   display: flex;
     flex-direction: column;
-    gap: 20px;
+    /* You might want a max-height here for the entire column if it still pushes the page */
+    max-height: 90vh;
 }
 
 
@@ -561,28 +561,41 @@ select {
     }
 
 .prompt-display-section.card { /* Targeting specifically this combined class */
-    /* KEY: Ensure the container can manage its children's height */
+  /* KEY: This makes the card fill available vertical space below the form inputs */
+    flex-grow: 1; 
+    
+    /* Ensure internal items are stacked vertically */
     display: flex;
     flex-direction: column;
     
-    /* NEW: Set a maximum height so it doesn't push the layout */
-    max-height: 55vh; /* Use 55% of viewport height; adjust if needed */
+    /* Set a maximum height for the content inside this card to ensure scrolling starts */
+    max-height: 55vh; /* Adjust this value if needed */
     
-    /* Remove any overflow-y: auto here if it exists. */
+    /* KEY: This is the element that should scroll */
+    overflow-y: auto; 
+    
+    /* Use padding to ensure the scrollbar doesn't cut off content */
+    padding-right: 15px; 
+    
+    /* Ensure other card styles are present (padding, colors, etc.) */
+    background-color: var(--md-surface-color);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--md-shadow-2);
+    margin-bottom: 20px;
 }
 
 /* Ensure #promptDisplay itself doesn't have an explicit height that fights this */
 #promptDisplay {
-   flex-grow: 1; /* Allows it to take up the remaining space inside the card */
-    /* KEY: Enable scrolling when the content is too tall */
-    overflow-y: auto; 
+   /* REMOVE FIXED HEIGHT: This is the most critical fix */
+    height: auto; 
+    max-height: none; 
     
-    /* Adds a little space so content doesn't touch the scrollbar */
-    padding-right: 8px; 
+    /* Ensure the scrolling property doesn't interfere with the parent */
+    overflow-y: visible; 
     
-    /* Remove any other height/max-height settings from this element */
-    height: auto;
-    max-height: none;
+    /* Allow it to grow to fill the scrolling area */
+    flex-grow: 1;
 }
 
 /* --- Add New Prompt Section Styling --- */
