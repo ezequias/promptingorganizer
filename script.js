@@ -13,39 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadDataBtn = document.getElementById('uploadDataBtn'); // The visible upload button
 
 
-    // ... existing DOM element declarations ...
-
-    // NEW: Toast function
-    function showToast(message, type = 'info', duration = 3000) {
-        // THIS IS THE CORRECT AND CRUCIAL LINE PLACEMENT
-        const toastContainer = document.getElementById('toast-container');
-
-        if (!toastContainer) {
-            console.error('Toast container not found!');
-            return;
-        }
-        const toast = document.createElement('div');
-        toast.classList.add('toast'); // Adds the base toast class
-        if (type === 'success') toast.classList.add('success'); // Adds success class if type is 'success'
-        if (type === 'error') toast.classList.add('error');     // Adds error class if type is 'error'
-        toast.textContent = message;
-        toastContainer.appendChild(toast);
-
-        // This setTimeout is crucial for the 'in' animation
-        setTimeout(() => {
-            toast.classList.add('show'); // Adds 'show' class
-        }, 10);
-
-        // This setTimeout is crucial for the 'out' animation and removal
-        setTimeout(() => {
-            toast.classList.remove('show'); // Removes 'show' class
-            toast.addEventListener('transitionend', () => { // Waits for animation to finish
-                toastContainer.removeChild(toast);
-            }, { once: true });
-        }, duration); // Uses the passed duration
-    }
-
-
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
     let activeCategory = categories.length > 0 ? categories[0] : null;
@@ -172,14 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            if (newCategoryName === 'Category name cannot be empty.', 'error') {
-                showToast('Your message here', 'success');
+            if (newCategoryName === '') {
+                alert('Category name cannot be empty.');
                 editInput.focus();
                 return;
             }
 
             if (categories.includes(newCategoryName)) {
-                showToast('already exists.', 'error');
+                alert(`Category "${newCategoryName}" already exists.`);
                 editInput.focus();
                 return;
             }
@@ -245,8 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPrompts() {
         promptDisplay.innerHTML = '';
         if (!activeCategory || categories.length === 0) {
-            /*promptDisplay.innerHTML = '<p class="no-prompts-message">Please select or add a category to view prompts.</p>'; */
-            showToast('Please select or add a category to view prompts.', 'info')
+            promptDisplay.innerHTML = '<p class="no-prompts-message">Please select or add a category to view prompts.</p>';
             return;
         }
 
@@ -258,7 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         filteredPrompts.forEach(prompt => {
-          {
             const promptCard = document.createElement('div');
             promptCard.classList.add('prompt-card');
             promptCard.innerHTML = `
@@ -274,6 +239,22 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
             promptDisplay.appendChild(promptCard);
         });
+        document.querySelectorAll('.copy-prompt-btn').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                const targetButton = e.target.closest('.copy-prompt-btn');
+                if (targetButton) {
+                    const promptTextToCopy = targetButton.dataset.text;
+                    try {
+                        await navigator.clipboard.writeText(promptTextToCopy);
+                        showToast('Prompt copied to clipboard!', 'success');
+                    } catch (err) {
+                        console.error('Failed to copy prompt:', err);
+                        showToast('Failed to copy prompt. Please copy manually.', 'error');
+                    }
+                }
+            });
+        });
+
 
         document.querySelectorAll('.delete-prompt-btn').forEach(button => {
             button.addEventListener('click', (e) => {
@@ -298,10 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeCategory = newCategory;
                 renderCategories();
             } else {
-                showToast('Category already exists!', 'errors');
+                alert('Category already exists!');
             }
         } else {
-            showToast('Please enter a category name.', 'info');
+            alert('Please enter a category name.');
         }
     });
 
@@ -322,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderPrompts();
             }
         } else {
-            showToast('Please enter a prompt and select a category.', 'info');
+            alert('Please enter a prompt and select a category.');
         }
     });
 
