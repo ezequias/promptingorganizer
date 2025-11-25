@@ -361,6 +361,72 @@ select {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Styling for prompt actions (copy/delete buttons) */
+.prompt-card .prompt-actions {
+    display: flex;
+    gap: 5px;
+    /* Space between copy and delete buttons */
+}
+
+.prompt-card .copy-prompt-btn,
+.prompt-card .delete-prompt-btn {
+    background: none;
+    border: none;
+    color: var(--md-secondary-text-color);
+    /* Grey icon */
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    transition: color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* Make them round */
+    width: 30px;
+    /* Fixed size */
+    height: 30px;
+    /* Fixed size */
+}
+
+.prompt-card .copy-prompt-btn:hover {
+    color: var(--md-primary-color);
+    /* Primary color on hover */
+    background-color: rgba(var(--md-primary-color-rgb), 0.1);
+    /* Light background on hover */
+}
+
+.prompt-card .delete-prompt-btn:hover {
+    color: var(--md-error-color);
+    /* Red on hover */
+    background-color: rgba(var(--md-error-color-rgb), 0.1);
+    /* Light red background on hover */
+}
+
+/* Adjust existing prompt-card display to accommodate new actions div */
+.prompt-card {
+    display: flex;
+    justify-content: space-between;
+    /* Pushes content and actions to ends */
+    align-items: center;
+    /* Vertically align items */
+    background-color: var(--md-surface-color);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    margin-bottom: 10px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.prompt-card p {
+    flex-grow: 1;
+    /* Allow prompt text to take available space */
+    margin: 0;
+    padding-right: 10px;
+    /* Space between text and buttons */
+    color: var(--md-text-color);
+}
+
 .delete-prompt-btn .material-icons {
     font-size: 1.2rem;
     /* Ensure actual icon size */
@@ -477,59 +543,5 @@ select {
         color: var(--md-text-color);
         box-sizing: border-box;
         outline: none;
-    }
-
-    /* Toast Notifications */
-    #toast-container {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2147483647;
-        /* Ensure it's above everything else */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        pointer-events: none;
-    }
-
-    .toast {
-        background-color: rgba(33, 33, 33, 0.9);
-        /* Dark grey, slightly transparent */
-        color: var(--md-surface-color);
-        /* White text */
-        padding: 12px 20px;
-        border-radius: 4px;
-        box-shadow: var(--md-shadow-2);
-        opacity: 0;
-        /* Start hidden */
-        transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-        /* ANIMATION */
-        min-width: 250px;
-        max-width: 90%;
-        /* Adjust for mobile */
-        text-align: center;
-        font-size: 0.95rem;
-        font-weight: 400;
-        transform: translateY(20px);
-        /* START POSITION FOR SLIDE UP */
-        pointer-events: auto;
-        /* Allows interaction with individual toast */
-    }
-
-    .toast.show {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Optional: Different colors for success/error */
-    .toast.success {
-        background-color: rgba(76, 175, 80, 0.9);
-    }
-
-    .toast.error {
-        background-color: rgba(244, 67, 54, 0.9);
-        /* Red */
     }
 }
