@@ -395,3 +395,81 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
     .sidebar { width: 100%; }
     .input-group { flex-wrap: wrap; }
 }
+
+/* ──────────────────────────────
+   MULTILINE PROMPT CARD – FINAL VERSION
+   ────────────────────────────── */
+.prompt-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;           /* Text starts at top */
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    background-color: var(--md-surface-color);
+    transition: all 0.2s ease;
+    gap: 12px;
+}
+
+.prompt-card:hover {
+    background-color: #fcfcfc;
+    box-shadow: var(--md-shadow-2);
+}
+
+/* The actual prompt text – looks like a nice textarea */
+.prompt-card p {
+    flex: 1;
+    margin: 0;
+    padding: 10px 12px;
+    background-color: #fafafa;           /* Very subtle field background */
+    border: 1px solid var(--md-divider-color);  /* Light gray border – not black! */
+    border-radius: 6px;
+    min-height: 52px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    white-space: pre-wrap;               /* Preserves line breaks + wraps */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: var(--md-text-color);
+}
+
+/* Optional: slightly highlight on hover */
+.prompt-card p:hover {
+    border-color: var(--md-primary-color-light);
+    background-color: #f5f8ff;
+}
+
+/* Buttons – horizontal again, clean icons only */
+.prompt-card .prompt-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    align-self: center;                  /* Vertically center with the text block */
+}
+
+.copy-prompt-btn,
+.delete-prompt-btn {
+    background: none;
+    border: none;
+    color: var(--md-secondary-text-color);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+
+.copy-prompt-btn:hover {
+    background-color: rgba(63, 81, 181, 0.12);
+    color: var(--md-primary-color);
+}
+
+.delete-prompt-btn:hover {
+    background-color: rgba(244, 67, 54, 0.12);
+    color: #f44336;
+}
