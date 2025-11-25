@@ -230,10 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>${prompt.text}</p>
                 <div class="prompt-actions">
                     <button class="copy-prompt-btn" data-text="${prompt.text}" title="Copy Prompt">
-                        <i class="material-icons">copy</i>
+                        <i class="material-icons">content_copy</i>
                     </button>
                     <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete Prompt">
-                        <i class="material-icons">delete</i>
+                        <i class="material-icons">close</i>
                     </button>
                 </div>
 `;
