@@ -226,9 +226,35 @@ document.addEventListener('DOMContentLoaded', () => {
         filteredPrompts.forEach(prompt => {
             const promptCard = document.createElement('div');
             promptCard.classList.add('prompt-card');
-            promptCard.innerHTML = `<p>${prompt.text}</p><button class="delete-prompt-btn" data-id="${prompt.id}"><i class="material-icons">close</i></button>`;
+            promptCard.innerHTML = `
+        <p>${prompt.text}</p>
+        <div class="prompt-actions">
+            <button class="copy-prompt-btn" data-text="${prompt.text}" title="Copy Prompt">
+                <i class="material-icons">content_copy</i>
+            </button>
+            <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete Prompt">
+                <i class="material-icons">close</i>
+            </button>
+        </div>
+    `;
             promptDisplay.appendChild(promptCard);
         });
+        document.querySelectorAll('.copy-prompt-btn').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                const targetButton = e.target.closest('.copy-prompt-btn');
+                if (targetButton) {
+                    const promptTextToCopy = targetButton.dataset.text;
+                    try {
+                        await navigator.clipboard.writeText(promptTextToCopy);
+                        showToast('Prompt copied to clipboard!', 'success');
+                    } catch (err) {
+                        console.error('Failed to copy prompt:', err);
+                        showToast('Failed to copy prompt. Please copy manually.', 'error');
+                    }
+                }
+            });
+        });
+
 
         document.querySelectorAll('.delete-prompt-btn').forEach(button => {
             button.addEventListener('click', (e) => {
@@ -256,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Category already exists!');
             }
         } else {
-             alert('Please enter a category name.');
+            alert('Please enter a category name.');
         }
     });
 
@@ -290,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
             prompts: prompts
         };
         // Format filename with current date
-        const filename = `prompt_organizer_data_${new Date().toISOString().slice(0,10)}.json`;
+        const filename = `prompt_organizer_data_${new Date().toISOString().slice(0, 10)}.json`;
         const jsonStr = JSON.stringify(data, null, 2); // Pretty print JSON
 
         // Create a Blob and a download link
@@ -333,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Re-evaluate active category after load to ensure it's valid
                     if (categories.length > 0 && categories.includes(activeCategory)) {
-                         // If the previously active category exists in the new data, keep it
+                        // If the previously active category exists in the new data, keep it
                     } else if (categories.length > 0) {
                         // Otherwise, set the first category as active
                         activeCategory = categories[0];

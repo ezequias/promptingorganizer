@@ -1,18 +1,22 @@
 /* Color Palette */
 :root {
-    --md-primary-color: #3f51b5; /* Indigo */
+    --md-primary-color: #3f51b5;
+    /* Indigo */
     --md-primary-color-dark: #303f9f;
     --md-primary-color-light: #c5cae9;
-    --md-accent-color: #ff4081; /* Pink */
+    --md-accent-color: #ff4081;
+    /* Pink */
     --md-text-color: #212121;
     --md-secondary-text-color: #757575;
     --md-divider-color: #bdbdbd;
-    --md-background-color: #f5f5f5; /* Light grey */
-    --md-surface-color: #ffffff; /* White for cards */
+    --md-background-color: #f5f5f5;
+    /* Light grey */
+    --md-surface-color: #ffffff;
+    /* White for cards */
 
     /* Shadows for elevation */
-    --md-shadow-1: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
-    --md-shadow-2: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+    --md-shadow-1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.20);
+    --md-shadow-2: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.20);
 }
 
 body {
@@ -29,46 +33,59 @@ body {
 header {
     background-color: var(--md-primary-color);
     color: var(--md-surface-color);
-    padding: 1rem 20px; /* Added horizontal padding */
+    padding: 1rem 20px;
+    /* Added horizontal padding */
     text-align: center;
     box-shadow: var(--md-shadow-1);
     z-index: 10;
 
-    display: flex; /* Make it a flex container */
-    align-items: center; /* Vertically center items */
-    justify-content: center; /* Horizontally center content */
-    gap: 15px; /* Space between icon and text */
+    display: flex;
+    /* Make it a flex container */
+    align-items: center;
+    /* Vertically center items */
+    justify-content: center;
+    /* Horizontally center content */
+    gap: 15px;
+    /* Space between icon and text */
 }
 
 /* New: Style for the header icon */
 .header-icon {
-    height: 36px; /* Slightly smaller for better visual balance with text */
+    height: 36px;
+    /* Slightly smaller for better visual balance with text */
     width: auto;
-    display: block; /* Treat as a block element to prevent extra baseline spacing */
-    removed filter: brightness(0) invert(1); /* Invert colors to make it white for dark background */
+    display: block;
+    /* Treat as a block element to prevent extra baseline spacing */
+    removed filter: brightness(0) invert(1);
+    /* Invert colors to make it white for dark background */
     /* Ensure no default text styles interfere */
     font-size: initial;
     line-height: initial;
-    vertical-align: middle; /* Helps with vertical alignment in flex container */}
+    vertical-align: middle;
+    /* Helps with vertical alignment in flex container */
+}
 
 /* Ensure h1 inside header remains styled */
 header h1 {
     font-weight: 500;
     font-size: 2.2rem;
-    margin: 0; /* Remove default margin from h1 to prevent extra spacing */
+    margin: 0;
+    /* Remove default margin from h1 to prevent extra spacing */
 }
 
 /* You may need to review your @media (max-width: 768px) block if you want the header to behave differently on mobile,
    but the current flex properties should adapt reasonably well. */
 
 h1 {
-    font-weight: 500; /* Medium */
+    font-weight: 500;
+    /* Medium */
     font-size: 2.2rem;
     margin: 0;
 }
 
 h2 {
-    font-weight: 400; /* Regular */
+    font-weight: 400;
+    /* Regular */
     font-size: 1.5rem;
     color: var(--md-primary-color-dark);
     margin-top: 0;
@@ -80,9 +97,12 @@ main {
     flex: 1;
     padding: 20px;
     gap: 20px;
-    max-width: 1200px; /* Constrain width for better readability */
-    margin: 20px auto; /* Center the main content */
-    align-items: flex-start; /* Align items to the top */
+    max-width: 1200px;
+    /* Constrain width for better readability */
+    margin: 20px auto;
+    /* Center the main content */
+    align-items: flex-start;
+    /* Align items to the top */
 }
 
 .card {
@@ -94,7 +114,8 @@ main {
 }
 
 .card:hover {
-    box-shadow: var(--md-shadow-2); /* Slight lift on hover */
+    box-shadow: var(--md-shadow-2);
+    /* Slight lift on hover */
 }
 
 /* Sidebar Styling */
@@ -113,7 +134,8 @@ main {
 #categoryList li {
     position: relative;
     display: flex;
-    justify-content: space-between; /* Push text to left, button to right */
+    justify-content: space-between;
+    /* Push text to left, button to right */
     align-items: center;
     padding: 12px 10px;
     cursor: pointer;
@@ -140,41 +162,52 @@ main {
 .delete-category-btn {
     background-color: transparent;
     border: none;
-    color: var(--md-secondary-text-color); /* Grey by default */
+    color: var(--md-secondary-text-color);
+    /* Grey by default */
     cursor: pointer;
-    font-size: 1.2rem; /* Size of the Material Icon */
+    font-size: 1.2rem;
+    /* Size of the Material Icon */
     padding: 5px;
     border-radius: 50%;
-    width: 30px; /* Make hit area larger */
+    width: 30px;
+    /* Make hit area larger */
     height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s ease, color 0.2s ease;
-    z-index: 2; /* Ensure it's above other elements if needed */
-    margin-left: 10px; /* Add some space from the category name */
-    flex-shrink: 0; /* Prevent it from shrinking */
+    z-index: 2;
+    /* Ensure it's above other elements if needed */
+    margin-left: 10px;
+    /* Add some space from the category name */
+    flex-shrink: 0;
+    /* Prevent it from shrinking */
 }
 
 .delete-category-btn:hover {
-    background-color: #ffebee; /* Light red background on hover */
-    color: #f44336; /* Red color on hover */
+    background-color: #ffebee;
+    /* Light red background on hover */
+    color: #f44336;
+    /* Red color on hover */
 }
 
 
 /* Input group for New Category + Add Button */
 .input-group {
     display: flex;
-    gap: 10px; /* Space between input and button */
+    gap: 10px;
+    /* Space between input and button */
     margin-top: 1rem;
-    align-items: center; /* Vertically align items in the group */
+    align-items: center;
+    /* Vertically align items in the group */
 }
 
 /* Input Fields */
 input[type="text"],
 textarea,
 select {
-    width: 100%; /* Default to 100% for general cases */
+    width: 100%;
+    /* Default to 100% for general cases */
     padding: 10px 12px;
     margin-bottom: 10px;
     border: 1px solid var(--md-divider-color);
@@ -183,14 +216,17 @@ select {
     font-size: 1rem;
     color: var(--md-text-color);
     background-color: var(--md-surface-color);
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Specific styling for input inside .input-group */
 .input-group input[type="text"] {
-    flex-grow: 1; /* Allows the input to take up available space */
-    margin-bottom: 0; /* Remove bottom margin here for better alignment */
+    flex-grow: 1;
+    /* Allows the input to take up available space */
+    margin-bottom: 0;
+    /* Remove bottom margin here for better alignment */
 }
 
 
@@ -198,7 +234,8 @@ input[type="text"]:focus,
 textarea:focus,
 select:focus {
     border-color: var(--md-primary-color);
-    box-shadow: 0 0 0 1px var(--md-primary-color); /* subtle focus ring */
+    box-shadow: 0 0 0 1px var(--md-primary-color);
+    /* subtle focus ring */
     outline: none;
 }
 
@@ -208,11 +245,14 @@ textarea {
 }
 
 select {
-    appearance: none; /* Remove default dropdown arrow */
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23757575%22%20d%3D%22M6%209L0%203h12z%22%2F%3E%3C%2Fsvg%3E"); /* Custom arrow */
+    appearance: none;
+    /* Remove default dropdown arrow */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23757575%22%20d%3D%22M6%209L0%203h12z%22%2F%3E%3C%2Fsvg%3E");
+    /* Custom arrow */
     background-repeat: no-repeat;
     background-position: right 10px center;
-    padding-right: 30px; /* Space for arrow */
+    padding-right: 30px;
+    /* Space for arrow */
 }
 
 
@@ -226,21 +266,27 @@ select {
     font-weight: 500;
     text-transform: uppercase;
     transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-    box-shadow: var(--md-shadow-1); /* Default shadow for buttons */
-    outline: none; /* Remove default focus outline */
+    box-shadow: var(--md-shadow-1);
+    /* Default shadow for buttons */
+    outline: none;
+    /* Remove default focus outline */
 }
 
 .md-button:hover {
-    box-shadow: var(--md-shadow-2); /* Lift on hover */
+    box-shadow: var(--md-shadow-2);
+    /* Lift on hover */
 }
 
 /* Specific for Add Category button */
 .md-button#addCategoryBtn {
     background-color: var(--md-primary-color);
     color: var(--md-surface-color);
-    flex-shrink: 0; /* Prevent button from shrinking */
-    min-width: unset; /* Allow it to shrink to content if necessary */
-    padding: 10px 15px; /* Ensure padding is consistent */
+    flex-shrink: 0;
+    /* Prevent button from shrinking */
+    min-width: unset;
+    /* Allow it to shrink to content if necessary */
+    padding: 10px 15px;
+    /* Ensure padding is consistent */
 }
 
 .md-button#addCategoryBtn:hover {
@@ -249,12 +295,14 @@ select {
 
 
 .md-button-primary {
-    background-color: var(--md-accent-color); /* Accent color for primary actions */
+    background-color: var(--md-accent-color);
+    /* Accent color for primary actions */
     color: var(--md-surface-color);
 }
 
 .md-button-primary:hover {
-    background-color: #e00057; /* Darker accent on hover */
+    background-color: #e00057;
+    /* Darker accent on hover */
 }
 
 /* Prompt Area & Cards */
@@ -266,14 +314,16 @@ select {
 }
 
 .prompt-card {
-    background-color: var(--md-surface-color); /* White background for prompt cards */
+    background-color: var(--md-surface-color);
+    /* White background for prompt cards */
     border: 1px solid var(--md-divider-color);
     padding: 15px 20px;
     margin-bottom: 10px;
     border-radius: 6px;
     word-wrap: break-word;
     position: relative;
-    box-shadow: none; /* No extra shadow on individual prompt cards by default */
+    box-shadow: none;
+    /* No extra shadow on individual prompt cards by default */
     transition: background-color 0.2s ease;
 }
 
@@ -283,7 +333,8 @@ select {
 
 .prompt-card p {
     margin: 0;
-    padding-right: 35px; /* Space for the delete button */
+    padding-right: 35px;
+    /* Space for the delete button */
     font-size: 0.95rem;
 }
 
@@ -291,26 +342,99 @@ select {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: transparent; /* Make background transparent */
-    color: var(--md-secondary-text-color); /* Use secondary text color for icon */
+    background-color: transparent;
+    /* Make background transparent */
+    color: var(--md-secondary-text-color);
+    /* Use secondary text color for icon */
     border: none;
-    width: 30px; /* Larger hit area */
+    width: 30px;
+    /* Larger hit area */
     height: 30px;
-    font-size: 1.2rem; /* Larger icon */
+    font-size: 1.2rem;
+    /* Larger icon */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%; /* Make it round */
+    border-radius: 50%;
+    /* Make it round */
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Styling for prompt actions (copy/delete buttons) */
+.prompt-card .prompt-actions {
+    display: flex;
+    gap: 5px;
+    /* Space between copy and delete buttons */
+}
+
+.prompt-card .copy-prompt-btn,
+.prompt-card .delete-prompt-btn {
+    background: none;
+    border: none;
+    color: var(--md-secondary-text-color);
+    /* Grey icon */
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    transition: color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* Make them round */
+    width: 30px;
+    /* Fixed size */
+    height: 30px;
+    /* Fixed size */
+}
+
+.prompt-card .copy-prompt-btn:hover {
+    color: var(--md-primary-color);
+    /* Primary color on hover */
+    background-color: rgba(var(--md-primary-color-rgb), 0.1);
+    /* Light background on hover */
+}
+
+.prompt-card .delete-prompt-btn:hover {
+    color: var(--md-error-color);
+    /* Red on hover */
+    background-color: rgba(var(--md-error-color-rgb), 0.1);
+    /* Light red background on hover */
+}
+
+/* Adjust existing prompt-card display to accommodate new actions div */
+.prompt-card {
+    display: flex;
+    justify-content: space-between;
+    /* Pushes content and actions to ends */
+    align-items: center;
+    /* Vertically align items */
+    background-color: var(--md-surface-color);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    margin-bottom: 10px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.prompt-card p {
+    flex-grow: 1;
+    /* Allow prompt text to take available space */
+    margin: 0;
+    padding-right: 10px;
+    /* Space between text and buttons */
+    color: var(--md-text-color);
+}
+
 .delete-prompt-btn .material-icons {
-    font-size: 1.2rem; /* Ensure actual icon size */
+    font-size: 1.2rem;
+    /* Ensure actual icon size */
 }
 
 .delete-prompt-btn:hover {
-    background-color: #f0f0f0; /* Light background on hover */
+    background-color: #f0f0f0;
+    /* Light background on hover */
     color: var(--md-text-color);
 }
 
@@ -329,7 +453,8 @@ select {
     border-top: 1px solid var(--md-divider-color);
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between buttons */
+    gap: 10px;
+    /* Space between buttons */
 }
 
 .data-management-section h3 {
@@ -342,19 +467,23 @@ select {
 
 /* Style for download/upload buttons */
 .data-management-section .md-button {
-    background-color: var(--md-secondary-text-color); /* A neutral grey */
+    background-color: var(--md-secondary-text-color);
+    /* A neutral grey */
     color: var(--md-surface-color);
-    display: flex; /* Allow icon and text */
+    display: flex;
+    /* Allow icon and text */
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Space between icon and text */
+    gap: 8px;
+    /* Space between icon and text */
     padding: 10px 15px;
     box-shadow: var(--md-shadow-1);
     border-radius: 4px;
 }
 
 .data-management-section .md-button:hover {
-    background-color: #616161; /* Darker grey on hover */
+    background-color: #616161;
+    /* Darker grey on hover */
     box-shadow: var(--md-shadow-2);
 }
 
@@ -375,34 +504,44 @@ select {
     }
 
     .input-group {
-        flex-direction: row; /* Keep as row for small screens */
-        flex-wrap: wrap; /* Allow wrapping if content is too wide */
+        flex-direction: row;
+        /* Keep as row for small screens */
+        flex-wrap: wrap;
+        /* Allow wrapping if content is too wide */
         gap: 5px;
     }
 
     .input-group input[type="text"] {
-        flex-grow: 1; /* Still takes most space */
-        width: auto; /* Let flexbox handle width */
+        flex-grow: 1;
+        /* Still takes most space */
+        width: auto;
+        /* Let flexbox handle width */
         margin-bottom: 0;
     }
 
     .md-button#addCategoryBtn {
-        width: auto; /* Let content dictate width */
-        flex-grow: 0; /* Don't grow */
+        width: auto;
+        /* Let content dictate width */
+        flex-grow: 0;
+        /* Don't grow */
         white-space: nowrap;
         margin-bottom: 0;
     }
+
     .category-edit-input {
-    flex-grow: 1; /* Allow it to take available space */
-    padding: 6px 8px; /* Slightly smaller padding than main inputs */
-    margin: -4px 0; /* Adjust to sit well within the list item */
-    border: 1px solid var(--md-primary-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--md-surface-color);
-    color: var(--md-text-color);
-    box-sizing: border-box;
-    outline: none;
-}
+        flex-grow: 1;
+        /* Allow it to take available space */
+        padding: 6px 8px;
+        /* Slightly smaller padding than main inputs */
+        margin: -4px 0;
+        /* Adjust to sit well within the list item */
+        border: 1px solid var(--md-primary-color);
+        border-radius: 4px;
+        font-size: 1rem;
+        font-family: 'Roboto', sans-serif;
+        background-color: var(--md-surface-color);
+        color: var(--md-text-color);
+        box-sizing: border-box;
+        outline: none;
+    }
 }
