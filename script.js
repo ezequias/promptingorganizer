@@ -258,9 +258,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         filteredPrompts.forEach(prompt => {
+          {
             const promptCard = document.createElement('div');
             promptCard.classList.add('prompt-card');
-            promptCard.innerHTML = `<p>${prompt.text}</p><button class="delete-prompt-btn" data-id="${prompt.id}"><i class="material-icons">close</i></button>`;
+            promptCard.innerHTML = `
+                <p>${prompt.text}</p>
+                <div class="prompt-actions">
+                    <button class="copy-prompt-btn" data-text="${prompt.text}" title="Copy Prompt">
+                        <i class="material-icons">content_copy</i>
+                    </button>
+                    <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete Prompt">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+    `;
             promptDisplay.appendChild(promptCard);
         });
 
