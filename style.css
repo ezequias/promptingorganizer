@@ -405,17 +405,22 @@ select {
 
 /* Adjust existing prompt-card display to accommodate new actions div */
 .prompt-card {
-    display: flex;
-    justify-content: space-between;
-    /* Pushes content and actions to ends */
-    align-items: center;
-    /* Vertically align items */
+    display: flex; /* Makes immediate children (p and .prompt-actions) flex items */
+    justify-content: space-between; /* Pushes content and actions to opposite ends */
+    align-items: center; /* Vertically align items */
     background-color: var(--md-surface-color);
     padding: 15px;
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
     margin-bottom: 10px;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Styling for prompt actions (copy/delete buttons) */
+.prompt-card .prompt-actions {
+    display: flex; /* Makes copy and delete buttons flex items */
+    gap: 5px; /* Adds space between copy and delete buttons */
+    margin-left: 10px; /* Optional: adds space between prompt text and buttons */
 }
 
 .prompt-card p {
