@@ -326,11 +326,6 @@ select {
     /* You might want a max-height here for the entire column if it still pushes the page */
     max-height: 90vh;
 }
-
-
-
-/* buttons Copy and Delete */
-/* --- Prompt Card Container --- */
 .prompt-card {
  display: flex; 
     justify-content: space-between; 
@@ -552,8 +547,6 @@ select {
     padding: 20px;
 }
 
-/* 3. The Inner List Container (#promptDisplay) */
-/* This element must NOT have a fixed height or its own scrollbar. */
 #promptDisplay {
     /* Allows the inner list to grow up to the max-height set on its parent */
     flex-grow: 1;
