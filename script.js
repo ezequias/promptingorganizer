@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="material-icons">close</i>
                     </button>
                 </div>
-    `;
+`;
             promptDisplay.appendChild(promptCard);
         });
         document.querySelectorAll('.copy-prompt-btn').forEach(button => {
