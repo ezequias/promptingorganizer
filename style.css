@@ -337,13 +337,13 @@ select {
     align-items: center; 
     background-color: var(--md-surface-color);
     
-    /* NEW SLIM PADDING: Tighter vertical padding */
+    /* TIGHTEST PADDING: 8px vertical padding should be minimal */
     padding: 8px 12px; 
     
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
     
-    /* Reduced margin between cards */
+    /* TIGHTEST MARGIN between cards */
     margin-bottom: 5px; 
     
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -355,14 +355,16 @@ select {
 
 /* --- Prompt Text --- */
 .prompt-card p {
-    flex-grow: 1; /* KEY: Allows the paragraph to take up all available space */
-    margin: 0; /* Resets default paragraph margin */
-    padding-right: 10px; /* Space between the text and the buttons */
+   flex-grow: 1; 
+    /* KEY FIX: ENSURE all default margin is removed from the text */
+    margin: 0; 
+    
+    padding-right: 10px; 
     color: var(--md-text-color);
-    /* KEY: Handling for long prompt text */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; /* Keep text on a single line with '...' */
+    /* Ensure long text is handled without breaking the row */
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap;
 }
 
 /* --- Action Buttons Container --- */
@@ -561,25 +563,29 @@ select {
     }
 
 .prompt-display-section.card { /* Targeting specifically this combined class */
-  /* KEY: This makes the card fill available vertical space below the form inputs */
-    flex-grow: 1; 
-    
-    /* Ensure internal items are stacked vertically */
+ flex-grow: 1; 
     display: flex;
     flex-direction: column;
     
-    /* Set a maximum height for the content inside this card to ensure scrolling starts */
-    max-height: 55vh; /* Adjust this value if needed */
+    /* Crucial: Set a max height for the card container */
+    max-height: 55vh; 
     
-    /* KEY: This is the element that should scroll */
+    /* Crucial: Enable scrolling on the card container */
     overflow-y: auto; 
     
-    /* Use padding to ensure the scrollbar doesn't cut off content */
+    /* Adjust padding to avoid scrollbar overlap */
     padding-right: 15px; 
     
-    /* Ensure other card styles are present (padding, colors, etc.) */
-    background-color: var(--md-surface-color);
+    /* Ensure the prompt display area within it does not interfere */
+    #promptDisplay {
+        height: auto;
+        max-height: none; 
+        overflow-y: visible;
+    }
+
+    /* Add back the base card styles (padding, color, etc.) */
     padding: 20px;
+    background-color: var(--md-surface-color);
     border-radius: 12px;
     box-shadow: var(--md-shadow-2);
     margin-bottom: 20px;
