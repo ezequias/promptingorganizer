@@ -313,6 +313,10 @@ select {
     gap: 20px;
 }
 
+
+
+/* buttons Copy and Delete */
+/* --- Prompt Card Container --- */
 .prompt-card {
     display: flex; /* Makes immediate children (p and .prompt-actions) flex items */
     justify-content: space-between; /* Pushes content and actions to opposite ends */
@@ -329,30 +333,32 @@ select {
     background-color: #fcfcfc;
 }
 
+/* --- Prompt Text --- */
 .prompt-card p {
-    flex-grow: 1; /* Allows the paragraph to take up all available space */
+    flex-grow: 1; /* KEY: Allows the paragraph to take up all available space */
     margin: 0; /* Resets default paragraph margin */
-    padding-right: 10px; /* Adds some space between the text and the buttons */
+    padding-right: 10px; /* Space between the text and the buttons */
     color: var(--md-text-color);
-    /* Add overflow handling if prompts can be very long */
+    /* KEY: Handling for long prompt text */
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap; /* Keep text on single line with ellipsis */
+    white-space: nowrap; /* Keep text on a single line with '...' */
 }
 
-/* Styling for prompt actions (copy/delete buttons) */
+/* --- Action Buttons Container --- */
 .prompt-card .prompt-actions {
-    display: flex;
-    gap: 5px;
-    /* Space between copy and delete buttons */
+    display: flex; /* Makes copy and delete buttons flex items */
+    gap: 5px; /* Space between copy and delete buttons */
+    margin-left: 10px; /* Space between prompt text and button group */
+    flex-shrink: 0; /* Prevents the button group from shrinking */
 }
 
+/* --- Individual Button Styles (Copy and Delete) --- */
 .prompt-card .copy-prompt-btn,
 .prompt-card .delete-prompt-btn {
     background: none;
     border: none;
-    color: var(--md-secondary-text-color);
-    /* Grey icon */
+    color: var(--md-secondary-text-color); /* Grey icon */
     cursor: pointer;
     font-size: 1rem;
     padding: 5px;
@@ -361,69 +367,22 @@ select {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    /* Make them round */
     width: 30px;
-    /* Fixed size */
     height: 30px;
-    /* Fixed size */
+    flex-shrink: 0; /* Prevents individual buttons from shrinking */
 }
 
+/* --- Hover States --- */
 .prompt-card .copy-prompt-btn:hover {
     color: var(--md-primary-color);
-    /* Primary color on hover */
-    background-color: rgba(var(--md-primary-color-rgb), 0.1);
-    /* Light background on hover */
+    background-color: rgba(63, 81, 181, 0.1); /* Using hardcoded rgba for Indigo if your variable isn't working */
 }
 
 .prompt-card .delete-prompt-btn:hover {
-    color: var(--md-error-color);
-    /* Red on hover */
-    background-color: rgba(var(--md-error-color-rgb), 0.1);
-    /* Light red background on hover */
+    color: #f44336; /* Red */
+    background-color: rgba(244, 67, 54, 0.1); /* Light red background */
 }
 
-/* Adjust existing prompt-card display to accommodate new actions div */
-.prompt-card {
-    display: flex; /* Makes immediate children (p and .prompt-actions) flex items */
-    justify-content: space-between; /* Pushes content and actions to opposite ends */
-    align-items: center; /* Vertically align items */
-    background-color: var(--md-surface-color);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: var(--md-shadow-1);
-    margin-bottom: 10px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-/* Styling for prompt actions (copy/delete buttons) */
-.prompt-card .prompt-actions {
-    display: flex; /* Makes copy and delete buttons flex items */
-    gap: 5px; /* Adds space between copy and delete buttons */
-    margin-left: 10px; /* Optional: adds space between prompt text and buttons */
-}
-
-.delete-prompt-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    /* Make background transparent */
-    color: var(--md-secondary-text-color);
-    /* Use secondary text color for icon */
-    border: none;
-    width: 30px;
-    /* Larger hit area */
-    height: 30px;
-    font-size: 1.2rem;
-    /* Larger icon */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    /* Make it round */
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
 .delete-prompt-btn .material-icons {
     font-size: 1.2rem;
     /* Ensure actual icon size */
