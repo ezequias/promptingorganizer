@@ -340,29 +340,6 @@ select {
     white-space: nowrap; /* Keep text on single line with ellipsis */
 }
 
-.delete-prompt-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    /* Make background transparent */
-    color: var(--md-secondary-text-color);
-    /* Use secondary text color for icon */
-    border: none;
-    width: 30px;
-    /* Larger hit area */
-    height: 30px;
-    font-size: 1.2rem;
-    /* Larger icon */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    /* Make it round */
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
 /* Styling for prompt actions (copy/delete buttons) */
 .prompt-card .prompt-actions {
     display: flex;
@@ -425,6 +402,28 @@ select {
     margin-left: 10px; /* Optional: adds space between prompt text and buttons */
 }
 
+.delete-prompt-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    /* Make background transparent */
+    color: var(--md-secondary-text-color);
+    /* Use secondary text color for icon */
+    border: none;
+    width: 30px;
+    /* Larger hit area */
+    height: 30px;
+    font-size: 1.2rem;
+    /* Larger icon */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* Make it round */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
 .delete-prompt-btn .material-icons {
     font-size: 1.2rem;
     /* Ensure actual icon size */
