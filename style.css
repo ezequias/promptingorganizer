@@ -575,3 +575,58 @@ select {
     overflow-y: visible; /* Or remove this line if not present */
     /* It should just grow to fill the available space provided by its scrolling parent */
 }
+
+/* --- Add New Prompt Section Styling --- */
+
+/* Ensure the textarea takes full width but has a reasonable height */
+#promptInput {
+    width: 100%; /* Make it fill its container */
+    min-height: 80px; /* Give it a reasonable minimum height */
+    max-height: 150px; /* Prevent it from getting excessively tall */
+    padding: 10px;
+    border: 1px solid var(--md-divider-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 10px; /* Space below the textarea */
+    resize: vertical; /* Allow vertical resizing, but not horizontal */
+    box-sizing: border-box; /* Include padding/border in width */
+}
+
+/* Style the Add Prompt button */
+#addPromptBtn {
+    width: 100%; /* Make button fill its container */
+    padding: 12px 20px; /* Comfortable padding */
+    background-color: var(--md-accent-color); /* Your theme's accent color */
+    color: white; /* White text */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--md-shadow-1);
+    text-transform: uppercase; /* Make text uppercase like Material Design buttons */
+    letter-spacing: 0.05em; /* Small letter spacing */
+}
+
+#addPromptBtn:hover {
+    background-color: var(--md-accent-color-dark); /* Darker on hover */
+    box-shadow: var(--md-shadow-2);
+}
+
+/* Also, ensure your select dropdown is styled correctly if it looks off */
+#categorySelect {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--md-divider-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 15px; /* Space between dropdown and button */
+    background-color: var(--md-surface-color); /* Match card background */
+    color: var(--md-text-color);
+    appearance: none; /* Remove default browser dropdown arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23616161'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); /* Custom SVG arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
