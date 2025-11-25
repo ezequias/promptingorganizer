@@ -332,10 +332,14 @@ select {
 }
 
 .prompt-card p {
-    margin: 0;
-    padding-right: 35px;
-    /* Space for the delete button */
-    font-size: 0.95rem;
+    flex-grow: 1; /* Allows the paragraph to take up all available space */
+    margin: 0; /* Resets default paragraph margin */
+    padding-right: 10px; /* Adds some space between the text and the buttons */
+    color: var(--md-text-color);
+    /* Add overflow handling if prompts can be very long */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Keep text on single line with ellipsis */
 }
 
 .delete-prompt-btn {
@@ -421,15 +425,6 @@ select {
     display: flex; /* Makes copy and delete buttons flex items */
     gap: 5px; /* Adds space between copy and delete buttons */
     margin-left: 10px; /* Optional: adds space between prompt text and buttons */
-}
-
-.prompt-card p {
-    flex-grow: 1;
-    /* Allow prompt text to take available space */
-    margin: 0;
-    padding-right: 10px;
-    /* Space between text and buttons */
-    color: var(--md-text-color);
 }
 
 .delete-prompt-btn .material-icons {
