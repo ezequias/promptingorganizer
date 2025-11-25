@@ -206,9 +206,9 @@ main {
 input[type="text"],
 textarea,
 select {
-    width: 100%;
-    /* Default to 100% for general cases */
-    padding: 10px 12px;
+   width: 100%;
+    /* Reduced vertical padding from 12px to 10px */
+    padding: 10px 12px; 
     margin-bottom: 10px;
     border: 1px solid var(--md-divider-color);
     border-radius: 4px;
@@ -216,9 +216,23 @@ select {
     font-size: 1rem;
     color: var(--md-text-color);
     background-color: var(--md-surface-color);
-    box-sizing: border-box;
-    /* Include padding and border in the element's total width and height */
+    box-sizing: border-box; /* Crucial for width calculation */
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Specifically target the textarea for its height */
+textarea#promptInput {
+    min-height: 80px;
+    max-height: 150px;
+    resize: vertical;
+}
+
+/* Fix the Add Prompt button size and style */
+.md-button#addPromptBtn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.1rem; /* Smaller font than the huge size in the screenshot */
+    /* Ensure other colors/shadows are applied via .md-button-primary */
 }
 
 /* Specific styling for input inside .input-group */
@@ -318,15 +332,20 @@ select {
 /* buttons Copy and Delete */
 /* --- Prompt Card Container --- */
 .prompt-card {
- display: flex; /* Makes immediate children (p and .prompt-actions) flex items */
-    justify-content: space-between; /* Pushes content and actions to opposite ends */
-    align-items: center; /* Vertically align items */
+ display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     background-color: var(--md-surface-color);
-    /* CHANGE HERE: Reduced padding for a sleeker look */
-    padding: 10px 12px; 
+    
+    /* NEW SLIM PADDING: Tighter vertical padding */
+    padding: 8px 12px; 
+    
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
-    margin-bottom: 8px; /* Slightly reduced margin between cards too */
+    
+    /* Reduced margin between cards */
+    margin-bottom: 5px; 
+    
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -542,38 +561,28 @@ select {
     }
 
 .prompt-display-section.card { /* Targeting specifically this combined class */
-    /* Set a maximum height. '50vh' means 50% of the viewport height.
-       Adjust this value (e.g., 40vh, 60vh, or even a fixed px height like 400px)
-       if you want it taller or shorter. */
-    max-height: 50vh; 
-
-    /* This is the key: enables a vertical scrollbar when content overflows */
-    overflow-y: auto; 
-
-    /* Ensure content doesn't get cut off on the sides if there's a scrollbar */
-    padding-right: 15px; /* Adjust if needed to accommodate scrollbar + original padding */
-
-    /* Optional: Makes the scrollbar interaction smoother */
-    scroll-behavior: smooth;
-
-    /* Keep existing card styles if not already set here.
-       It's usually a flex container to manage its children like the h2 and #promptDisplay. */
+    /* KEY: Ensure the container can manage its children's height */
     display: flex;
     flex-direction: column;
-    background-color: var(--md-surface-color);
-    padding: 20px; /* Original padding */
-    border-radius: 12px;
-    box-shadow: var(--md-shadow-2);
-    margin-bottom: 20px;
+    
+    /* NEW: Set a maximum height so it doesn't push the layout */
+    max-height: 55vh; /* Use 55% of viewport height; adjust if needed */
+    
+    /* Remove any overflow-y: auto here if it exists. */
 }
 
 /* Ensure #promptDisplay itself doesn't have an explicit height that fights this */
 #promptDisplay {
-    /* Reset any height/max-height that might be fighting the parent's scroll */
+   flex-grow: 1; /* Allows it to take up the remaining space inside the card */
+    /* KEY: Enable scrolling when the content is too tall */
+    overflow-y: auto; 
+    
+    /* Adds a little space so content doesn't touch the scrollbar */
+    padding-right: 8px; 
+    
+    /* Remove any other height/max-height settings from this element */
     height: auto;
-    max-height: none; 
-    overflow-y: visible; /* Or remove this line if not present */
-    /* It should just grow to fill the available space provided by its scrolling parent */
+    max-height: none;
 }
 
 /* --- Add New Prompt Section Styling --- */
