@@ -510,12 +510,34 @@ select {
 
 /* 2. Enable scrolling on the container that holds the actual prompt cards */
 #promptDisplay {
+    /* Set a maximum height. '50vh' means 50% of the viewport height.
+       Adjust this value (e.g., 40vh, 60vh) if you want it taller or shorter. */
+    max-height: 50vh; 
+
     /* This is the key: enables a vertical scrollbar when content overflows */
     overflow-y: auto; 
-    
+
     /* Optional: Makes the scrollbar interaction smoother */
     scroll-behavior: smooth;
 
     /* Optional: Adds a little padding so content doesn't touch the scrollbar */
-    padding-right: 8px; 
+    padding-right: 8px; /* Give space for scrollbar */
+
+    /* Ensure it can shrink within its parent if needed */
+    flex-shrink: 1; 
+    flex-grow: 1;
+}
+
+/* Ensure the parent .card can stretch to fill space if desired,
+   and manage its children's height if #promptDisplay is set to grow. */
+.card {
+    display: flex;
+    flex-direction: column;
+    /* Other card styles */
+    background-color: var(--md-surface-color);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--md-shadow-2);
+    margin-bottom: 20px;
+}
 }
