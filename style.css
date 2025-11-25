@@ -518,17 +518,17 @@ select {
 }
 /* --- Final Fix: Scrolling and Height Management --- */
 
-/* 1. Ensure the entire right column can stretch and contain everything */
+/* 1. Ensure the entire right column (prompt-area) is a column */
 .prompt-area {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* Sets a max height for the entire column to prevent page overflow */
     max-height: 90vh; 
 }
 
-/* 2. The SCROLLING CARD (The Container that needs the Scrollbar) */
+/* 2. The SCROLLING CARD (.prompt-display-section.card) */
+/* This is the container that receives the max-height and the scrollbar. */
 .prompt-display-section.card {
     /* Important: Tells the card to take up remaining vertical space in the column */
     flex-grow: 1;
@@ -544,16 +544,16 @@ select {
     /* Adjust padding to avoid content being cut off by the scrollbar */
     padding-right: 15px; 
 
-    /* Add back the base card styles (already present in your file, but duplicated here for clarity) */
+    /* Add back the base card styles that were in the deleted section */
     background-color: var(--md-surface-color);
-    border-radius: 8px; /* Used 8px here to match other cards */
+    border-radius: 8px; 
     box-shadow: var(--md-shadow-1);
     margin-bottom: 20px;
     padding: 20px;
 }
 
 /* 3. The Inner List Container (#promptDisplay) */
-/* This element must NOT have a fixed height or its own scrolling */
+/* This element must NOT have a fixed height or its own scrollbar. */
 #promptDisplay {
     /* Allows the inner list to grow up to the max-height set on its parent */
     flex-grow: 1;
