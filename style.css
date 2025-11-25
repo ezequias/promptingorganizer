@@ -314,17 +314,15 @@ select {
 }
 
 .prompt-card {
+    display: flex; /* Makes immediate children (p and .prompt-actions) flex items */
+    justify-content: space-between; /* Pushes content and actions to opposite ends */
+    align-items: center; /* Vertically align items */
     background-color: var(--md-surface-color);
-    /* White background for prompt cards */
-    border: 1px solid var(--md-divider-color);
-    padding: 15px 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
     margin-bottom: 10px;
-    border-radius: 6px;
-    word-wrap: break-word;
-    position: relative;
-    box-shadow: none;
-    /* No extra shadow on individual prompt cards by default */
-    transition: background-color 0.2s ease;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .prompt-card:hover {
