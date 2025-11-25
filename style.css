@@ -495,3 +495,27 @@ select {
         outline: none;
     }
 }
+
+/* --- FIX: Constrain and Scroll Prompt Display --- */
+
+/* 1. Constrain the height of the card that holds the prompts */
+.prompt-display-section {
+    /* Set a maximum height. '65vh' means 65% of the viewport height. 
+       Adjust this value if you want it taller or shorter. */
+    max-height: 65vh; 
+    /* Ensure it's a flex container to manage its children */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 2. Enable scrolling on the container that holds the actual prompt cards */
+#promptDisplay {
+    /* This is the key: enables a vertical scrollbar when content overflows */
+    overflow-y: auto; 
+    
+    /* Optional: Makes the scrollbar interaction smoother */
+    scroll-behavior: smooth;
+
+    /* Optional: Adds a little padding so content doesn't touch the scrollbar */
+    padding-right: 8px; 
+}
