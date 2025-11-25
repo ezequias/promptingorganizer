@@ -281,13 +281,46 @@ select {
 }
 
 .prompt-card p {
-    flex-grow: 1;
+   Great question!
+Right now your prompts are shown in .prompt-card as single-line text with ellipsis (white-space: nowrap), but you want them to behave exactly like the textarea: multiline, wrap naturally, and show the full text (even long prompts).
+Here’s the simple and perfect fix — just replace or update these CSS rules in your style.css:
+Updated CSS (Replace the old .prompt-card p block)
+CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
+.prompt-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;     /* Changed from "center" → allows text to start at top */
+    padding: 12px 14px;          /* Slightly more breathing room */
+    margin-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    background-color: var(--md-surface-color);
+    transition: all 0.2s ease;
+    gap: 12px;                   /* Space between text and buttons */
+}
+
+.prompt-card:hover {
+    background-color: #fcfcfc;
+    transform: translateY(-1px);
+}
+
+/* This is the key part — makes text behave exactly like a textarea */
+.prompt-card p {
+    flex: 1;
     margin: 0;
-    padding-right: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    padding: 8px 12px;           /* Same padding as textarea */
+    background-color: #fafafa;   /* Very light gray background like a text field */
+    border: 1px solid #e0e0e0;   /* Subtle border */
+    border-radius: 6px;
+    min-height: 48px;            /* Minimum height so short prompts look nice */
+    line-height: 1.5;
+    word-wrap: break-word;       /* Ensures long words break */
+    white-space: pre-wrap;       /* Preserves line breaks and wraps text */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
     color: var(--md-text-color);
+    overflow: hidden;
+    resize: none;
 }
 
 .prompt-card .prompt-actions {
