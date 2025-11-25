@@ -516,145 +516,52 @@ select {
         outline: none;
     }
 }
+/* --- Final Fix: Scrolling and Height Management --- */
 
-/* --- FIX: Constrain and Scroll Prompt Display --- */
-
-/* 1. Constrain the height of the card that holds the prompts */
-.prompt-display-section {
-    /* Set a maximum height. '65vh' means 65% of the viewport height. 
-       Adjust this value if you want it taller or shorter. */
-    max-height: 65vh; 
-    /* Ensure it's a flex container to manage its children */
-    display: flex;
-    flex-direction: column;
-}
-
-/* 2. Enable scrolling on the container that holds the actual prompt cards */
-#promptDisplay {
-    /* Set a maximum height. '50vh' means 50% of the viewport height.
-       Adjust this value (e.g., 40vh, 60vh) if you want it taller or shorter. */
-    max-height: 50vh; 
-
-    /* This is the key: enables a vertical scrollbar when content overflows */
-    overflow-y: auto; 
-
-    /* Optional: Makes the scrollbar interaction smoother */
-    scroll-behavior: smooth;
-
-    /* Optional: Adds a little padding so content doesn't touch the scrollbar */
-    padding-right: 8px; /* Give space for scrollbar */
-
-    /* Ensure it can shrink within its parent if needed */
-    flex-shrink: 1; 
+/* 1. Ensure the entire right column can stretch and contain everything */
+.prompt-area {
     flex-grow: 1;
-}
-
-/* Ensure the parent .card can stretch to fill space if desired,
-   and manage its children's height if #promptDisplay is set to grow. */
-.card {
     display: flex;
     flex-direction: column;
-    /* Other card styles */
-    background-color: var(--md-surface-color);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: var(--md-shadow-2);
-    margin-bottom: 20px;
-    }
+    gap: 20px;
+    /* Sets a max height for the entire column to prevent page overflow */
+    max-height: 90vh; 
+}
 
-.prompt-display-section.card { /* Targeting specifically this combined class */
- flex-grow: 1; 
+/* 2. The SCROLLING CARD (The Container that needs the Scrollbar) */
+.prompt-display-section.card {
+    /* Important: Tells the card to take up remaining vertical space in the column */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     
-    /* Crucial: Set a max height for the card container */
+    /* CRUCIAL: Set a fixed maximum height for the card container */
     max-height: 55vh; 
     
-    /* Crucial: Enable scrolling on the card container */
+    /* CRUCIAL: Enable scrolling on the card container */
     overflow-y: auto; 
     
-    /* Adjust padding to avoid scrollbar overlap */
+    /* Adjust padding to avoid content being cut off by the scrollbar */
     padding-right: 15px; 
-    
-    /* Ensure the prompt display area within it does not interfere */
-    #promptDisplay {
-        height: auto;
-        max-height: none; 
-        overflow-y: visible;
-    }
 
-    /* Add back the base card styles (padding, color, etc.) */
-    padding: 20px;
+    /* Add back the base card styles (already present in your file, but duplicated here for clarity) */
     background-color: var(--md-surface-color);
-    border-radius: 12px;
-    box-shadow: var(--md-shadow-2);
-    margin-bottom: 20px;
-}
-
-/* Ensure #promptDisplay itself doesn't have an explicit height that fights this */
-#promptDisplay {
-   /* REMOVE FIXED HEIGHT: This is the most critical fix */
-    height: auto; 
-    max-height: none; 
-    
-    /* Ensure the scrolling property doesn't interfere with the parent */
-    overflow-y: visible; 
-    
-    /* Allow it to grow to fill the scrolling area */
-    flex-grow: 1;
-}
-
-/* --- Add New Prompt Section Styling --- */
-
-/* Ensure the textarea takes full width but has a reasonable height */
-#promptInput {
-    width: 100%; /* Make it fill its container */
-    min-height: 80px; /* Give it a reasonable minimum height */
-    max-height: 150px; /* Prevent it from getting excessively tall */
-    padding: 10px;
-    border: 1px solid var(--md-divider-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    margin-bottom: 10px; /* Space below the textarea */
-    resize: vertical; /* Allow vertical resizing, but not horizontal */
-    box-sizing: border-box; /* Include padding/border in width */
-}
-
-/* Style the Add Prompt button */
-#addPromptBtn {
-    width: 100%; /* Make button fill its container */
-    padding: 12px 20px; /* Comfortable padding */
-    background-color: var(--md-accent-color); /* Your theme's accent color */
-    color: white; /* White text */
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px; /* Used 8px here to match other cards */
     box-shadow: var(--md-shadow-1);
-    text-transform: uppercase; /* Make text uppercase like Material Design buttons */
-    letter-spacing: 0.05em; /* Small letter spacing */
+    margin-bottom: 20px;
+    padding: 20px;
 }
 
-#addPromptBtn:hover {
-    background-color: var(--md-accent-color-dark); /* Darker on hover */
-    box-shadow: var(--md-shadow-2);
-}
-
-/* Also, ensure your select dropdown is styled correctly if it looks off */
-#categorySelect {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--md-divider-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    margin-bottom: 15px; /* Space between dropdown and button */
-    background-color: var(--md-surface-color); /* Match card background */
-    color: var(--md-text-color);
-    appearance: none; /* Remove default browser dropdown arrow */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23616161'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); /* Custom SVG arrow */
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 20px;
+/* 3. The Inner List Container (#promptDisplay) */
+/* This element must NOT have a fixed height or its own scrolling */
+#promptDisplay {
+    /* Allows the inner list to grow up to the max-height set on its parent */
+    flex-grow: 1;
+    
+    /* CRUCIAL: Prevents conflicts with parent scrolling */
+    height: auto;
+    max-height: none; 
+    overflow-y: visible;
+    margin: 0;
+    padding: 0;
 }
