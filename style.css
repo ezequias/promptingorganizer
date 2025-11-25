@@ -510,6 +510,7 @@ select {
         box-sizing: border-box;
         outline: none;
     }
+}
 /* --- Final Fix: Scrolling and Height Management --- */
 
 /* 1. Ensure the entire right column (prompt-area) is a column */
