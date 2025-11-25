@@ -318,14 +318,15 @@ select {
 /* buttons Copy and Delete */
 /* --- Prompt Card Container --- */
 .prompt-card {
-    display: flex; /* Makes immediate children (p and .prompt-actions) flex items */
+ display: flex; /* Makes immediate children (p and .prompt-actions) flex items */
     justify-content: space-between; /* Pushes content and actions to opposite ends */
     align-items: center; /* Vertically align items */
     background-color: var(--md-surface-color);
-    padding: 15px;
+    /* CHANGE HERE: Reduced padding for a sleeker look */
+    padding: 10px 12px; 
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Slightly reduced margin between cards too */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -387,13 +388,6 @@ select {
     font-size: 1.2rem;
     /* Ensure actual icon size */
 }
-
-.delete-prompt-btn:hover {
-    background-color: #f0f0f0;
-    /* Light background on hover */
-    color: var(--md-text-color);
-}
-
 
 .no-prompts-message {
     text-align: center;
