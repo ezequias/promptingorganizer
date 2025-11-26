@@ -262,11 +262,12 @@ select {
     background: rgba(0,0,0,0.5);
 }
 
-/* Prompt Cards */
+*//* Prompt Cards */
 .prompt-card {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /*align-items: center; */
+    align-items: flex-start;
     background-color: var(--md-surface-color);
     padding: 8px 12px;
     border-radius: 8px;
