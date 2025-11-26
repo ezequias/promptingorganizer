@@ -264,18 +264,19 @@ select {
 
 *//* Prompt Cards */
 .prompt-card {
-    position: relative;                /* ← ESSENCIAL */
-    padding: 16px 16px 12px 16px;      /* mais espaço em cima para os botões */
-    margin-bottom: 10px;
-    background: var(--md-surface-color);
-    border-radius: 8px;
+    position: relative;                    /* ESSENCIAL */
+    padding: 48px 16px 16px 16px;          /* espaço pros botões em cima */
+    margin-bottom: 12px;
+    background: white;
+    border-radius: 12px;
     box-shadow: var(--md-shadow-1);
     transition: all 0.2s ease;
-    min-height: 70px;
+    min-height: 80px;
 }
 
 .prompt-card:hover {
     box-shadow: var(--md-shadow-2);
+    transform: translateY(-1px);
 }
 
 .prompt-card p {
@@ -304,38 +305,39 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
 
 /* This is the key part — makes text behave exactly like a textarea */
 .prompt-card p {
-    flex: 1;
     margin: 0;
-    padding: 8px 12px;           /* Same padding as textarea */
-    background-color: #fafafa;   /* Very light gray background like a text field */
-    border: 1px solid #e0e0e0;   /* Subtle border */
-    border-radius: 6px;
-    min-height: 48px;            /* Minimum height so short prompts look nice */
-    line-height: 1.5;
-    word-wrap: break-word;       /* Ensures long words break */
-    white-space: pre-wrap;       /* Preserves line breaks and wraps text */
-    font-family: 'Roboto', sans-serif;
+    padding: 12px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    line-height: 1.6;
     font-size: 1rem;
-    color: var(--md-text-color);
-    overflow: hidden;
-    resize: none;
+    color: #333;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 /* Botões ficam no canto superior direito */
 .prompt-card .prompt-actions {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 10px;
+    right: 12px;
     display: flex;
-    gap: 6px;
+    gap: 8px;
     z-index: 10;
 }
-
-.copy-prompt-btn,
-.delete-prompt-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
+.copy-prompt-btn, .delete-prompt-btn {
+    width: 38px;
+    height: 38px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
 }
 
 .copy-prompt-btn:hover {
