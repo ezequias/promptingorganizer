@@ -465,3 +465,11 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
 /* Make sure the icons are perfectly sized */
 .copy-prompt-btn i,
 .delete-prompt
+
+.prompt-card .prompt-actions {
+    position: absolute !important;
+    top: 10px !important;
+    right: 12px !important;
+    left: auto !important;     /* ← mata qualquer left que esteja forçando */
+    transform: none !important;
+}
