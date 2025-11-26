@@ -224,18 +224,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         filteredPrompts.forEach(prompt => {
-            const promptCard = document.createElement('div');
-            promptCard.classList.add('prompt-card');
-            promptCard.innerHTML = `
-                <div class="prompt-actions">
-                <button class="copy-prompt-btn" data-text="${prompt.text.replace(/"/g, '&quot;')}" title="Copy">
-                    <i class="material-icons">copy_all</i>
-                </button>
-                <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete">
-                    <i class="material-icons">delete</i>
-                </button>
-            </div>
-            <p>${prompt.text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+           const promptCard = document.createElement('div');
+        promptCard.classList.add('prompt-card');
+        promptCard.innerHTML = `
+        <div class="prompt-actions">
+            <button class="copy-prompt-btn" data-text="${prompt.text.replace(/"/g,'&quot;')}" title="Copiar">
+                <i class="material-icons">copy_all</i>
+            </button>
+            <button class="delete-prompt-btn" data-id="${prompt.id}" title="Excluir">
+                <i class="material-icons">delete</i>
+            </button>
+        </div>
+        <p>${prompt.text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
 `;
             promptDisplay.appendChild(promptCard);
         });
