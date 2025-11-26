@@ -435,14 +435,6 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
     color: var(--md-text-color);
 }
 
-/* Buttons container */
-.prompt-card .prompt-actions {
-    display: flex;
-    gap: 4px;
-    flex-shrink: 0;
-    align-self: center;           /* perfect vertical centering */
-}
-
 /* Botões limpos e bonitos */
 .copy-prompt-btn,
 .delete-prompt-btn {
