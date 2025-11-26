@@ -330,6 +330,7 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
     gap: 6px;
     flex-shrink: 0;
     padding-top: 6px;            /* Align with text top */
+    align-self: center;
 }
 
 .copy-prompt-btn,
