@@ -339,7 +339,6 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
     justify-content: center;
     transition: all 0.2s ease;
 }
-
 .copy-prompt-btn:hover {
     color: var(--md-primary-color);
     background-color: rgba(63, 81, 181, 0.1);
@@ -349,6 +348,9 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
     color: #f44336;
     background-color: rgba(244, 67, 54, 0.1);
 }
+
+.copy-prompt-btn:hover { background: #3f51b5; color: white; }
+.delete-prompt-btn:hover { background: #f44336; color: white; }
 
 .no-prompts-message {
     text-align: center;
