@@ -264,21 +264,18 @@ select {
 
 *//* Prompt Cards */
 .prompt-card {
-    display: flex;
-    justify-content: space-between;
-    /*align-items: center; */
-    align-items: flex-start;
-    background-color: var(--md-surface-color);
-    padding: 8px 12px;
+    position: relative;                /* ← ESSENCIAL */
+    padding: 16px 16px 12px 16px;      /* mais espaço em cima para os botões */
+    margin-bottom: 10px;
+    background: var(--md-surface-color);
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
-    margin-bottom: 5px;
     transition: all 0.2s ease;
+    min-height: 70px;
 }
 
 .prompt-card:hover {
-    background-color: #fcfcfc;
-    transform: translateY(-1px);
+    box-shadow: var(--md-shadow-2);
 }
 
 .prompt-card p {
@@ -324,13 +321,14 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
     resize: none;
 }
 
+/* Botões ficam no canto superior direito */
 .prompt-card .prompt-actions {
-   display: flex;
-    flex-direction: column;      /* Stack copy/delete vertically */
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
     gap: 6px;
-    flex-shrink: 0;
-    padding-top: 6px;            /* Align with text top */
-    align-self: center;
+    z-index: 10;
 }
 
 .copy-prompt-btn,
@@ -420,19 +418,17 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
 
 /* Multiline text – looks perfect */
 .prompt-card p {
-    flex: 1;
     margin: 0;
+    margin-top: 28px;          /* espaço para não sobrepor os botões */
     padding: 10px 12px;
     background: #fafafa;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
-    min-height: 52px;
     line-height: 1.5;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    color: var(--md-text-color);
     word-wrap: break-word;
     white-space: pre-wrap;
+    font-size: 1rem;
+    color: var(--md-text-color);
 }
 
 /* Buttons container */
@@ -443,33 +439,31 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
     align-self: center;           /* perfect vertical centering */
 }
 
-/* Clean icon-only buttons – no background, no border, no weird boxes */
+/* Botões limpos e bonitos */
 .copy-prompt-btn,
 .delete-prompt-btn {
     width: 36px;
     height: 36px;
-    padding: 0;
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
     color: var(--md-secondary-text-color);
     cursor: pointer;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     transition: all 0.2s ease;
 }
 
-/* Hover effects only */
 .copy-prompt-btn:hover {
-    background: rgba(63, 81, 181, 0.12) !important;
-    color: var(--md-primary-color);
+    background: var(--md-primary-color);
+    color: white;
 }
 
 .delete-prompt-btn:hover {
-    background: rgba(244, 67, 54, 0.12) !important;
-    color: #f44336;
+    background: #f44336;
+    color: white;
 }
 
 /* Make sure the icons are perfectly sized */
