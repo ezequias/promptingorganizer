@@ -3,31 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico">
     <title>Prompt Organizer</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <header>
+        <img src="https://cdn-icons-png.flaticon.com/128/17653/17653595.png" alt="Prompt Icon" class="header-icon">
         <h1>My Prompt Organizer</h1>
     </header>
     <main>
-        <aside class="sidebar">
+        <aside class="sidebar card">
             <h2>Categories</h2>
             <ul id="categoryList">
                 </ul>
-            <input type="text" id="newCategoryInput" placeholder="New Category">
-            <button id="addCategoryBtn">Add Category</button>
+            <div class="input-group">
+                <input type="text" id="newCategoryInput" placeholder="New Category">
+                <button id="addCategoryBtn" class="md-button">Add Category</button>
+            </div>
+            <div class="data-management-section">
+                <h3>Data Management</h3>
+                <button id="downloadDataBtn" class="md-button"><i class="material-icons">download</i> Download</button>
+                <input type="file" id="uploadFileInput" accept=".json" style="display: none;">
+                <button id="uploadDataBtn" class="md-button"><i class="material-icons">upload</i> Upload</button>
+            </div>
         </aside>
         <section class="prompt-area">
-            <div class="prompt-input-section">
+            <div class="prompt-input-section card">
                 <h2>Add New Prompt</h2>
                 <textarea id="newPromptText" placeholder="Enter your prompt here..."></textarea>
                 <select id="promptCategorySelect">
                     </select>
-                <button id="addPromptBtn">Add Prompt</button>
+                <button id="addPromptBtn" class="md-button md-button-primary">Add Prompt</button>
             </div>
 
-            <div class="prompt-display-section">
+            <div class="prompt-display-section card">
                 <h2>Prompts</h2>
                 <div id="promptDisplay">
                     <p class="no-prompts-message">Select a category or add new prompts.</p>
