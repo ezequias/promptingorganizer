@@ -55,7 +55,7 @@ main {
 
 #categoryList li.active,
 #categoryList li:hover {
-    background-color: #e0ffe0;
+    background-color: #83D9FF;
     font-weight: bold;
     color: #2196F3;
     border-radius: 4px;
