@@ -23,6 +23,20 @@ main {
     gap: 20px;
 }
 
+.header-icon {
+    /* height: 36px;  <-- REMOVE OR COMMENT OUT THIS LINE */
+    /* Slightly smaller for better visual balance with text */
+    width: auto;
+    display: block;
+    /* Treat as a block element to prevent extra baseline spacing */
+    removed filter: brightness(0) invert(1);
+    /* Invert colors to make it white for dark background */
+    /* Ensure no default text styles interfere */
+    font-size: initial;
+    line-height: initial;
+    vertical-align: middle;
+    
+    /* Helps with vertical alignment in flex container */
 .sidebar {
     background-color: #fff;
     padding: 20px;
