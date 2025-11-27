@@ -24,10 +24,10 @@ main {
 }
 
 .header-icon {
-    /* height: 36px;  <-- REMOVE OR COMMENT OUT THIS LINE */
+    height: 32px;
     /* Slightly smaller for better visual balance with text */
     width: auto;
-    display: block;
+    display: center;
     /* Treat as a block element to prevent extra baseline spacing */
     removed filter: brightness(0) invert(1);
     /* Invert colors to make it white for dark background */
