@@ -19,6 +19,33 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('userPrompts', JSON.stringify(prompts));
     }
 
+    function downloadPrompts() {
+        if (prompts.length === 0) {
+            showToast('No prompts to download!', 'info');
+            return;
+        }
+    
+        const dataStr = JSON.stringify(prompts, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'my_prompts.json';
+    
+        document.body.appendChild(a);
+        a.click();
+    
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    
+        showToast('Prompts downloaded successfully!');
+    }
+    
+    const downloadPromptsBtn = document.getElementById('downloadPromptsBtn');
+    // ...
+    if (downloadPromptsBtn) {
+        downloadPromptsBtn.addEventListener('click', downloadPrompts);
+    }
     function renderCategories() {
         categoryList.innerHTML = '';
         promptCategorySelect.innerHTML = ''; // Clear options for select as well
