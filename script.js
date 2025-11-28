@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const promptCategorySelect = document.getElementById('promptCategorySelect');
     const addPromptBtn = document.getElementById('addPromptBtn');
     const promptDisplay = document.getElementById('promptDisplay');
-    const downloadPromptsBtn = document.getElementById('downloadPromptsBtn');
+    const downloadPromptsBtn = document.getElementById('downloadDataBtn');
 
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
