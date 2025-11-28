@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set button text on load
     addCategoryBtn.textContent = 'Add';
 
+    function showToast(message, type = 'info') {
+        console.log(`[TOAST ${type.toUpperCase()}] ${message}`);
+    }
+    
     function saveCategories() {
         localStorage.setItem('promptCategories', JSON.stringify(categories));
     }
