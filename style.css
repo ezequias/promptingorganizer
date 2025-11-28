@@ -225,12 +225,12 @@ select {
 
 /* Display section takes all remaining space */
 .prompt-display-section.card {
-    flex: 1 1 300px;
-    min-height: 0;                    /* Critical for flex + overflow */
+   flex: 1 1 300px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     padding: 20px;
+    gap: 16px;
+    overflow: visible !important;     /* permite crescer */
 }
 
 .prompt-display-section h2 {
@@ -240,11 +240,13 @@ select {
 
 /* Scrollable prompt list */
 #promptDisplay {
-    flex: 1;
-    min-height: 0;                    /* Critical! Allows scrolling */
-    overflow-y: auto;
-    padding-right: 8px;
+   display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 0;
     margin: 0;
+    overflow: visible !important;     /* remove scroll */
+    min-height: auto;
 }
 
 /* Nice scrollbar (Chrome/Edge/Safari) */
