@@ -41,11 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('Prompts downloaded successfully!');
     }
     
-    const downloadPromptsBtn = document.getElementById('downloadPromptsBtn');
-    // ...
-    if (downloadPromptsBtn) {
-        downloadPromptsBtn.addEventListener('click', downloadPrompts);
-    }
     function renderCategories() {
         categoryList.innerHTML = '';
         promptCategorySelect.innerHTML = ''; // Clear options for select as well
@@ -67,7 +62,7 @@ https://github.com/ezequias/promptingorganizer/actions
             li.addEventListener('click', () => {
                 activeCategory = category;
                 renderCategories(); // Re-render to update active class
-                renderPrompts();
+                //renderPrompts();
             });
             categoryList.appendChild(li);
 
@@ -161,15 +156,7 @@ https://github.com/ezequias/promptingorganizer/actions
             });
     }
 });
-
-    function initApp() {
-    // ... all your initialization logic ...
-    renderPrompts(); // Call renderPrompts here
-    // ...
-    }
-    // Make sure initApp is called at the very end
-    initApp();
-    
+   
     addCategoryBtn.addEventListener('click', () => {
         const newCategory = newCategoryInput.value.trim();
         if (newCategory && !categories.includes(newCategory)) {
@@ -205,6 +192,20 @@ https://github.com/ezequias/promptingorganizer/actions
         }
     });
 
+    const downloadPromptsBtn = document.getElementById('downloadPromptsBtn');
+    // ...
+    if (downloadPromptsBtn) {
+        downloadPromptsBtn.addEventListener('click', downloadPrompts);
+    }
+
+    function initApp() {
+    // ... all your initialization logic ...
+    renderPrompts(); // Call renderPrompts here
+    // ...
+    }
+    // Make sure initApp is called at the very end
+    initApp();
+    
     // Initial render
     renderCategories();
 });
