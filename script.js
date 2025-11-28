@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeCategory = newCategoryName;
             }
 
-            renderCategories();
+            //renderCategories();
         };
 
         editInput.addEventListener('blur', saveChanges, { once: true });
