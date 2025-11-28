@@ -110,19 +110,20 @@ https://github.com/ezequias/promptingorganizer/actions
     
         if (targetButton.classList.contains('delete-prompt-btn')) {
             const promptId = targetButton.dataset.id;
-            deletePrompt(promptId);
+            deletePrompt(promptId);    
         } else if (targetButton.classList.contains('copy-prompt-btn')) {
-            const textToCopy = targetButton.dataset.text;
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    showToast('Prompt copied to clipboard!');
-                })
-                .catch(err => {
-                    console.error('Failed to copy prompt: ', err);
-                    showToast('Failed to copy prompt.', 'error');
-                });
-        }
-    });
+       const textToCopy = targetButton.dataset.text;
+        
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                showToast('Prompt copied to clipboard!');
+            })
+            .catch(err => {
+                console.error('Failed to copy prompt: ', err);
+                showToast('Failed to copy prompt.', 'error');
+            });
+    }
+});
     
     // Make sure initApp is called at the very end
     initApp();
