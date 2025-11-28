@@ -408,8 +408,17 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('initApp vai executar');
     initApp();
 
-    window.renderCategories = renderCategories;
-    window.renderPrompts = renderPrompts;
-    window.categories = () => categories;
-    window.prompts = () => prompts;
+    renderCategories();  // Essa única linha resolve tudo!
+
+    console.log('%cPrompt Organizer carregado com sucesso!', 'color: #4CAF50; font-weight: bold;');
+
+    // Debug global (opcional, mas muito útil)
+    window.appDebug = {
+        categories,
+        prompts,
+        activeCategory: () => activeCategory,
+        renderCategories,
+        renderPrompts,
+        reload: () => renderCategories()
+    };
 });
