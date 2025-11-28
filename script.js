@@ -400,9 +400,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function initApp() {
     // ... all your initialization logic ...
     renderPrompts(); // Call renderPrompts here
-    console.log('RenderPrompts executed')
+    console.log('RenderPrompts executed');
     // ...
     }
     // Make sure initApp is called at the very end
+    console.log('initApp vai executar');
     initApp();
 });
