@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const promptCategorySelect = document.getElementById('promptCategorySelect');
     const addPromptBtn = document.getElementById('addPromptBtn');
     const promptDisplay = document.getElementById('promptDisplay');
-    const downloadPromptsBtn = document.getElementById('downloadDataBtn');
+    const downloadDataBtn = document.getElementById('downloadDataBtn');
 
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
@@ -203,8 +203,8 @@ https://github.com/ezequias/promptingorganizer/actions
       renderCategories();
     });
 
-    if (downloadPromptsBtn) {
-        downloadPromptsBtn.addEventListener('click', downloadPrompts);
+    if (downloadDataBtn) {
+        downloadDataBtn.addEventListener('click', downloadPrompts);
     }
 
     function initApp() {
