@@ -332,13 +332,13 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
 }
 
 .copy-prompt-btn{
-    width: 16px;
-    height: 16px;
+    width: 30px;
+    height: 30px;
     font-size: 1.1rem;
 }
 .delete-prompt-btn {
-    width: 21px;
-    height: 21px;
+    width: 30px;
+    height: 30px;
     font-size: 1.1rem;
 }
 
