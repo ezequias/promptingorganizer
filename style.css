@@ -240,13 +240,15 @@ select {
 
 /* Scrollable prompt list */
 #promptDisplay {
-   display: flex;
+  /* display: flex;
     flex-direction: column;
     gap: 14px;
     padding: 0;
     margin: 0;
-    overflow: visible !important;     /* remove scroll */
-    min-height: auto;
+    overflow: visible !important;    
+    min-height: auto;*/
+    overflow: visible !important;
+    max-height: none !important;
 }
 
 /* Nice scrollbar (Chrome/Edge/Safari) */
@@ -275,6 +277,7 @@ select {
     box-shadow: var(--md-shadow-1);
     margin-bottom: 5px;
     transition: all 0.2s ease;
+    height: auto !important;
 }
 
 .prompt-card:hover {
