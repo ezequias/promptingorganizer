@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderCategories() {
+        console.log("renderCategories() começou");
         categoryList.innerHTML = '';
         promptCategorySelect.innerHTML = '';
 
@@ -105,12 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (categories.length > 0) {
             activeCategory = categories[0];
             promptCategorySelect.value = activeCategory;
-            renderCategories(); // Re-render to show correct active category
+            //renderCategories(); // Re-render to show correct active category
         } else {
             activeCategory = null;
         }
 
         renderPrompts();
+        console.log("renderCategories() terminou");
     }
 
     function enterEditMode(categoryListItem, oldCategoryName) {
