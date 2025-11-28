@@ -203,7 +203,6 @@ https://github.com/ezequias/promptingorganizer/actions
         downloadPromptsBtn.addEventListener('click', downloadPrompts);
     }
     
-    const downloadPromptsBtn = document.getElementById('downloadPromptsBtn');
     // ...
 
     function initApp() {
