@@ -198,14 +198,14 @@ https://github.com/ezequias/promptingorganizer/actions
             alert('Please enter a prompt and select a category.');
         }
 
-        if (downloadPromptsBtn) {
-            downloadPromptsBtn.addEventListener('click', downloadPrompts);
-    }
+     
 
       renderCategories();
     });
 
-
+    if (downloadPromptsBtn) {
+        downloadPromptsBtn.addEventListener('click', downloadPrompts);
+    }
 
     function initApp() {
     // ... all your initialization logic ...
@@ -213,8 +213,5 @@ https://github.com/ezequias/promptingorganizer/actions
     // ...
     }
     // Make sure initApp is called at the very end
-    initApp();
-    
-    // Initial render
-  
+    initApp();  
 });
