@@ -205,9 +205,6 @@ https://github.com/ezequias/promptingorganizer/actions
     
     const downloadPromptsBtn = document.getElementById('downloadPromptsBtn');
     // ...
-    if (downloadPromptsBtn) {
-        downloadPromptsBtn.addEventListener('click', downloadPrompts);
-    }
 
     function initApp() {
     // ... all your initialization logic ...
