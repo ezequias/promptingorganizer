@@ -397,6 +397,11 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadFileInput.addEventListener('change', uploadData); // This listener fires when a file is selected
 
 
-    // Initial render of categories when the page loads
-    renderCategories();
+    function initApp() {
+    // ... all your initialization logic ...
+    renderPrompts(); // Call renderPrompts here
+    // ...
+    }
+    // Make sure initApp is called at the very end
+    initApp();
 });
