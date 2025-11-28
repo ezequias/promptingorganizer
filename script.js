@@ -124,7 +124,12 @@ https://github.com/ezequias/promptingorganizer/actions
             });
     }
 });
-    
+
+    function initApp() {
+    // ... all your initialization logic ...
+    renderPrompts(); // Call renderPrompts here
+    // ...
+    }
     // Make sure initApp is called at the very end
     initApp();
     
