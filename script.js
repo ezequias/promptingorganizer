@@ -50,8 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function renderCategories() {
         categoryList.innerHTML = '';
-        promptCategorySelect.innerHTML = ''; // Clear options for select as well
-https://github.com/ezequias/promptingorganizer/actions
+        promptCategorySelect.innerHTML = '';
         if (categories.length === 0) {
             categoryList.innerHTML = '<p class="no-prompts-message">No categories yet. Add one!</p>';
             promptCategorySelect.innerHTML = '<option value="">No Categories Available</option>';
