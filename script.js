@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="material-icons">content_copy</i>
                     </button>
                     <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete Prompt">
-                        <i class="material-icons">close</i>
+                        <i class="material-icons"></i>
                     </button>
                 </div>
 `;
