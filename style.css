@@ -331,7 +331,11 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
     padding-top: 6px;            /* Align with text top */
 }
 
-.copy-prompt-btn,
+.copy-prompt-btn{
+    width: 19px;
+    height: 19px;
+    font-size: 1.1rem;
+}
 .delete-prompt-btn {
     width: 36px;
     height: 36px;
@@ -341,11 +345,12 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
 .copy-prompt-btn:hover {
     color: var(--md-primary-color);
     background-color: rgba(63, 81, 181, 0.1);
+    
 }
 
 .delete-prompt-btn:hover {
-    color: #f44336;
-    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--md-primary-color);
+    background-color: rgba(63, 81, 181, 0.1);
 }
 
 .no-prompts-message {
