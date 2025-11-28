@@ -231,6 +231,16 @@ main {
     padding-right: 30px; /* Space for the delete button */
 }
 
+.download-card {
+    padding: 10px 20px;
+    background-color: var(--md-surface-color);
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin-bottom: 20px;
+}
 .no-prompts-message {
     text-align: center;
     color: #666;
