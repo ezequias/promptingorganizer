@@ -400,16 +400,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function initApp() {
-    // ... all your initialization logic ...
-    renderPrompts(); // Call renderPrompts here
-    console.log('RenderPrompts executed');
-    // ...
+        console.log('Iniciando aplicação...');
+        renderCategories();
     }
+    
     // Make sure initApp is called at the very end
     console.log('initApp vai executar');
     initApp();
 
-    // Tornar acessível globalmente
-    window.renderPrompts = renderPrompts;
     window.renderCategories = renderCategories;
+    window.renderPrompts = renderPrompts;
+    window.categories = () => categories;
+    window.prompts = () => prompts;
 });
