@@ -103,6 +103,16 @@ https://github.com/ezequias/promptingorganizer/actions
         });
     }
 
+    // Function to delete a prompt by its ID
+    function deletePrompt(id) {
+        // CRUCIAL FIX: Convert the string 'id' back to a Number for correct comparison
+        prompts = prompts.filter(prompt => prompt.id !== Number(id));
+        
+        savePrompts(); // Save the updated list to localStorage
+        renderPrompts(); // Re-render the UI
+        showToast('Prompt deleted.');
+    }
+    
     promptDisplay.addEventListener('click', (event) => {
         const targetButton = event.target.closest('button');
     
