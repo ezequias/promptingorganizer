@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
     let activeCategory = categories.length > 0 ? categories[0] : null;
 
-    console.log("test");
+    console.log("SCRIPT EXECUTED");
     // Set button text on load
     addCategoryBtn.textContent = 'Add';
 
