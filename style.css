@@ -145,6 +145,10 @@ main {
 }
 
 .prompt-card {
+    display: flex; /* Makes immediate children flex items */
+    justify-content: space-between; /* Pushes text to left, actions to right */
+    align-items: center; /* Vertically centers items */
+    
     background-color: #f9f9f9;
     border: 1px solid #eee;
     padding: 15px;
@@ -152,6 +156,40 @@ main {
     border-radius: 6px;
     word-wrap: break-word; /* Ensures long prompts wrap */
     position: relative;
+}
+.prompt-card .prompt-actions {
+    display: flex; /* Arranges buttons horizontally */
+    gap: 5px; /* Adds space between the buttons */
+    flex-shrink: 0; /* Prevents this group from shrinking */
+    margin-left: 10px; /* Space between the prompt text and buttons */
+}
+
+/* --- Individual Button Styles (Copy and Delete) --- */
+.prompt-card .copy-prompt-btn,
+.prompt-card .delete-prompt-btn {
+    background: none;
+    border: none;
+    color: var(--md-secondary-text-color);
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.prompt-card .copy-prompt-btn:hover {
+    color: var(--md-primary-color);
+    background-color: rgba(63, 81, 181, 0.1);
+}
+
+.prompt-card .delete-prompt-btn:hover {
+    color: #f44336; /* Red */
+    background-color: rgba(244, 67, 54, 0.1); /* Light red background */
 }
 
 .prompt-card .delete-prompt-btn {
