@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         renderCategories();
-        renderPrompts();
+c        renderPrompts();
     }
 
 
