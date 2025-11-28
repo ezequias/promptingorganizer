@@ -408,4 +408,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make sure initApp is called at the very end
     console.log('initApp vai executar');
     initApp();
+
+    // Tornar acessível globalmente
+    window.renderPrompts = renderPrompts;
+    window.renderCategories = renderCategories;
 });
