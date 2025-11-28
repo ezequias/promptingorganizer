@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('userPrompts', JSON.stringify(prompts));
     }
 
+    function showToast(message, type = 'success') {
+        // This is a minimal placeholder to prevent script failure.
+        // Replace the console.log with your custom toast logic if you have one.
+        console.log(`[TOAST ${type.toUpperCase()}]: ${message}`); 
+    }
+        
     function downloadPrompts() {
         if (prompts.length === 0) {
             showToast('No prompts to download!', 'info');
@@ -193,6 +199,10 @@ https://github.com/ezequias/promptingorganizer/actions
         }
     });
 
+    if (downloadPromptsBtn) {
+        downloadPromptsBtn.addEventListener('click', downloadPrompts);
+    }
+    
     const downloadPromptsBtn = document.getElementById('downloadPromptsBtn');
     // ...
     if (downloadPromptsBtn) {
