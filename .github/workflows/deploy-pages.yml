@@ -1,0 +1,44 @@
+name: Deploy Stable + Dev Preview
+
+on:
+  push:
+    branches: [1.0-stable, main, dev]  # Ajuste se sua branch de dev for outra
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Pega todas as branches
+
+      # Setup (exemplo com Node.js; ajuste se for outro framework)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build  # Ajuste: vite build, npm run generate, etc. Gera ./dist
+
+      # Deploy versão estável (1.0-stable) → raiz
+      - name: Deploy stable to root
+        if: github.ref == 'refs/heads/1.0-stable'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          destination_dir: .  # Raiz
+
+      # Deploy versão de dev/teste → /dev
+      - name: Deploy dev to /dev
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          destination_dir: dev  # Subpasta /dev
