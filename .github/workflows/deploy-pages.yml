@@ -1,44 +1,34 @@
-name: Deploy Stable + Dev Preview
+name: Deploy Dev Preview to /dev
 
 on:
   push:
-    branches: [1.0-stable, main, dev]  # Ajuste se sua branch de dev for outra
+    branches: [main]  # Só roda na main (dev/teste); a orign-1.0-stable usa o deploy nativo do GitHub
 
 jobs:
-  deploy:
+  deploy-dev:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Pega todas as branches
+          fetch-depth: 0  # Pega o histórico
 
-      # Setup (exemplo com Node.js; ajuste se for outro framework)
+      # Setup (exemplo com Node; ajuste se não for)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '18'  # Ou a sua versão do package.json
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install & Build
+        run: |
+          npm ci
+          npm run build  # Gera ./dist com index.html; mude se o comando for diferente (ex.: vite build)
 
-      - name: Build project
-        run: npm run build  # Ajuste: vite build, npm run generate, etc. Gera ./dist
-
-      # Deploy versão estável (1.0-stable) → raiz
-      - name: Deploy stable to root
-        if: github.ref == 'refs/heads/1.0-stable'
+      # Deploy versão de teste → /dev (não mexe na raiz!)
+      - name: Deploy to /dev
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          destination_dir: .  # Raiz
-
-      # Deploy versão de dev/teste → /dev
-      - name: Deploy dev to /dev
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          destination_dir: dev  # Subpasta /dev
+          publish_dir: ./dist  # Pasta do build
+          destination_dir: dev  # Cria/atualiza só a subpasta /dev
+          # Isso preserva a raiz (estável) intacta
