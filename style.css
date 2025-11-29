@@ -1,0 +1,407 @@
+/* Color Palette */
+:root {
+    --md-primary-color: #3f51b5;        /* Indigo */
+    --md-primary-color-dark: #303f9f;
+    --md-primary-color-light: #c5cae9;
+    --md-accent-color: #ff4081;         /* Pink */
+    --md-text-color: #212121;
+    --md-secondary-text-color: #757575;
+    --md-divider-color: #bdbdbd;
+    --md-background-color: #f5f5f5;
+    --md-surface-color: #ffffff;
+
+    /* Shadows for elevation */
+    --md-shadow-1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.20);
+    --md-shadow-2: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.20);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: var(--md-background-color);
+    color: var(--md-text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+header {
+    background-color: var(--md-primary-color);
+    color: var(--md-surface-color);
+    padding: 1rem 20px;
+    text-align: center;
+    box-shadow: var(--md-shadow-1);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.header-icon {
+    height: 36px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+header h1 {
+    font-weight: 500;
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+h1 { font-weight: 500; font-size: 2.2rem; margin: 0; }
+h2 { font-weight: 400; font-size: 1.5rem; color: var(--md-primary-color-dark); margin: 0 0 1rem 0; }
+
+main {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    align-items: flex-start;
+}
+
+.card {
+    background-color: var(--md-surface-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover { box-shadow: var(--md-shadow-2); }
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+#categoryList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+    border-top: 1px solid var(--md-divider-color);
+}
+
+#categoryList li {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--md-divider-color);
+    color: var(--md-secondary-text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#categoryList li.active {
+    background-color: var(--md-primary-color-light);
+    color: var(--md-primary-color-dark);
+    font-weight: 500;
+}
+
+#categoryList li:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+.delete-category-btn {
+    background: transparent;
+    border: none;
+    color: var(--md-secondary-text-color);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    margin-left: 10px;
+}
+
+.delete-category-btn:hover {
+    background-color: #ffebee;
+    color: #f44336;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+    align-items: center;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--md-divider-color);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: var(--md-text-color);
+    background-color: var(--md-surface-color);
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--md-primary-color);
+    box-shadow: 0 0 0 1px var(--md-primary-color);
+    outline: none;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23757575%22%20d%3D%22M6%209L0%203h12z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+/* Buttons */
+.md-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: var(--md-shadow-1);
+}
+
+.md-button:hover { box-shadow: var(--md-shadow-2); }
+
+#addCategoryBtn {
+    background-color: var(--md-primary-color);
+    color: white;
+}
+
+#addCategoryBtn:hover {
+    background-color: var(--md-primary-color-dark);
+}
+
+.md-button-primary {
+    background-color: var(--md-accent-color);
+    color: white;
+}
+
+.md-button-primary:hover {
+    background-color: #e00057;
+}
+
+/* === PERFECT PROMPT AREA LAYOUT (THE BIG FIX) === */
+.prompt-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+/* Input section stays compact */
+.prompt-input-section.card {
+    flex-shrink: 0;
+    max-height: 280px;
+}
+
+/* Display section takes all remaining space */
+.prompt-display-section.card {
+   flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+    overflow: visible !important;     /* permite crescer */
+}
+
+.prompt-display-section h2 {
+    margin-top: 0;
+    flex-shrink: 0;
+}
+
+/* Scrollable prompt list */
+#promptDisplay {
+  /* display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 0;
+    margin: 0;
+    overflow: visible !important;    
+    min-height: auto;*/
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+/* Nice scrollbar (Chrome/Edge/Safari) */
+#promptDisplay::-webkit-scrollbar {
+    width: 8px;
+}
+#promptDisplay::-webkit-scrollbar-track {
+    background: transparent;
+}
+#promptDisplay::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+}
+#promptDisplay::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.5);
+}
+
+/* Prompt Cards */
+.prompt-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--md-surface-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    margin-bottom: 5px;
+    transition: all 0.2s ease;
+    height: auto !important;
+}
+
+.prompt-card:hover {
+    background-color: #fcfcfc;
+    transform: translateY(-1px);
+}
+
+.prompt-card p {
+   Great question!
+Right now your prompts are shown in .prompt-card as single-line text with ellipsis (white-space: nowrap), but you want them to behave exactly like the textarea: multiline, wrap naturally, and show the full text (even long prompts).
+Here’s the simple and perfect fix — just replace or update these CSS rules in your style.css:
+Updated CSS (Replace the old .prompt-card p block)
+CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
+.prompt-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;     /* Changed from "center" → allows text to start at top */
+    padding: 12px 14px;          /* Slightly more breathing room */
+    margin-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    background-color: var(--md-surface-color);
+    transition: all 0.2s ease;
+    gap: 12px;                   /* Space between text and buttons */
+}
+
+.prompt-card:hover {
+    background-color: #fcfcfc;
+    transform: translateY(-1px);
+}
+
+/* This is the key part — makes text behave exactly like a textarea */
+.prompt-card p {
+    flex: 1;
+    margin: 0;
+    padding: 8px 12px;           /* Same padding as textarea */
+    background-color: #fafafa;   /* Very light gray background like a text field */
+    border: 1px solid #e0e0e0;   /* Subtle border */
+    border-radius: 6px;
+    min-height: 48px;            /* Minimum height so short prompts look nice */
+    line-height: 1.5;
+    word-wrap: break-word;       /* Ensures long words break */
+    white-space: pre-wrap;       /* Preserves line breaks and wraps text */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: var(--md-text-color);
+    overflow: hidden;
+    resize: none;
+}
+
+.prompt-card .prompt-actions {
+   display: flex;
+    flex-direction: column;      /* Stack copy/delete vertically */
+    gap: 6px;
+    flex-shrink: 0;
+    padding-top: 6px;            /* Align with text top */
+}
+
+.copy-prompt-btn{
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+}
+.delete-prompt-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+}
+
+.copy-prompt-btn:hover {
+    color: var(--md-primary-color);
+    background-color: rgba(63, 81, 181, 0.1);
+    
+}
+
+.delete-prompt-btn:hover {
+    color: var(--md-primary-color);
+    background-color: rgba(63, 81, 181, 0.1);
+}
+
+.no-prompts-message {
+    text-align: center;
+    color: var(--md-secondary-text-color);
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Data Management */
+.data-management-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--md-divider-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.data-management-section h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--md-primary-color-dark);
+    margin: 0 0 0.5rem 0;
+}
+
+.data-management-section .md-button {
+    background-color: var(--md-secondary-text-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.data-management-section .md-button:hover {
+    background-color: #616161;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        padding: 10px;
+        margin: 10px auto;
+    }
+    .sidebar { width: 100%; }
+    .input-group { flex-wrap: wrap; }
+}
