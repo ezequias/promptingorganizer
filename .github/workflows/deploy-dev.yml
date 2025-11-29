@@ -1,0 +1,34 @@
+name: Deploy preview em /dev
+
+on:
+  push:
+    branches: [ orign-1.0-stable ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install + Build
+        run: |
+          npm ci
+          npm run build
+          echo "=== Conteúdo gerado pelo build ==="
+          ls -la ./dist || echo "Pasta ./dist não existe"
+          ls -la ./public || echo "Pasta ./public não existe"
+          ls -la ./build || echo "Pasta ./build não existe"
+
+      - name: Deploy para /dev
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          destination_dir: dev
+          keep_files: true
