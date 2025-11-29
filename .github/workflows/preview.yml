@@ -1,0 +1,41 @@
+name: Preview em subpasta
+
+on:
+  push:
+    branches:
+      - orign-1.0-stable          # produção na raiz (já acontece nativamente)
+      - feature/**                # todas as branches que começam com feature/
+      - fix/**                    # todas as branches que começam com fix/
+      - experiment/**             # ou qualquer outro padrão que você usar
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    # Não roda na orign-1.0-stable (raiz já é feita pelo GitHub nativo)
+    if: github.ref != 'refs/heads/orign-1.0-stable'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build                      # ajuste se for outro comando
+
+      - name: Deploy preview
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist                  # mude se seu build gera outra pasta
+          destination_dir: >-
+            ${{ (github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number))
+             || github.ref_name }}             # usa nome da branch ou número do PR
+          keep_files: true                     # nunca apaga a raiz nem outros previews
