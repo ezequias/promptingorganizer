@@ -1,7 +1,7 @@
 /* Color Palette */
 :root {
-    --md-primary-color: #3f51b5;        /* Indigo */
-    --md-primary-color-dark: #303f9f;
+    --md-primary-color: #979797;        /* Indigo */
+    --md-primary-color-dark: #4f4f50;
     --md-primary-color-light: #c5cae9;
     --md-accent-color: #ff4081;         /* Pink */
     --md-text-color: #212121;
@@ -65,7 +65,7 @@ main {
 }
 
 .card {
-    background-color: var(--md-surface-color);
+    /*background-color: var(--md-surface-color);*/
     padding: 20px;
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
@@ -216,7 +216,6 @@ select {
     gap: 20px;
     height: 100%;
 }
-
 /* Input section stays compact */
 .prompt-input-section.card {
     flex-shrink: 0;
@@ -271,7 +270,7 @@ select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--md-surface-color);
+    /*background-color: var(--md-surface-color); */
     padding: 8px 12px;
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
@@ -285,12 +284,6 @@ select {
     transform: translateY(-1px);
 }
 
-.prompt-card p {
-   Great question!
-Right now your prompts are shown in .prompt-card as single-line text with ellipsis (white-space: nowrap), but you want them to behave exactly like the textarea: multiline, wrap naturally, and show the full text (even long prompts).
-Here’s the simple and perfect fix — just replace or update these CSS rules in your style.css:
-Updated CSS (Replace the old .prompt-card p block)
-CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
 .prompt-card {
     display: flex;
     justify-content: space-between;
@@ -305,7 +298,7 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
 }
 
 .prompt-card:hover {
-    background-color: #fcfcfc;
+    background-color: white;
     transform: translateY(-1px);
 }
 
@@ -329,33 +322,37 @@ CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
 }
 
 .prompt-card .prompt-actions {
-   display: flex;
-    flex-direction: column;      /* Stack copy/delete vertically */
-    gap: 6px;
-    flex-shrink: 0;
-    padding-top: 6px;            /* Align with text top */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 8px;
 }
 
-.copy-prompt-btn{
-    width: 30px;
-    height: 30px;
-    font-size: 1.1rem;
-}
-.delete-prompt-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 1.1rem;
+.delete-prompt-btn,
+.copy-prompt-btn {
+   width: 44px !important;
+    height: 44px !important;
+    background: #f8f9fa !important;
+    border-radius: 12px !important;
+    border: none !important;
+    font-size: 20px !important;
+    color: #555 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    transition: all 0.25s ease !important;
+    padding: 0 !important;
 }
 
-.copy-prompt-btn:hover {
-    color: var(--md-primary-color);
-    background-color: rgba(63, 81, 181, 0.1);
-    
-}
+.copy-prompt-btn:hover   { background: #e8f5e9 !important; color: #2e7d32 !important; transform: scale(1.15) !important; }
+.delete-prompt-btn:hover { background: #ffebee !important; color: #c62828 !important; transform: scale(1.15) !important; }
 
-.delete-prompt-btn:hover {
-    color: var(--md-primary-color);
-    background-color: rgba(63, 81, 181, 0.1);
+/* This is the key line that fixes the invisible icons */
+.copy-prompt-btn i,
+.delete-prompt-btn i {
+    font-size: 22px !important;
+    pointer-events: none;
 }
 
 .no-prompts-message {
