@@ -270,7 +270,7 @@ select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /*background-color: var(--md-surface-color); */
+    background-color: transparent
     padding: 8px 12px;
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
