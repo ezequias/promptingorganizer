@@ -1,9 +1,11 @@
 /* Color Palette */
 :root {
-    --md-primary-color: #3f51b5;        /* Indigo */
+    --md-primary-color: #3f51b5;
+    /* Indigo */
     --md-primary-color-dark: #303f9f;
     --md-primary-color-light: #c5cae9;
-    --md-accent-color: #ff4081;         /* Pink */
+    --md-accent-color: #ff4081;
+    /* Pink */
     --md-text-color: #212121;
     --md-secondary-text-color: #757575;
     --md-divider-color: #bdbdbd;
@@ -51,8 +53,18 @@ header h1 {
     margin: 0;
 }
 
-h1 { font-weight: 500; font-size: 2.2rem; margin: 0; }
-h2 { font-weight: 400; font-size: 1.5rem; color: var(--md-primary-color-dark); margin: 0 0 1rem 0; }
+h1 {
+    font-weight: 500;
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: var(--md-primary-color-dark);
+    margin: 0 0 1rem 0;
+}
 
 main {
     display: flex;
@@ -72,7 +84,9 @@ main {
     transition: box-shadow 0.3s ease-in-out;
 }
 
-.card:hover { box-shadow: var(--md-shadow-2); }
+.card:hover {
+    box-shadow: var(--md-shadow-2);
+}
 
 /* Sidebar */
 .sidebar {
@@ -188,7 +202,9 @@ select {
     box-shadow: var(--md-shadow-1);
 }
 
-.md-button:hover { box-shadow: var(--md-shadow-2); }
+.md-button:hover {
+    box-shadow: var(--md-shadow-2);
+}
 
 #addCategoryBtn {
     background-color: var(--md-primary-color);
@@ -226,7 +242,8 @@ select {
 /* Display section takes all remaining space */
 .prompt-display-section.card {
     flex: 1 1 300px;
-    min-height: 0;                    /* Critical for flex + overflow */
+    min-height: 0;
+    /* Critical for flex + overflow */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -241,7 +258,8 @@ select {
 /* Scrollable prompt list */
 #promptDisplay {
     flex: 1;
-    min-height: 0;                    /* Critical! Allows scrolling */
+    min-height: 0;
+    /* Critical! Allows scrolling */
     overflow-y: auto;
     padding-right: 8px;
     margin: 0;
@@ -251,15 +269,18 @@ select {
 #promptDisplay::-webkit-scrollbar {
     width: 8px;
 }
+
 #promptDisplay::-webkit-scrollbar-track {
     background: transparent;
 }
+
 #promptDisplay::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 4px;
 }
+
 #promptDisplay::-webkit-scrollbar-thumb:hover {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Prompt Cards */
@@ -281,117 +302,132 @@ select {
 }
 
 .prompt-card p {
-   Great question!
-Right now your prompts are shown in .prompt-card as single-line text with ellipsis (white-space: nowrap), but you want them to behave exactly like the textarea: multiline, wrap naturally, and show the full text (even long prompts).
-Here’s the simple and perfect fix — just replace or update these CSS rules in your style.css:
-Updated CSS (Replace the old .prompt-card p block)
-CSS/* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
-.prompt-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;     /* Changed from "center" → allows text to start at top */
-    padding: 12px 14px;          /* Slightly more breathing room */
-    margin-bottom: 8px;
-    border-radius: 8px;
-    box-shadow: var(--md-shadow-1);
-    background-color: var(--md-surface-color);
-    transition: all 0.2s ease;
-    gap: 12px;                   /* Space between text and buttons */
-}
 
-.prompt-card:hover {
-    background-color: #fcfcfc;
-    transform: translateY(-1px);
-}
-
-/* This is the key part — makes text behave exactly like a textarea */
-.prompt-card p {
-    flex: 1;
-    margin: 0;
-    padding: 8px 12px;           /* Same padding as textarea */
-    background-color: #fafafa;   /* Very light gray background like a text field */
-    border: 1px solid #e0e0e0;   /* Subtle border */
-    border-radius: 6px;
-    min-height: 48px;            /* Minimum height so short prompts look nice */
-    line-height: 1.5;
-    word-wrap: break-word;       /* Ensures long words break */
-    white-space: pre-wrap;       /* Preserves line breaks and wraps text */
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    color: var(--md-text-color);
-    overflow: hidden;
-    resize: none;
-}
-
-.prompt-card .prompt-actions {
-   display: flex;
-    flex-direction: column;      /* Stack copy/delete vertically */
-    gap: 6px;
-    flex-shrink: 0;
-    padding-top: 6px;            /* Align with text top */
-}
-
-.copy-prompt-btn,
-.delete-prompt-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
-}
-
-.copy-prompt-btn:hover {
-    color: var(--md-primary-color);
-    background-color: rgba(63, 81, 181, 0.1);
-}
-
-.delete-prompt-btn:hover {
-    color: #f44336;
-    background-color: rgba(244, 67, 54, 0.1);
-}
-
-.no-prompts-message {
-    text-align: center;
-    color: var(--md-secondary-text-color);
-    font-style: italic;
-    padding: 20px;
-}
-
-/* Data Management */
-.data-management-section {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--md-divider-color);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.data-management-section h3 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--md-primary-color-dark);
-    margin: 0 0 0.5rem 0;
-}
-
-.data-management-section .md-button {
-    background-color: var(--md-secondary-text-color);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.data-management-section .md-button:hover {
-    background-color: #616161;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    main {
-        flex-direction: column;
-        padding: 10px;
-        margin: 10px auto;
+    /* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
+    .prompt-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        /* Changed from "center" → allows text to start at top */
+        padding: 12px 14px;
+        /* Slightly more breathing room */
+        margin-bottom: 8px;
+        border-radius: 8px;
+        box-shadow: var(--md-shadow-1);
+        background-color: var(--md-surface-color);
+        transition: all 0.2s ease;
+        gap: 12px;
+        /* Space between text and buttons */
     }
-    .sidebar { width: 100%; }
-    .input-group { flex-wrap: wrap; }
+
+    .prompt-card:hover {
+        background-color: #fcfcfc;
+        transform: translateY(-1px);
+    }
+
+    /* This is the key part — makes text behave exactly like a textarea */
+    .prompt-card p {
+        flex: 1;
+        margin: 0;
+        padding: 8px 12px;
+        /* Same padding as textarea */
+        background-color: #fafafa;
+        /* Very light gray background like a text field */
+        border: 1px solid #e0e0e0;
+        /* Subtle border */
+        border-radius: 6px;
+        min-height: 48px;
+        /* Minimum height so short prompts look nice */
+        line-height: 1.5;
+        word-wrap: break-word;
+        /* Ensures long words break */
+        white-space: pre-wrap;
+        /* Preserves line breaks and wraps text */
+        font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        color: var(--md-text-color);
+        overflow: hidden;
+        resize: none;
+    }
+
+    .prompt-card .prompt-actions {
+        display: flex;
+        flex-direction: column;
+        /* Stack copy/delete vertically */
+        gap: 6px;
+        flex-shrink: 0;
+        padding-top: 6px;
+        /* Align with text top */
+    }
+
+    .copy-prompt-btn,
+    .delete-prompt-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+
+    .copy-prompt-btn:hover {
+        color: var(--md-primary-color);
+        background-color: rgba(63, 81, 181, 0.1);
+    }
+
+    .delete-prompt-btn:hover {
+        color: #f44336;
+        background-color: rgba(244, 67, 54, 0.1);
+    }
+
+    .no-prompts-message {
+        text-align: center;
+        color: var(--md-secondary-text-color);
+        font-style: italic;
+        padding: 20px;
+    }
+
+    /* Data Management */
+    .data-management-section {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--md-divider-color);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .data-management-section h3 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--md-primary-color-dark);
+        margin: 0 0 0.5rem 0;
+    }
+
+    .data-management-section .md-button {
+        background-color: var(--md-secondary-text-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .data-management-section .md-button:hover {
+        background-color: #616161;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        main {
+            flex-direction: column;
+            padding: 10px;
+            margin: 10px auto;
+        }
+
+        .sidebar {
+            width: 100%;
+        }
+
+        .input-group {
+            flex-wrap: wrap;
+        }
+    }
 }
