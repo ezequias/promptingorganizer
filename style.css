@@ -1,11 +1,9 @@
 /* Color Palette */
 :root {
-    --md-primary-color: #3f51b5;
-    /* Indigo */
-    --md-primary-color-dark: #303f9f;
+    --md-primary-color: #979797;        /* Indigo */
+    --md-primary-color-dark: #4f4f50;
     --md-primary-color-light: #c5cae9;
-    --md-accent-color: #ff4081;
-    /* Pink */
+    --md-accent-color: #ff4081;         /* Pink */
     --md-text-color: #212121;
     --md-secondary-text-color: #757575;
     --md-divider-color: #bdbdbd;
@@ -29,8 +27,8 @@ body {
 }
 
 header {
-    background-color: var(--md-primary-color);
-    color: var(--md-surface-color);
+    background-color: var(--md-surface-color);
+    color: var(--md-secondary-text-color);
     padding: 1rem 20px;
     text-align: center;
     box-shadow: var(--md-shadow-1);
@@ -42,9 +40,8 @@ header {
 }
 
 .header-icon {
-    height: 36px;
+    height: 88px;
     width: auto;
-    filter: brightness(0) invert(1);
 }
 
 header h1 {
@@ -53,18 +50,97 @@ header h1 {
     margin: 0;
 }
 
-h1 {
-    font-weight: 500;
-    font-size: 2.2rem;
-    margin: 0;
+/* ===== HEADER COM TÍTULO + BADGES CENTRALIZADOS ===== */
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 8px;
+    padding: 16px 20px;
 }
 
-h2 {
-    font-weight: 400;
-    font-size: 1.5rem;
-    color: var(--md-primary-color-dark);
-    margin: 0 0 1rem 0;
+.title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
+
+header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+
+/* Badges centralizados e bonitos */
+.github-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1;
+    color: #333;
+    background: #ffffff;
+    border: 2px solid #cccccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    height: 36px;                 /* ← altura fixa para todos */
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.badge.version   { border-color: #aaaaaa; }
+.badge.license   { border-color: #81c784; }
+.badge.platform  { border-color: #9575cd; }
+.badge.love      { border-color: #e57373; }
+
+/* Em telas pequenas mantém bonito */
+@media (max-width: 600px) {
+    .header-content { padding: 12px 10px; }
+    header h1 { font-size: 1.9rem; }
+    .badge { font-size: 0.72rem; padding: 4px 9px; }
+}
+
+/* Badge do GitHub com borda cinza 80% */
+.badge.github {
+    background: #24292e;
+    color: white;
+    display: inline-flex;
+    align-items: center;          /* ← alinha verticalmente tudo */
+    justify-content: center;      /* ← centraliza horizontalmente */
+    gap: 6px;                     /* espaço entre ícone e texto */
+    text-decoration: none;
+    border: 2px solid #cccccc;    /* borda cinza 80% */
+    padding: 7px 14px !important; /* ← MESMO PADDING dos outros badges */
+    line-height: 1;               /* ← evita desalinhamento */
+    transition: all 0.2s ease;
+    height: 36px;                 /* ← altura fixa igual aos outros */
+    box-sizing: border-box;
+}
+
+.badge.github:hover {
+    background: #2ea44f;
+    border-color: #27a347;
+    transform: translateY(-1px);
+}
+
+/* FIM DOS BADGES CENTRALIZADOS */
+
+h1 { font-weight: 500; font-size: 2.2rem; margin: 0; }
+h2 { font-weight: 400; font-size: 1.5rem; color: var(--md-primary-color-dark); margin: 0 0 1rem 0; }
 
 main {
     display: flex;
@@ -77,16 +153,14 @@ main {
 }
 
 .card {
-    background-color: var(--md-surface-color);
+    /*background-color: var(--md-surface-color);*/
     padding: 20px;
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
     transition: box-shadow 0.3s ease-in-out;
 }
 
-.card:hover {
-    box-shadow: var(--md-shadow-2);
-}
+.card:hover { box-shadow: var(--md-shadow-2); }
 
 /* Sidebar */
 .sidebar {
@@ -110,11 +184,11 @@ main {
     cursor: pointer;
     border-bottom: 1px solid var(--md-divider-color);
     color: var(--md-secondary-text-color);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s 
 }
 
 #categoryList li.active {
-    background-color: var(--md-primary-color-light);
+    background-color: #bdbdbd80;
     color: var(--md-primary-color-dark);
     font-weight: 500;
 }
@@ -124,25 +198,29 @@ main {
 }
 
 .delete-category-btn {
-    background: transparent;
-    border: none;
-    color: var(--md-secondary-text-color);
+    background: transparent !important;
+    border: none !important;
+    color: #888 !important;
     cursor: pointer;
-    font-size: 1.2rem;
-    padding: 5px;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    margin-left: 10px;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
 }
 
 .delete-category-btn:hover {
-    background-color: #ffebee;
-    color: #f44336;
+    background: #ffebee !important;
+    color: #d32f2f !important;
+    transform: scale(1.1) !important;
+}
+
+.delete-category-btn svg {
+    width: 18px;
+    height: 18px;
 }
 
 .input-group {
@@ -202,9 +280,7 @@ select {
     box-shadow: var(--md-shadow-1);
 }
 
-.md-button:hover {
-    box-shadow: var(--md-shadow-2);
-}
+.md-button:hover { box-shadow: var(--md-shadow-2); }
 
 #addCategoryBtn {
     background-color: var(--md-primary-color);
@@ -232,7 +308,6 @@ select {
     gap: 20px;
     height: 100%;
 }
-
 /* Input section stays compact */
 .prompt-input-section.card {
     flex-shrink: 0;
@@ -241,13 +316,12 @@ select {
 
 /* Display section takes all remaining space */
 .prompt-display-section.card {
-    flex: 1 1 300px;
-    min-height: 0;
-    /* Critical for flex + overflow */
+   flex: 1 1 300px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     padding: 20px;
+    gap: 16px;
+    overflow: visible !important;     /* permite crescer */
 }
 
 .prompt-display-section h2 {
@@ -257,30 +331,30 @@ select {
 
 /* Scrollable prompt list */
 #promptDisplay {
-    flex: 1;
-    min-height: 0;
-    /* Critical! Allows scrolling */
-    overflow-y: auto;
-    padding-right: 8px;
+  /* display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 0;
     margin: 0;
+    overflow: visible !important;    
+    min-height: auto;*/
+    overflow: visible !important;
+    max-height: none !important;
 }
 
 /* Nice scrollbar (Chrome/Edge/Safari) */
 #promptDisplay::-webkit-scrollbar {
     width: 8px;
 }
-
 #promptDisplay::-webkit-scrollbar-track {
     background: transparent;
 }
-
 #promptDisplay::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0,0,0,0.3);
     border-radius: 4px;
 }
-
 #promptDisplay::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0,0,0,0.5);
 }
 
 /* Prompt Cards */
@@ -288,12 +362,13 @@ select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--md-surface-color);
+    /*background-color: var(--md-surface-color); */
     padding: 8px 12px;
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
     margin-bottom: 5px;
     transition: all 0.2s ease;
+    height: auto !important;
 }
 
 .prompt-card:hover {
@@ -301,133 +376,188 @@ select {
     transform: translateY(-1px);
 }
 
-.prompt-card p {
-
-    /* === MULTILINE PROMPT CARDS - LOOKS LIKE TEXTAREA === */
-    .prompt-card {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        /* Changed from "center" → allows text to start at top */
-        padding: 12px 14px;
-        /* Slightly more breathing room */
-        margin-bottom: 8px;
-        border-radius: 8px;
-        box-shadow: var(--md-shadow-1);
-        background-color: var(--md-surface-color);
-        transition: all 0.2s ease;
-        gap: 12px;
-        /* Space between text and buttons */
-    }
-
-    .prompt-card:hover {
-        background-color: #fcfcfc;
-        transform: translateY(-1px);
-    }
-
-    /* This is the key part — makes text behave exactly like a textarea */
-    .prompt-card p {
-        flex: 1;
-        margin: 0;
-        padding: 8px 12px;
-        /* Same padding as textarea */
-        background-color: #fafafa;
-        /* Very light gray background like a text field */
-        border: 1px solid #e0e0e0;
-        /* Subtle border */
-        border-radius: 6px;
-        min-height: 48px;
-        /* Minimum height so short prompts look nice */
-        line-height: 1.5;
-        word-wrap: break-word;
-        /* Ensures long words break */
-        white-space: pre-wrap;
-        /* Preserves line breaks and wraps text */
-        font-family: 'Roboto', sans-serif;
-        font-size: 1rem;
-        color: var(--md-text-color);
-        overflow: hidden;
-        resize: none;
-    }
-
-    .prompt-card .prompt-actions {
-        display: flex;
-        flex-direction: column;
-        /* Stack copy/delete vertically */
-        gap: 6px;
-        flex-shrink: 0;
-        padding-top: 6px;
-        /* Align with text top */
-    }
-
-    .copy-prompt-btn,
-    .delete-prompt-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
-    }
-
-    .copy-prompt-btn:hover {
-        color: var(--md-primary-color);
-        background-color: rgba(63, 81, 181, 0.1);
-    }
-
-    .delete-prompt-btn:hover {
-        color: #f44336;
-        background-color: rgba(244, 67, 54, 0.1);
-    }
-
-    .no-prompts-message {
-        text-align: center;
-        color: var(--md-secondary-text-color);
-        font-style: italic;
-        padding: 20px;
-    }
-
-    /* Data Management */
-    .data-management-section {
-        margin-top: 2rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid var(--md-divider-color);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .data-management-section h3 {
-        font-size: 1.2rem;
-        font-weight: 500;
-        color: var(--md-primary-color-dark);
-        margin: 0 0 0.5rem 0;
-    }
-
-    .data-management-section .md-button {
-        background-color: var(--md-secondary-text-color);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .data-management-section .md-button:hover {
-        background-color: #616161;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        main {
-            flex-direction: column;
-            padding: 10px;
-            margin: 10px auto;
-        }
-
-        .sidebar {
-            width: 100%;
-        }
-
-        .input-group {
-            flex-wrap: wrap;
-        }
-    }
+.prompt-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;     /* Changed from "center" → allows text to start at top */
+    padding: 12px 14px;          /* Slightly more breathing room */
+    margin-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1);
+    background-color: var(--md-surface-color);
+    transition: all 0.2s ease;
+    gap: 12px;                   /* Space between text and buttons */
 }
+
+.prompt-card:hover {
+    background-color: white;
+    transform: translateY(-1px);
+}
+
+/* This is the key part — makes text behave exactly like a textarea */
+.prompt-card p {
+    flex: 1;
+    margin: 0;
+    padding: 8px 12px;           /* Same padding as textarea */
+    background-color: #fafafa;   /* Very light gray background like a text field */
+    border: 1px solid #e0e0e0;   /* Subtle border */
+    border-radius: 6px;
+    min-height: 48px;            /* Minimum height so short prompts look nice */
+    line-height: 1.5;
+    word-wrap: break-word;       /* Ensures long words break */
+    white-space: pre-wrap;       /* Preserves line breaks and wraps text */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: var(--md-text-color);
+    overflow: hidden;
+    resize: none;
+    line-height: 1.6;
+}
+
+.placeholder-highlight {
+    background: linear-gradient(180deg, rgba(255,244,100,0.4) 0%, rgba(255,230,0,0.25) 100%);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: #b85c00;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: inline;
+}
+.prompt-card .prompt-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 8px;
+}
+
+.delete-prompt-btn,
+.copy-prompt-btn {
+   width: 44px !important;
+    height: 44px !important;
+    background: #f8f9fa !important;
+    border-radius: 12px !important;
+    border: none !important;
+    font-size: 20px !important;
+    color: #555 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    transition: all 0.25s ease !important;
+    padding: 0 !important;
+}
+
+.copy-prompt-btn:hover   { background: #e8f5e9 !important; color: #2e7d32 !important; transform: scale(1.15) !important; }
+.delete-prompt-btn:hover { background: #ffebee !important; color: #c62828 !important; transform: scale(1.15) !important; }
+
+/* This is the key line that fixes the invisible icons */
+.copy-prompt-btn i,
+.delete-prompt-btn i {
+    font-size: 22px !important;
+    pointer-events: none;
+}
+
+.no-prompts-message {
+    text-align: center;
+    color: var(--md-secondary-text-color);
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Data Management */
+.data-management-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--md-divider-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.data-management-section h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--md-primary-color-dark);
+    margin: 0 0 0.5rem 0;
+}
+
+.data-management-section .md-button {
+    background-color: var(--md-secondary-text-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.data-management-section .md-button:hover {
+    background-color: #616161;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        padding: 10px;
+        margin: 10px auto;
+    }
+    .sidebar { width: 100%; }
+    .input-group { flex-wrap: wrap; }
+}
+
+/* Drag & Drop para categorias */
+#categoryList li.dragging {
+    opacity: 0.5;
+    background: #e0e0e0;
+    transform: rotate(4deg);
+}
+
+#categoryList li.drag-over {
+    border-top: 3px solid var(--md-accent-color);
+    margin-top: 8px;
+}
+
+/* Suaviza a transição quando soltar */
+#categoryList {
+    transition: all 0.2s ease;
+}
+/* Fim Drag & Drop para categorias */
+
+/* Drag-handle style */
+.drag-handle {
+    width: 20px;
+    height: 32px;
+    cursor: grab;
+    flex-shrink: 0;
+    margin-right: 10px;
+    opacity: 0.5;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    position: relative;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+    opacity: 0.8;
+}
+
+/* Os 8 pontinhos feitos com pseudo-elementos */
+.drag-handle::before,
+.drag-handle::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #979797;
+    border-radius: 50%;
+    box-shadow: 
+        0 8px 0 #979797,
+        0 16px 0 #979797,
+        0 24px 0 #979797;
+}
+
+.drag-handle::before  { left: 4px; }
+.drag-handle::after   { right: 4px; }
+/* Fim Drag-handle style */
+
