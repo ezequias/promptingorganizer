@@ -222,64 +222,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function renderPrompts() {
-        promptDisplay.innerHTML = '';
-        if (!activeCategory || categories.length === 0) {
-            promptDisplay.innerHTML = '<p class="no-prompts-message">Please select or add a category to view prompts.</p>';
-            return;
-        }
+    promptDisplay.innerHTML = '';
 
-        const filteredPrompts = prompts.filter(p => p.category === activeCategory);
-
-        if (filteredPrompts.length === 0) {
-            promptDisplay.innerHTML = `<p class="no-prompts-message">No prompts in "${activeCategory}" yet. Add one!</p>`;
-            return;
-        }
-
-        filteredPrompts.forEach(prompt => {
-            const promptCard = document.createElement('div');
-            promptCard.classList.add('prompt-card');
-            promptCard.innerHTML = `
-                <p>${prompt.text}</p>
-                <div class="prompt-actions">
-                    <button class="copy-prompt-btn" data-text="${prompt.text}" title="Copy Prompt">
-                        <svg aria-hidden="true" focusable="false" class="octicon octicon-copy" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path></svg>
-                    </button>
-                    <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete Prompt">
-                        <svg aria-hidden="true" focusable="false" class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
-                    </button>
-                </div>
-`;
-            promptDisplay.appendChild(promptCard);
-        });
-        document.querySelectorAll('.copy-prompt-btn').forEach(button => {
-            button.addEventListener('click', async (e) => {
-                const targetButton = e.target.closest('.copy-prompt-btn');
-                if (targetButton) {
-                    const promptTextToCopy = targetButton.dataset.text;
-                    try {
-                        await navigator.clipboard.writeText(promptTextToCopy);
-                        showToast('Prompt copied to clipboard!', 'success');
-                    } catch (err) {
-                        console.error('Failed to copy prompt:', err);
-                        showToast('Failed to copy prompt. Please copy manually.', 'error');
-                    }
-                }
-            });
-        });
-
-
-        document.querySelectorAll('.delete-prompt-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const targetButton = e.target.closest('.delete-prompt-btn');
-                if (targetButton) {
-                    const promptIdToDelete = parseInt(targetButton.dataset.id);
-                    prompts = prompts.filter(p => p.id !== promptIdToDelete);
-                    savePrompts();
-                    renderPrompts();
-                }
-            });
-        });
+    if (!activeCategory) {
+        promptDisplay.innerHTML = '<p class="no-prompts-message">Selecione ou crie uma categoria para ver os prompts.</p>';
+        return;
     }
+
+    const categoryPrompts = prompts.filter(p => p.category === activeCategory);
+
+    if (categoryPrompts.length === 0) {
+        promptDisplay.innerHTML = '<p class="no-prompts-message">Nenhum prompt nesta categoria ainda. Adicione o primeiro!</p>';
+        return;
+    }
+
+    categoryPrompts.forEach(prompt => {
+        const promptCard = document.createElement('div');
+        promptCard.className = 'prompt-card';
+
+        // === AQUI É A MÁGICA: transforma [texto] em destaque ===
+        let textWithHighlights = prompt.text
+            .replace(/\[/g, '<span class="placeholder-highlight">[')
+            .replace(/\]/g, ']</span>');
+
+        promptCard.innerHTML = `
+            <p>${textWithHighlights}</p>
+            <div class="prompt-actions">
+                <button class="copy-prompt-btn" data-text="${prompt.text.replace(/"/g, '&quot;')}" title="Copiar Prompt">
+                    <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5.25 1.75C5.25.784 6.034 0 7 0h7.25C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11H7c-.966 0-1.75-.784-1.75-1.75v-7.5Z"></path></svg>
+                </button>
+                <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete Prompt">
+                    <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
+                </button>
+            </div>
+        `;
+
+        promptDisplay.appendChild(promptCard);
+    });
+
+    // Re-ativa os botões de copiar/excluir (igual antes)
+    document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            const text = btn.dataset.text;
+            await navigator.clipboard.writeText(text);
+            showToast('Prompt copiado!', 'success');
+        });
+    });
+
+    document.querySelectorAll('.delete-prompt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.dataset.id);
+            prompts = prompts.filter(p => p.id !== id);
+            savePrompts();
+            renderPrompts();
+        });
+    });
+}
 
     addCategoryBtn.addEventListener('click', () => {
         const newCategory = newCategoryInput.value.trim();
