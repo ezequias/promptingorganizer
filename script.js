@@ -42,20 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryList.innerHTML = '<p class="no-prompts-message">No categories yet. Add one!</p>';
             promptCategorySelect.innerHTML = '<option value="">No Categories Available</option>';
             activeCategory = null;
-            renderPrompts();
-            return;
+            promptDisplay.innerHTML = '<p class="no-prompts-message">Please select or add a category to view prompts.</p>';
+            console.log("renderCategories() terminou (sem categorias)");
+            return; // ← sai aqui, mas o log já apareceu
         }
 
         categories.forEach(category => {
             const li = document.createElement('li');
             li.dataset.category = category;
 
+            const handle = document.createElement('span');
+            handle.className = 'drag-handle';
+            li.appendChild(handle);
+
             const categoryNameSpan = document.createElement('span');
             categoryNameSpan.textContent = category;
             categoryNameSpan.classList.add('category-name');
             categoryNameSpan.style.flexGrow = '1';
 
-            let clickTimeout = null;
+            // (o código de click/double-click continua igual — não mexer)
 
             categoryNameSpan.addEventListener('click', (e) => {
                 if (e.detail === 1) {
@@ -63,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (activeCategory !== category) {
                             activeCategory = category;
                             renderCategories();
-                            renderPrompts();
                         }
                     }, 200);
                 }
@@ -79,7 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const deleteBtn = document.createElement('button');
             deleteBtn.classList.add('delete-category-btn');
-            deleteBtn.innerHTML = '<i class="material-icons">delete</i>';
+
+            deleteBtn.innerHTML = `
+            <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="vertical-align: text-bottom;">
+            <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
+            </svg>`;
+
             deleteBtn.title = `Delete "${category}" category`;
             deleteBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -92,27 +101,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             categoryList.appendChild(li);
 
-            // Update category options for prompt input
             const option = document.createElement('option');
             option.value = category;
             option.textContent = category;
             promptCategorySelect.appendChild(option);
         });
 
-        // After rendering all categories, set the promptCategorySelect value
-        // to the active category if it still exists, or default to the first
+        // Corrige a seleção do <select> e categoria ativa
         if (activeCategory && categories.includes(activeCategory)) {
             promptCategorySelect.value = activeCategory;
         } else if (categories.length > 0) {
             activeCategory = categories[0];
             promptCategorySelect.value = activeCategory;
-            //renderCategories(); // Re-render to show correct active category
-        } else {
-            activeCategory = null;
         }
 
         renderPrompts();
-        console.log("renderCategories() terminou");
+        makeCategoriesDraggable();           // ← AGORA SEMPRE É CHAMADO!
+        console.log("renderCategories() terminou");  // ← sempre aparece
     }
 
     function enterEditMode(categoryListItem, oldCategoryName) {
@@ -421,4 +426,74 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPrompts,
         reload: () => renderCategories()
     };
+
+    
+    // ==================== DRAG & DROP PARA REORDENAR CATEGORIAS ====================
+let draggedItem = null;
+
+function makeCategoriesDraggable() {
+    const items = document.querySelectorAll('#categoryList li');
+
+    items.forEach(item => {
+        item.setAttribute('draggable', true);
+
+        item.addEventListener('dragstart', (e) => {
+            draggedItem = item;
+            setTimeout(() => {
+                item.classList.add('dragging');
+            }, 0);
+        });
+
+        item.addEventListener('dragend', (e) => {
+            setTimeout(() => {
+                draggedItem.classList.remove('dragging');
+                draggedItem = null;
+                saveCategoryOrder();        // ← salva a nova ordem
+            }, 0);
+        });
+
+        item.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            item.classList.add('drag-over');
+        });
+
+        item.addEventListener('dragleave', (e) => {
+            item.classList.remove('drag-over');
+        });
+
+        item.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (draggedItem && draggedItem !== item) {
+                const allItems = [...document.querySelectorAll('#categoryList li')];
+                const fromIndex = allItems.indexOf(draggedItem);
+                const toIndex = allItems.indexOf(item);
+
+                // Reordena o array de categorias
+                const [movedCategory] = categories.splice(fromIndex, 1);
+                categories.splice(toIndex, 0, movedCategory);
+
+                // Atualiza a categoria ativa se necessário
+                if (activeCategory === draggedItem.dataset.category) {
+                    activeCategory = movedCategory;
+                }
+
+                renderCategories();   // recarrega a lista na nova ordem
+            }
+            item.classList.remove('drag-over');
+        });
+    });
+}
+
+// Função para salvar a ordem atualizada
+function saveCategoryOrder() {
+    saveCategories();           // já salva no localStorage
+    console.log('Ordem das categorias salva:', categories);
+}
+
+// Chame isso toda vez que renderizar as categorias
+// Substitua a linha final do renderCategories() que tem apenas "renderPrompts();"
+// por estas duas linhas:
+
+// renderPrompts();
+// makeCategoriesDraggable();   ← ATIVE O DRAG & DROP
 });
