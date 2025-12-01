@@ -40,9 +40,8 @@ header {
 }
 
 .header-icon {
-    height: 36px;
+    height: 88px;
     width: auto;
-    filter: brightness(0) invert(1);
 }
 
 header h1 {
@@ -96,11 +95,11 @@ main {
     cursor: pointer;
     border-bottom: 1px solid var(--md-divider-color);
     color: var(--md-secondary-text-color);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s 
 }
 
 #categoryList li.active {
-    background-color: var(--md-primary-color-light);
+    background-color: #bdbdbd80;
     color: var(--md-primary-color-dark);
     font-weight: 500;
 }
@@ -110,25 +109,29 @@ main {
 }
 
 .delete-category-btn {
-    background: transparent;
-    border: none;
-    color: var(--md-secondary-text-color);
+    background: transparent !important;
+    border: none !important;
+    color: #888 !important;
     cursor: pointer;
-    font-size: 1.2rem;
-    padding: 5px;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    margin-left: 10px;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
 }
 
 .delete-category-btn:hover {
-    background-color: #ffebee;
-    color: #f44336;
+    background: #ffebee !important;
+    color: #d32f2f !important;
+    transform: scale(1.1) !important;
+}
+
+.delete-category-btn svg {
+    width: 18px;
+    height: 18px;
 }
 
 .input-group {
@@ -402,3 +405,59 @@ select {
     .sidebar { width: 100%; }
     .input-group { flex-wrap: wrap; }
 }
+
+/* Drag & Drop para categorias */
+#categoryList li.dragging {
+    opacity: 0.5;
+    background: #e0e0e0;
+    transform: rotate(4deg);
+}
+
+#categoryList li.drag-over {
+    border-top: 3px solid var(--md-accent-color);
+    margin-top: 8px;
+}
+
+/* Suaviza a transição quando soltar */
+#categoryList {
+    transition: all 0.2s ease;
+}
+/* Fim Drag & Drop para categorias */
+
+/* Drag-handle style */
+.drag-handle {
+    width: 20px;
+    height: 32px;
+    cursor: grab;
+    flex-shrink: 0;
+    margin-right: 10px;
+    opacity: 0.5;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    position: relative;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+    opacity: 0.8;
+}
+
+/* Os 8 pontinhos feitos com pseudo-elementos */
+.drag-handle::before,
+.drag-handle::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #979797;
+    border-radius: 50%;
+    box-shadow: 
+        0 8px 0 #979797,
+        0 16px 0 #979797,
+        0 24px 0 #979797;
+}
+
+.drag-handle::before  { left: 4px; }
+.drag-handle::after   { right: 4px; }
+/* Fim Drag-handle style */
