@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <title>Prompt Organizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body style="background-image: url('assets/img/backgrd.png'); 
+             background-size: cover;
+             background-position: center;
+             background-repeat: no-repeat;
+             background-attachment: fixed;
+             height: 100vh;
+             margin: 0;">
+    
+    <header>
+    <div class="header-content">
+        <img src="./assets/img/new-logo.svg" alt="Prompt Icon" class="header-icon">
+        <div class="title-wrapper">
+            <h1>My Prompt Organizer</h1>
+            <div class="github-badges">
+                <span class="badge version">v1.5.0</span>
+                <span class="badge license">MIT License</span>
+                <span class="badge platform">Web • Offline</span>
+                <span class="badge love">Made with ❤️</span>
+
+                <!-- Badge do GitHub clicável -->
+                <a href="https://github.com/ezequias/promptingorganizer" target="_blank" class="badge github" title="Ver projeto no GitHub">
+                    <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor" style="margin-right:6px;">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+    <main>
+        <aside class="sidebar card">
+            <h2>Categories</h2>
+            <ul id="categoryList">
+                </ul>
+            <div class="input-group">
+                <input type="text" id="newCategoryInput" placeholder="New Category">
+                <button id="addCategoryBtn" class="md-button">Add Category</button>
+            </div>
+            <div class="data-management-section">
+                <h3>Data Management</h3>
+                <button id="downloadDataBtn" class="md-button"><i class="material-icons">download</i> Download</button>
+                <input type="file" id="uploadFileInput" accept=".json" style="display: none;">
+                <button id="uploadDataBtn" class="md-button"><i class="material-icons">upload</i> Upload</button>
+            </div>
+        </aside>
+        <section class="prompt-area">
+            <div class="prompt-input-section card">
+                <h2>Add New Prompt</h2>
+                <textarea id="newPromptText" placeholder="Enter your prompt here..."></textarea>
+                <select id="promptCategorySelect">
+                    </select>
+                <button id="addPromptBtn" class="md-button md-button-primary">Add Prompt</button>
+            </div>
+
+            <div class="prompt-display-section card">
+                <h2>Prompts</h2>
+                <div id="promptDisplay">
+                    <p class="no-prompts-message">Select a category or add new prompts.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
