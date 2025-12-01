@@ -50,6 +50,63 @@ header h1 {
     margin: 0;
 }
 
+/* ===== HEADER COM TÍTULO + BADGES CENTRALIZADOS ===== */
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 8px;
+    padding: 16px 20px;
+}
+
+.title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+
+/* Badges centralizados e bonitos */
+.github-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.badge {
+    color: #333;
+    background: #f0f0f0;
+    border: 1px solid #d0d0d0;
+    text-shadow: none;
+    font-weight: 400;
+    font-size: small;
+
+    padding: 3px 10px;           /* um pouco maior */
+    border: 2px solid transparent;   /* base */
+    background-clip: padding-box;     /* evita corte no fundo */
+}
+.badge.version   { border-color: #aaaaaa; }
+.badge.license   { border-color: #81c784; }
+.badge.platform  { border-color: #9575cd; }
+.badge.love      { border-color: #e57373; }
+
+/* Em telas pequenas mantém bonito */
+@media (max-width: 600px) {
+    .header-content { padding: 12px 10px; }
+    header h1 { font-size: 1.9rem; }
+    .badge { font-size: 0.72rem; padding: 4px 9px; }
+}
+
 h1 { font-weight: 500; font-size: 2.2rem; margin: 0; }
 h2 { font-weight: 400; font-size: 1.5rem; color: var(--md-primary-color-dark); margin: 0 0 1rem 0; }
 
@@ -322,8 +379,18 @@ select {
     color: var(--md-text-color);
     overflow: hidden;
     resize: none;
+    line-height: 1.6;
 }
 
+.placeholder-highlight {
+    background: linear-gradient(180deg, rgba(255,244,100,0.4) 0%, rgba(255,230,0,0.25) 100%);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: #b85c00;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: inline;
+}
 .prompt-card .prompt-actions {
     display: flex;
     flex-direction: column;
@@ -461,3 +528,4 @@ select {
 .drag-handle::before  { left: 4px; }
 .drag-handle::after   { right: 4px; }
 /* Fim Drag-handle style */
+
