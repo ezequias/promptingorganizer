@@ -60,6 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryNameSpan.classList.add('category-name');
             categoryNameSpan.style.flexGrow = '1';
 
+            // Contador de prompts na categoria
+            const promptCount = prompts.filter(p => p.category === category).length;
+
+            const countSpan = document.createElement('span');
+            countSpan.className = 'prompt-count';
+            countSpan.innerHTML = `${promptCount}`;
+            categoryNameSpan.appendChild(countSpan);
+
             // (o código de click/double-click continua igual — não mexer)
 
             categoryNameSpan.addEventListener('click', (e) => {

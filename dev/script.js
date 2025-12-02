@@ -7,6 +7,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const addPromptBtn = document.getElementById('addPromptBtn');
     const promptDisplay = document.getElementById('promptDisplay');
 
+    // Ajusta altura automaticamente + respeita limite
+    // document.getElementById('newPromptText').addEventListener('input', function () {
+    //     this.style.height = 'auto';
+    //     const maxHeight = 400;
+    //     const newHeight = Math.min(this.scrollHeight, maxHeight);
+    //     this.style.height = newHeight + 'px';
+    // });
+
+    // ====== TEXTAREA: AJUSTE AUTOMÁTICO + REDIMENSIONAMENTO COM MOUSE ======
+    //const textarea = document.getElementById('newPromptText');
+
+    textarea.addEventListener('input', function () {
+        this.style.height = 'auto';
+        const maxHeight = 400;
+        const newHeight = Math.min(this.scrollHeight, maxHeight);
+        this.style.height = newHeight + 'px';
+    });
+
+    // Garante que o resize funcione mesmo se o CSS for sobrescrito
+    textarea.style.resize = 'vertical';
+    textarea.style.maxHeight = '400px';
+
     // NEW: Data Management Buttons - Get references to the new elements
     const downloadDataBtn = document.getElementById('downloadDataBtn');
     const uploadFileInput = document.getElementById('uploadFileInput'); // The hidden file input
@@ -24,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showToast(message, type = 'info') {
         console.log(`[TOAST ${type.toUpperCase()}] ${message}`);
     }
-    
+
     function saveCategories() {
         localStorage.setItem('promptCategories', JSON.stringify(categories));
     }
@@ -230,30 +252,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function renderPrompts() {
-    promptDisplay.innerHTML = '';
+        promptDisplay.innerHTML = '';
 
-    if (!activeCategory) {
-        promptDisplay.innerHTML = '<p class="no-prompts-message">Selecione ou crie uma categoria para ver os prompts.</p>';
-        return;
-    }
+        if (!activeCategory) {
+            promptDisplay.innerHTML = '<p class="no-prompts-message">Selecione ou crie uma categoria para ver os prompts.</p>';
+            return;
+        }
 
-    const categoryPrompts = prompts.filter(p => p.category === activeCategory);
+        const categoryPrompts = prompts.filter(p => p.category === activeCategory);
 
-    if (categoryPrompts.length === 0) {
-        promptDisplay.innerHTML = '<p class="no-prompts-message">Nenhum prompt nesta categoria ainda. Adicione o primeiro!</p>';
-        return;
-    }
+        if (categoryPrompts.length === 0) {
+            promptDisplay.innerHTML = '<p class="no-prompts-message">Nenhum prompt nesta categoria ainda. Adicione o primeiro!</p>';
+            return;
+        }
 
-    categoryPrompts.forEach(prompt => {
-        const promptCard = document.createElement('div');
-        promptCard.className = 'prompt-card';
+        categoryPrompts.forEach(prompt => {
+            const promptCard = document.createElement('div');
+            promptCard.className = 'prompt-card';
 
-        // === AQUI É A MÁGICA: transforma [texto] em destaque ===
-        let textWithHighlights = prompt.text
-            .replace(/\[/g, '<span class="placeholder-highlight">[')
-            .replace(/\]/g, ']</span>');
+            // === AQUI É A MÁGICA: transforma [texto] em destaque ===
+            let textWithHighlights = prompt.text
+                .replace(/\[/g, '<span class="placeholder-highlight">[')
+                .replace(/\]/g, ']</span>');
 
-        promptCard.innerHTML = `
+            promptCard.innerHTML = `
             <p>${textWithHighlights}</p>
             <div class="prompt-actions">
                 <button class="copy-prompt-btn" data-text="${prompt.text.replace(/"/g, '&quot;')}" title="Copiar Prompt">
@@ -265,27 +287,27 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        promptDisplay.appendChild(promptCard);
-    });
-
-    // Re-ativa os botões de copiar/excluir (igual antes)
-    document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-            const text = btn.dataset.text;
-            await navigator.clipboard.writeText(text);
-            showToast('Prompt copiado!', 'success');
+            promptDisplay.appendChild(promptCard);
         });
-    });
 
-    document.querySelectorAll('.delete-prompt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const id = parseInt(btn.dataset.id);
-            prompts = prompts.filter(p => p.id !== id);
-            savePrompts();
-            renderPrompts();
+        // Re-ativa os botões de copiar/excluir (igual antes)
+        document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const text = btn.dataset.text;
+                await navigator.clipboard.writeText(text);
+                showToast('Prompt copiado!', 'success');
+            });
         });
-    });
-}
+
+        document.querySelectorAll('.delete-prompt-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = parseInt(btn.dataset.id);
+                prompts = prompts.filter(p => p.id !== id);
+                savePrompts();
+                renderPrompts();
+            });
+        });
+    }
 
     addCategoryBtn.addEventListener('click', () => {
         const newCategory = newCategoryInput.value.trim();
@@ -414,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Iniciando aplicação...');
         renderCategories();
     }
-    
+
     // Make sure initApp is called at the very end
     console.log('initApp vai executar');
     initApp();
@@ -433,73 +455,112 @@ document.addEventListener('DOMContentLoaded', () => {
         reload: () => renderCategories()
     };
 
-    
+
     // ==================== DRAG & DROP PARA REORDENAR CATEGORIAS ====================
-let draggedItem = null;
+    let draggedItem = null;
 
-function makeCategoriesDraggable() {
-    const items = document.querySelectorAll('#categoryList li');
+    function makeCategoriesDraggable() {
+        const items = document.querySelectorAll('#categoryList li');
 
-    items.forEach(item => {
-        item.setAttribute('draggable', true);
+        items.forEach(item => {
+            item.setAttribute('draggable', true);
 
-        item.addEventListener('dragstart', (e) => {
-            draggedItem = item;
-            setTimeout(() => {
-                item.classList.add('dragging');
-            }, 0);
-        });
+            item.addEventListener('dragstart', (e) => {
+                draggedItem = item;
+                setTimeout(() => {
+                    item.classList.add('dragging');
+                }, 0);
+            });
 
-        item.addEventListener('dragend', (e) => {
-            setTimeout(() => {
-                draggedItem.classList.remove('dragging');
-                draggedItem = null;
-                saveCategoryOrder();        // ← salva a nova ordem
-            }, 0);
-        });
+            item.addEventListener('dragend', (e) => {
+                setTimeout(() => {
+                    draggedItem.classList.remove('dragging');
+                    draggedItem = null;
+                    saveCategoryOrder();        // ← salva a nova ordem
+                }, 0);
+            });
 
-        item.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            item.classList.add('drag-over');
-        });
+            item.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                item.classList.add('drag-over');
+            });
 
-        item.addEventListener('dragleave', (e) => {
-            item.classList.remove('drag-over');
-        });
+            item.addEventListener('dragleave', (e) => {
+                item.classList.remove('drag-over');
+            });
 
-        item.addEventListener('drop', (e) => {
-            e.preventDefault();
-            if (draggedItem && draggedItem !== item) {
-                const allItems = [...document.querySelectorAll('#categoryList li')];
-                const fromIndex = allItems.indexOf(draggedItem);
-                const toIndex = allItems.indexOf(item);
+            item.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (draggedItem && draggedItem !== item) {
+                    const allItems = [...document.querySelectorAll('#categoryList li')];
+                    const fromIndex = allItems.indexOf(draggedItem);
+                    const toIndex = allItems.indexOf(item);
 
-                // Reordena o array de categorias
-                const [movedCategory] = categories.splice(fromIndex, 1);
-                categories.splice(toIndex, 0, movedCategory);
+                    // Reordena o array de categorias
+                    const [movedCategory] = categories.splice(fromIndex, 1);
+                    categories.splice(toIndex, 0, movedCategory);
 
-                // Atualiza a categoria ativa se necessário
-                if (activeCategory === draggedItem.dataset.category) {
-                    activeCategory = movedCategory;
+                    // Atualiza a categoria ativa se necessário
+                    if (activeCategory === draggedItem.dataset.category) {
+                        activeCategory = movedCategory;
+                    }
+
+                    renderCategories();   // recarrega a lista na nova ordem
                 }
-
-                renderCategories();   // recarrega a lista na nova ordem
-            }
-            item.classList.remove('drag-over');
+                item.classList.remove('drag-over');
+            });
         });
-    });
-}
+    }
 
-// Função para salvar a ordem atualizada
-function saveCategoryOrder() {
-    saveCategories();           // já salva no localStorage
-    console.log('Ordem das categorias salva:', categories);
-}
+    // Função para salvar a ordem atualizada
+    function saveCategoryOrder() {
+        saveCategories();           // já salva no localStorage
+        console.log('Ordem das categorias salva:', categories);
+    }
 
-// Chame isso toda vez que renderizar as categorias
-// Substitua a linha final do renderCategories() que tem apenas "renderPrompts();"
-// por estas duas linhas:
+    // newPromptText.addEventListener('input', function () {
+    //     this.style.height = 'auto';
+    //     this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+    // });
 
-// renderPrompts();
-// makeCategoriesDraggable();   ← ATIVE O DRAG & DROP
 });
+
+// ====== TEXTAREA: REDIMENSIONAMENTO 100% FUNCIONAL ======
+const textarea = document.getElementById('newPromptText');
+const wrapper = textarea.parentElement;
+let isResizing = false;
+let startY, startHeight;
+
+function resizeTextarea() {
+    textarea.style.height = 'auto';
+    const maxHeight = 400;
+    const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+    textarea.style.height = newHeight + 'px';
+}
+
+// Ajuste automático
+textarea.addEventListener('input', resizeTextarea);
+
+// Redimensionamento com mouse
+const handle = wrapper.querySelector('.resize-handle');
+
+handle.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    startY = e.clientY;
+    startHeight = textarea.offsetHeight;
+    e.preventDefault();
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+    const diff = e.clientY - startY;
+    const newHeight = Math.max(80, Math.min(startHeight + diff, 400));
+    textarea.style.height = newHeight + 'px';
+});
+
+document.addEventListener('mouseup', () => {
+    isResizing = false;
+});
+
+// Inicializa
+setTimeout(resizeTextarea, 100);
