@@ -55,100 +55,76 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('userPrompts', JSON.stringify(prompts));
     }
 
-    function renderCategories() {
-        console.log("renderCategories() começou");
-        categoryList.innerHTML = '';
-        promptCategorySelect.innerHTML = '';
+    categories.forEach(category => {
+        const li = document.createElement('li');
+        li.dataset.category = category;
 
-        if (categories.length === 0) {
-            categoryList.innerHTML = '<p class="no-prompts-message">No categories yet. Add one!</p>';
-            promptCategorySelect.innerHTML = '<option value="">No Categories Available</option>';
-            activeCategory = null;
-            promptDisplay.innerHTML = '<p class="no-prompts-message">Please select or add a category to view prompts.</p>';
-            console.log("renderCategories() terminou (sem categorias)");
-            return; // ← sai aqui, mas o log já apareceu
+        const handle = document.createElement('span');
+        handle.className = 'drag-handle';
+        li.appendChild(handle);
+
+        const categoryNameSpan = document.createElement('span');
+        categoryNameSpan.textContent = category;
+        categoryNameSpan.classList.add('category-name');
+        categoryNameSpan.style.flexGrow = '1';
+
+        // Contador de prompts na categoria
+        const promptCount = prompts.filter(p => p.category === category).length;
+
+        const countSpan = document.createElement('span');
+        countSpan.className = 'prompt-count';
+        countSpan.innerHTML = `${promptCount}`;
+        categoryNameSpan.appendChild(countSpan);
+
+        // ADICIONA CLASSE SE TEM PROMPTS
+        if (promptCount > 0) {
+            li.classList.add('has-prompts');
         }
 
-        categories.forEach(category => {
-            const li = document.createElement('li');
-            li.dataset.category = category;
+        // (o código de click/double-click continua igual — não mexer)
 
-            const handle = document.createElement('span');
-            handle.className = 'drag-handle';
-            li.appendChild(handle);
-
-            const categoryNameSpan = document.createElement('span');
-            categoryNameSpan.textContent = category;
-            categoryNameSpan.classList.add('category-name');
-            categoryNameSpan.style.flexGrow = '1';
-
-            // Contador de prompts na categoria
-            const promptCount = prompts.filter(p => p.category === category).length;
-
-            const countSpan = document.createElement('span');
-            countSpan.className = 'prompt-count';
-            countSpan.innerHTML = `${promptCount}`;
-            categoryNameSpan.appendChild(countSpan);
-
-            // (o código de click/double-click continua igual — não mexer)
-
-            categoryNameSpan.addEventListener('click', (e) => {
-                if (e.detail === 1) {
-                    clickTimeout = setTimeout(() => {
-                        if (activeCategory !== category) {
-                            activeCategory = category;
-                            renderCategories();
-                        }
-                    }, 200);
-                }
-            });
-
-            categoryNameSpan.addEventListener('dblclick', (e) => {
-                clearTimeout(clickTimeout);
-                e.stopPropagation();
-                enterEditMode(li, category);
-            });
-
-            li.appendChild(categoryNameSpan);
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.classList.add('delete-category-btn');
-
-            deleteBtn.innerHTML = `
-            <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="vertical-align: text-bottom;">
-            <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
-            </svg>`;
-
-            deleteBtn.title = `Delete "${category}" category`;
-            deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                deleteCategory(category);
-            });
-            li.appendChild(deleteBtn);
-
-            if (category === activeCategory) {
-                li.classList.add('active');
+        categoryNameSpan.addEventListener('click', (e) => {
+            if (e.detail === 1) {
+                clickTimeout = setTimeout(() => {
+                    if (activeCategory !== category) {
+                        activeCategory = category;
+                        renderCategories();
+                    }
+                }, 200);
             }
-            categoryList.appendChild(li);
-
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            promptCategorySelect.appendChild(option);
         });
 
-        // Corrige a seleção do <select> e categoria ativa
-        if (activeCategory && categories.includes(activeCategory)) {
-            promptCategorySelect.value = activeCategory;
-        } else if (categories.length > 0) {
-            activeCategory = categories[0];
-            promptCategorySelect.value = activeCategory;
-        }
+        categoryNameSpan.addEventListener('dblclick', (e) => {
+            clearTimeout(clickTimeout);
+            e.stopPropagation();
+            enterEditMode(li, category);
+        });
 
-        renderPrompts();
-        makeCategoriesDraggable();           // ← AGORA SEMPRE É CHAMADO!
-        console.log("renderCategories() terminou");  // ← sempre aparece
-    }
+        li.appendChild(categoryNameSpan);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('delete-category-btn');
+        deleteBtn.innerHTML = `
+    <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="vertical-align: text-bottom;">
+    <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
+    </svg>`;
+        deleteBtn.title = `Delete "${category}" category`;
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteCategory(category);
+        });
+        li.appendChild(deleteBtn);
+
+        if (category === activeCategory) {
+            li.classList.add('active');
+        }
+        categoryList.appendChild(li);
+
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        promptCategorySelect.appendChild(option);
+    });
 
     function enterEditMode(categoryListItem, oldCategoryName) {
         if (categoryListItem.querySelector('.category-edit-input')) {

@@ -184,12 +184,13 @@ h2 {
 
 main {
     display: flex;
-    flex: 1;
-    padding: 20px;
+    flex-direction: row !important;
     gap: 20px;
+    width: 100%;
     max-width: 1200px;
     margin: 20px auto;
-    align-items: flex-start;
+    padding: 0 20px;
+    flex: 1;
 }
 
 .card {
@@ -201,14 +202,15 @@ main {
 }
 
 .prompt-input-section {
+    flex: 1;
+    /* ← VOLTA A LARGURA ORIGINAL */
+    min-width: 300px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     padding: 20px;
-    max-height: none;
-    /* ← remove o limite */
-    overflow: visible;
-    /* ← permite o handle aparecer */
+    overflow: visible !important;
+    max-height: none !important;
 }
 
 .card:hover {
@@ -217,8 +219,8 @@ main {
 
 /* Sidebar */
 .sidebar {
-    width: 280px;
-    flex-shrink: 0;
+    width: 280px !important;
+    flex-shrink: 0 !important;
 }
 
 #categoryList {
@@ -374,13 +376,13 @@ select {
 }
 
 /* === PERFECT PROMPT AREA LAYOUT (THE BIG FIX) === */
-.prompt-area {
-    flex-grow: 1;
+/* .prompt-area {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 100%;
-}
+    width: 100% !important;
+    flex: 1;
+} */
 
 /* Input section stays compact */
 .prompt-input-section.card {
@@ -710,15 +712,14 @@ select {
 
 /* ====== TEXTAREA DE INPUT – REDIMENSIONÁVEL COM HANDLE VISÍVEL ====== */
 .prompt-input-section {
-    display: block !important;           /* ← SAI DO FLEX */
+    display: block !important;
+    /* ← SAI DO FLEX */
     position: relative;
     padding: 20px;
     overflow: visible !important;
 }
 
 #newPromptText {
-    display: block !important;           /* ← SAI DO FLEX */
-    width: 100% !important;
     min-height: 80px !important;
     max-height: 400px !important;
     resize: vertical !important;
@@ -730,9 +731,9 @@ select {
     border: 1px solid #ddd !important;
     border-radius: 8px !important;
     background: #fafafa !important;
+    flex: 1;
     margin: 0 0 12px 0 !important;
     box-sizing: border-box !important;
-    transition: height 0.1s ease !important;
 }
 
 /* Força o handle do Chrome a aparecer */
@@ -754,9 +755,11 @@ select {
     width: 100% !important;
     min-height: 80px !important;
     max-height: 400px !important;
-    resize: none !important;           /* ← desativa o handle padrão */
+    resize: none !important;
+    /* ← desativa o handle padrão */
     overflow-y: auto !important;
-    padding: 12px 12px 28px 12px !important; /* espaço pro handle */
+    padding: 12px 12px 28px 12px !important;
+    /* espaço pro handle */
     font-family: 'Roboto', sans-serif !important;
     font-size: 1rem !important;
     line-height: 1.5 !important;
@@ -784,11 +787,62 @@ select {
 }
 
 .textarea-wrapper:hover .resize-handle,
-#newPromptText:focus ~ .resize-handle {
+#newPromptText:focus~.resize-handle {
     opacity: 0.6;
     pointer-events: auto;
 }
 
 .textarea-wrapper:active .resize-handle {
     opacity: 1;
+}
+
+/* ====== BOLINHA VERDE SE CATEGORIA TEM PROMPTS ====== */
+.category-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.prompt-count {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.prompt-count::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #ccc;
+    /* cinza por padrão */
+    border-radius: 50%;
+    display: inline-block;
+    transition: background 0.2s ease;
+}
+
+/* Verde quando a categoria tem pelo menos 1 prompt */
+li.has-prompts .prompt-count::before {
+    background: #4caf50 !important;
+    /* verde */
+}
+
+.prompt-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-width: 0;
+}
+
+.prompt-input-section,
+.prompt-display-section {
+    width: 100% !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
