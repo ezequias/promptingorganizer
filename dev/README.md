@@ -6,6 +6,10 @@ Works 100% in the browser – no server, no installation required.
 
 **Live Demo**: Just open `index.html` a stable version in any modern browser!
 Or go to: !(https://ezequias.github.io/promptingorganizer/)
+
+## Screenshot
+![Screenshot](./assets/img/screenshot.jpg)
+
 ## Features
 
 | Feature | Description |

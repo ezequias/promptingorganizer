@@ -27,7 +27,7 @@ body {
 }
 
 header {
-    background-color: var(--md-surface-color);
+    background-color:transparent;
     color: var(--md-secondary-text-color);
     padding: 1rem 20px;
     text-align: center;
