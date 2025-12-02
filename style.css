@@ -1,9 +1,11 @@
 /* Color Palette */
 :root {
-    --md-primary-color: #979797;        /* Indigo */
+    --md-primary-color: #979797;
+    /* Indigo */
     --md-primary-color-dark: #4f4f50;
     --md-primary-color-light: #c5cae9;
-    --md-accent-color: #ff4081;         /* Pink */
+    --md-accent-color: #ff4081;
+    /* Pink */
     --md-text-color: #212121;
     --md-secondary-text-color: #757575;
     --md-divider-color: #bdbdbd;
@@ -27,7 +29,7 @@ body {
 }
 
 header {
-    background-color:transparent;
+    background-color: transparent;
     color: var(--md-secondary-text-color);
     padding: 1rem 20px;
     text-align: center;
@@ -95,23 +97,44 @@ header h1 {
     color: #333;
     background: #ffffff;
     border: 2px solid #cccccc;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     transition: all 0.2s ease;
-    height: 36px;                 /* ← altura fixa para todos */
+    height: 36px;
+    /* ← altura fixa para todos */
     box-sizing: border-box;
     white-space: nowrap;
 }
 
-.badge.version   { border-color: #aaaaaa; }
-.badge.license   { border-color: #81c784; }
-.badge.platform  { border-color: #9575cd; }
-.badge.love      { border-color: #e57373; }
+.badge.version {
+    border-color: #aaaaaa;
+}
+
+.badge.license {
+    border-color: #81c784;
+}
+
+.badge.platform {
+    border-color: #9575cd;
+}
+
+.badge.love {
+    border-color: #e57373;
+}
 
 /* Em telas pequenas mantém bonito */
 @media (max-width: 600px) {
-    .header-content { padding: 12px 10px; }
-    header h1 { font-size: 1.9rem; }
-    .badge { font-size: 0.72rem; padding: 4px 9px; }
+    .header-content {
+        padding: 12px 10px;
+    }
+
+    header h1 {
+        font-size: 1.9rem;
+    }
+
+    .badge {
+        font-size: 0.72rem;
+        padding: 4px 9px;
+    }
 }
 
 /* Badge do GitHub com borda cinza 80% */
@@ -119,15 +142,22 @@ header h1 {
     background: #24292e;
     color: white;
     display: inline-flex;
-    align-items: center;          /* ← alinha verticalmente tudo */
-    justify-content: center;      /* ← centraliza horizontalmente */
-    gap: 6px;                     /* espaço entre ícone e texto */
+    align-items: center;
+    /* ← alinha verticalmente tudo */
+    justify-content: center;
+    /* ← centraliza horizontalmente */
+    gap: 6px;
+    /* espaço entre ícone e texto */
     text-decoration: none;
-    border: 2px solid #cccccc;    /* borda cinza 80% */
-    padding: 7px 14px !important; /* ← MESMO PADDING dos outros badges */
-    line-height: 1;               /* ← evita desalinhamento */
+    border: 2px solid #cccccc;
+    /* borda cinza 80% */
+    padding: 7px 14px !important;
+    /* ← MESMO PADDING dos outros badges */
+    line-height: 1;
+    /* ← evita desalinhamento */
     transition: all 0.2s ease;
-    height: 36px;                 /* ← altura fixa igual aos outros */
+    height: 36px;
+    /* ← altura fixa igual aos outros */
     box-sizing: border-box;
 }
 
@@ -139,8 +169,18 @@ header h1 {
 
 /* FIM DOS BADGES CENTRALIZADOS */
 
-h1 { font-weight: 500; font-size: 2.2rem; margin: 0; }
-h2 { font-weight: 400; font-size: 1.5rem; color: var(--md-primary-color-dark); margin: 0 0 1rem 0; }
+h1 {
+    font-weight: 500;
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: var(--md-primary-color-dark);
+    margin: 0 0 1rem 0;
+}
 
 main {
     display: flex;
@@ -160,7 +200,20 @@ main {
     transition: box-shadow 0.3s ease-in-out;
 }
 
-.card:hover { box-shadow: var(--md-shadow-2); }
+.prompt-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    max-height: none;
+    /* ← remove o limite */
+    overflow: visible;
+    /* ← permite o handle aparecer */
+}
+
+.card:hover {
+    box-shadow: var(--md-shadow-2);
+}
 
 /* Sidebar */
 .sidebar {
@@ -184,7 +237,7 @@ main {
     cursor: pointer;
     border-bottom: 1px solid var(--md-divider-color);
     color: var(--md-secondary-text-color);
-    transition: background-color 0.2s ease, color 0.2s 
+    transition: background-color 0.2s ease, color 0.2s
 }
 
 #categoryList li.active {
@@ -254,10 +307,28 @@ select:focus {
     outline: none;
 }
 
-textarea {
+/* textarea {
     min-height: 100px;
     resize: vertical;
-}
+} */
+
+/* #newPromptText {
+    min-height: 80px !important;
+    max-height: 400px !important;
+    resize: vertical !important;
+    overflow-y: auto !important;
+    padding: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    flex: 1;
+    margin: 0 0 12px 0;
+    box-sizing: border-box;
+    transition: height 0.1s ease;
+} */
 
 select {
     appearance: none;
@@ -280,7 +351,9 @@ select {
     box-shadow: var(--md-shadow-1);
 }
 
-.md-button:hover { box-shadow: var(--md-shadow-2); }
+.md-button:hover {
+    box-shadow: var(--md-shadow-2);
+}
 
 #addCategoryBtn {
     background-color: var(--md-primary-color);
@@ -308,20 +381,33 @@ select {
     gap: 20px;
     height: 100%;
 }
+
 /* Input section stays compact */
 .prompt-input-section.card {
     flex-shrink: 0;
-    max-height: 280px;
+    max-height: none;
+}
+
+.prompt-input-section textarea {
+    min-height: 80px;
+    max-height: 200px;
+    /* ← limite máximo */
+    resize: vertical;
+    /* ← permite redimensionar só vertical */
+    overflow-y: auto;
+    /* ← scroll quando ultrapassar */
+    flex: 1;
 }
 
 /* Display section takes all remaining space */
 .prompt-display-section.card {
-   flex: 1 1 300px;
+    flex: 1 1 300px;
     display: flex;
     flex-direction: column;
     padding: 20px;
     gap: 16px;
-    overflow: visible !important;     /* permite crescer */
+    overflow: visible !important;
+    /* permite crescer */
 }
 
 .prompt-display-section h2 {
@@ -331,7 +417,7 @@ select {
 
 /* Scrollable prompt list */
 #promptDisplay {
-  /* display: flex;
+    /* display: flex;
     flex-direction: column;
     gap: 14px;
     padding: 0;
@@ -346,15 +432,18 @@ select {
 #promptDisplay::-webkit-scrollbar {
     width: 8px;
 }
+
 #promptDisplay::-webkit-scrollbar-track {
     background: transparent;
 }
+
 #promptDisplay::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 4px;
 }
+
 #promptDisplay::-webkit-scrollbar-thumb:hover {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Prompt Cards */
@@ -379,14 +468,17 @@ select {
 .prompt-card {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;     /* Changed from "center" → allows text to start at top */
-    padding: 12px 14px;          /* Slightly more breathing room */
+    align-items: flex-start;
+    /* Changed from "center" → allows text to start at top */
+    padding: 12px 14px;
+    /* Slightly more breathing room */
     margin-bottom: 8px;
     border-radius: 8px;
     box-shadow: var(--md-shadow-1);
     background-color: var(--md-surface-color);
     transition: all 0.2s ease;
-    gap: 12px;                   /* Space between text and buttons */
+    gap: 12px;
+    /* Space between text and buttons */
 }
 
 .prompt-card:hover {
@@ -398,14 +490,20 @@ select {
 .prompt-card p {
     flex: 1;
     margin: 0;
-    padding: 8px 12px;           /* Same padding as textarea */
-    background-color: #fafafa;   /* Very light gray background like a text field */
-    border: 1px solid #e0e0e0;   /* Subtle border */
+    padding: 8px 12px;
+    /* Same padding as textarea */
+    background-color: #fafafa;
+    /* Very light gray background like a text field */
+    border: 1px solid #e0e0e0;
+    /* Subtle border */
     border-radius: 6px;
-    min-height: 48px;            /* Minimum height so short prompts look nice */
+    min-height: 48px;
+    /* Minimum height so short prompts look nice */
     line-height: 1.5;
-    word-wrap: break-word;       /* Ensures long words break */
-    white-space: pre-wrap;       /* Preserves line breaks and wraps text */
+    word-wrap: break-word;
+    /* Ensures long words break */
+    white-space: pre-wrap;
+    /* Preserves line breaks and wraps text */
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: var(--md-text-color);
@@ -415,14 +513,15 @@ select {
 }
 
 .placeholder-highlight {
-    background: linear-gradient(180deg, rgba(255,244,100,0.4) 0%, rgba(255,230,0,0.25) 100%);
+    background: linear-gradient(180deg, rgba(255, 244, 100, 0.4) 0%, rgba(255, 230, 0, 0.25) 100%);
     padding: 2px 6px;
     border-radius: 6px;
     font-weight: 600;
     color: #b85c00;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: inline;
 }
+
 .prompt-card .prompt-actions {
     display: flex;
     flex-direction: column;
@@ -432,7 +531,7 @@ select {
 
 .delete-prompt-btn,
 .copy-prompt-btn {
-   width: 44px !important;
+    width: 44px !important;
     height: 44px !important;
     background: #f8f9fa !important;
     border-radius: 12px !important;
@@ -447,8 +546,17 @@ select {
     padding: 0 !important;
 }
 
-.copy-prompt-btn:hover   { background: #e8f5e9 !important; color: #2e7d32 !important; transform: scale(1.15) !important; }
-.delete-prompt-btn:hover { background: #ffebee !important; color: #c62828 !important; transform: scale(1.15) !important; }
+.copy-prompt-btn:hover {
+    background: #e8f5e9 !important;
+    color: #2e7d32 !important;
+    transform: scale(1.15) !important;
+}
+
+.delete-prompt-btn:hover {
+    background: #ffebee !important;
+    color: #c62828 !important;
+    transform: scale(1.15) !important;
+}
 
 /* This is the key line that fixes the invisible icons */
 .copy-prompt-btn i,
@@ -501,8 +609,14 @@ select {
         padding: 10px;
         margin: 10px auto;
     }
-    .sidebar { width: 100%; }
-    .input-group { flex-wrap: wrap; }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .input-group {
+        flex-wrap: wrap;
+    }
 }
 
 /* Drag & Drop para categorias */
@@ -521,6 +635,7 @@ select {
 #categoryList {
     transition: all 0.2s ease;
 }
+
 /* Fim Drag & Drop para categorias */
 
 /* Drag-handle style */
@@ -551,14 +666,20 @@ select {
     height: 4px;
     background-color: #979797;
     border-radius: 50%;
-    box-shadow: 
+    box-shadow:
         0 8px 0 #979797,
         0 16px 0 #979797,
         0 24px 0 #979797;
 }
 
-.drag-handle::before  { left: 4px; }
-.drag-handle::after   { right: 4px; }
+.drag-handle::before {
+    left: 4px;
+}
+
+.drag-handle::after {
+    right: 4px;
+}
+
 /* Fim Drag-handle style */
 
 /* ====== CONTADOR DE PROMPTS NAS CATEGORIAS ====== */
@@ -585,4 +706,89 @@ select {
     background: #979797;
     border-radius: 50%;
     display: inline-block;
+}
+
+/* ====== TEXTAREA DE INPUT – REDIMENSIONÁVEL COM HANDLE VISÍVEL ====== */
+.prompt-input-section {
+    display: block !important;           /* ← SAI DO FLEX */
+    position: relative;
+    padding: 20px;
+    overflow: visible !important;
+}
+
+#newPromptText {
+    display: block !important;           /* ← SAI DO FLEX */
+    width: 100% !important;
+    min-height: 80px !important;
+    max-height: 400px !important;
+    resize: vertical !important;
+    overflow-y: auto !important;
+    padding: 12px !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    background: #fafafa !important;
+    margin: 0 0 12px 0 !important;
+    box-sizing: border-box !important;
+    transition: height 0.1s ease !important;
+}
+
+/* Força o handle do Chrome a aparecer */
+#newPromptText::-webkit-resizer {
+    background: #ddd !important;
+    border: 1px solid #ccc !important;
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/* ====== HANDLE DE REDIMENSIONAMENTO – ESTILO PROFISSIONAL ====== */
+.textarea-wrapper {
+    position: relative;
+    display: block;
+}
+
+#newPromptText {
+    display: block !important;
+    width: 100% !important;
+    min-height: 80px !important;
+    max-height: 400px !important;
+    resize: none !important;           /* ← desativa o handle padrão */
+    overflow-y: auto !important;
+    padding: 12px 12px 28px 12px !important; /* espaço pro handle */
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    background: #fafafa !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    transition: height 0.1s ease !important;
+}
+
+/* Handle personalizado */
+.resize-handle {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    font-size: 16px;
+    color: #aaa;
+    cursor: s-resize;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.textarea-wrapper:hover .resize-handle,
+#newPromptText:focus ~ .resize-handle {
+    opacity: 0.6;
+    pointer-events: auto;
+}
+
+.textarea-wrapper:active .resize-handle {
+    opacity: 1;
 }

@@ -27,6 +27,7 @@
             <h1>My Prompt Organizer</h1>
             <div class="github-badges">
                 <span class="badge version">v1.0.1</span>
+                
                 <span class="badge license">MIT License</span>
                 <span class="badge platform">Web • Offline</span>
                 <span class="badge love">Made with ❤️</span>
@@ -61,7 +62,13 @@
         <section class="prompt-area">
             <div class="prompt-input-section card">
                 <h2>Add New Prompt</h2>
-                <textarea id="newPromptText" placeholder="Enter your prompt here..."></textarea>
+                <div class="textarea-wrapper">
+                    <textarea id="newPromptText" placeholder="Enter your prompt here..."></textarea>
+                    <div class="resize-handle">⋮⋮</div>
+                </div>
+                <!-- <textarea id="newPromptText" placeholder="Enter your prompt here...">
+
+                </textarea> -->
                 <select id="promptCategorySelect">
                     </select>
                 <button id="addPromptBtn" class="md-button md-button-primary">Add Prompt</button>

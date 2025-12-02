@@ -385,7 +385,7 @@ select {
 /* Input section stays compact */
 .prompt-input-section.card {
     flex-shrink: 0;
-    max-height: 280px;
+    max-height: none;
 }
 
 .prompt-input-section textarea {
