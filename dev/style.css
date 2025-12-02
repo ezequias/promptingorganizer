@@ -561,3 +561,28 @@ select {
 .drag-handle::after   { right: 4px; }
 /* Fim Drag-handle style */
 
+/* ====== CONTADOR DE PROMPTS NAS CATEGORIAS ====== */
+.category-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.prompt-count {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.prompt-count::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #979797;
+    border-radius: 50%;
+    display: inline-block;
+}
