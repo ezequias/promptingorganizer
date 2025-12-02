@@ -1,0 +1,22 @@
+{
+  "name": "promptingorganizer",
+  "version": "1.0.0",
+  "description": "A beautiful, fast, and fully offline **Prompt Organizer** built with pure HTML, CSS, and vanilla JavaScript. Perfect for writers, developers, AI enthusiasts, or anyone who wants to save, categorize, and quickly reuse their favorite prompts.",
+  "main": "script.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezequias/promptingorganizer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ezequias/promptingorganizer/issues"
+  },
+  "homepage": "https://github.com/ezequias/promptingorganizer#readme"
+}
