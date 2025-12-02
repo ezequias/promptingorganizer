@@ -1,34 +1,41 @@
-name: Deploy Dev Preview to /dev
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]  # Só roda na main (dev/teste); a orign-1.0-stable usa o deploy nativo do GitHub
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  deploy-dev:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Pega o histórico
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Setup (exemplo com Node; ajuste se não for)
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'  # Ou a sua versão do package.json
-          cache: 'npm'
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-      - name: Install & Build
-        run: |
-          npm ci
-          npm run build  # Gera ./dist com index.html; mude se o comando for diferente (ex.: vite build)
-
-      # Deploy versão de teste → /dev (não mexe na raiz!)
-      - name: Deploy to /dev
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # Pasta do build
-          destination_dir: dev  # Cria/atualiza só a subpasta /dev
-          # Isso preserva a raiz (estável) intacta
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # DESATIVA A VERIFICAÇÃO DE LOCK FILE
+      - name: Skip dependency check
+        run: echo "Skipping dependency lock file check - this is a static site"
