@@ -849,20 +849,37 @@ li.has-prompts .prompt-count::before {
 
 /* ====== SELECT DE CATEGORIA – ESPAÇAMENTO E ESTILO ====== */
 #promptCategorySelect {
-    margin: 0 !important; /* remove margin antigo */
-    width: 100% !important;
-    padding: 10px 12px !important;
-    border: 1px solid #ddd !important;
-    border-radius: 5px !important;
-    background: #fafafa !important;
-    font-family: 'Roboto', sans-serif !important;
-    font-size: 1rem !important;
-    color: #333 !important;
-    box-sizing: border-box !important;
+    -webkit-appearance: none !important;   /* remove estilo padrão */
+    -moz-appearance: none !important;
+    appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='%23666'%3e%3cpath d='M4.5 6.5l3.5 3.5 3.5-3.5z'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 12px !important;
+    padding-right: 40px !important; /* espaço pra setinha */
 }
 
 #promptCategorySelect:focus {
     outline: none !important;
     border-color: #979797 !important;
     box-shadow: 0 0 0 2px rgba(151, 151, 151, 0.2) !important;
+}
+
+.search-container {
+    position: relative !important; /* ← ESSA LINHA É OBRIGATÓRIA */
+    margin: 0 0 16px 0;
+    max-width: 100%;
+}
+
+#globalSearch {
+    position: relative !important;
+    padding-right: 40px !important; /* ← espaço pro ícone */
+}
+
+.search-icon {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 1 !important;
 }
