@@ -677,6 +677,8 @@ select {
     display: flex;
     align-items: center;
     gap: 6px;
+    pointer-events: none !important; /* ← permite clique no pai */
+    user-select: none;
 }
 
 .prompt-count::before {
