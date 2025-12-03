@@ -866,3 +866,22 @@ li.has-prompts .prompt-count::before {
     border-color: #979797 !important;
     box-shadow: 0 0 0 2px rgba(151, 151, 151, 0.2) !important;
 }
+
+.search-container {
+    position: relative !important; /* ← ESSA LINHA É OBRIGATÓRIA */
+    margin: 0 0 16px 0;
+    max-width: 100%;
+}
+
+#globalSearch {
+    position: relative !important;
+    padding-right: 40px !important; /* ← espaço pro ícone */
+}
+
+.search-icon {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 1 !important;
+}

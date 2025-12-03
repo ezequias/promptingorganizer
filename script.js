@@ -11,6 +11,88 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadFileInput = document.getElementById('uploadFileInput');
     const uploadDataBtn = document.getElementById('uploadDataBtn');
 
+    //------- SEARCH FUNCTIONALITY -------
+    globalSearch.addEventListener('input', () => {
+        const query = globalSearch.value.toLowerCase().trim();
+        searchResults.innerHTML = '';
+
+        if (!query) {
+            searchResults.style.display = 'none';
+            promptDisplay.style.display = 'block';
+            return;
+        }
+
+        const matches = prompts.filter(p => p.text.toLowerCase().includes(query));
+
+        if (matches.length === 0) {
+            searchResults.innerHTML = '<p class="search-no-results">No prompts found.</p>';
+            searchResults.style.display = 'block';
+            promptDisplay.style.display = 'none';
+            return;
+        }
+
+                matches.forEach(match => {
+            const card = document.createElement('div');
+            card.className = 'prompt-card search-result-item';
+
+            // Destaque [texto]
+            let text = match.text
+                .replace(/\[/g, '<span class="placeholder-highlight">[')
+                .replace(/\]/g, ']</span>');
+
+            card.innerHTML = `
+                <p>${text}</p>
+                <div class="search-result-category">${match.category}</div>
+                <div class="prompt-actions">
+                    <button class="copy-prompt-btn" data-text="${match.text.replace(/"/g, '&quot;')}" title="Copy">
+                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
+                            <path d="M5.25 1.75C5.25 .784 6.034 0 7 0h7.25C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11H7c-.966 0-1.75-.784-1.75-1.75v-7.5Z"></path>
+                        </svg>
+                    </button>
+                    <button class="delete-prompt-btn" data-id="${match.id}" title="Delete">
+                        <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+
+            // Clique no card (exceto botões)
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.prompt-actions button')) return;
+                activeCategory = match.category;
+                renderCategories();
+                globalSearch.value = '';
+                searchResults.style.display = 'none';
+                promptDisplay.style.display = 'block';
+            });
+
+            searchResults.appendChild(card);
+        });
+
+        // ====== ADICIONA EVENT LISTENERS AOS BOTÕES DOS RESULTADOS ======
+        document.querySelectorAll('.search-result-item .copy-prompt-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                navigator.clipboard.writeText(btn.dataset.text);
+                showToast('Copied!', 'success');
+            });
+        });
+
+        document.querySelectorAll('.search-result-item .delete-prompt-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (confirm('Delete this prompt?')) {
+                    prompts = prompts.filter(p => p.id !== parseInt(btn.dataset.id));
+                    savePrompts();
+                    performSearch(); // atualiza busca
+                }
+            });
+        });
+
+        searchResults.style.display = 'block';
+        promptDisplay.style.display = 'none';
+    });
+
     // ====== DADOS ======
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
