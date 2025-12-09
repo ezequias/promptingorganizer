@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadDataBtn = document.getElementById('downloadDataBtn');
     const uploadFileInput = document.getElementById('uploadFileInput');
     const uploadDataBtn = document.getElementById('uploadDataBtn');
-
     // ====== DADOS ======
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ====== RENDER CATEGORIES (RECUPERADA) ======
     function renderCategories() {
         console.log("renderCategories() começou");
-                categoryList.innerHTML = '';
+        categoryList.innerHTML = '';
         promptCategorySelect.innerHTML = '';
 
         if (categories.length === 0) {
@@ -183,19 +182,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const newCategory = newCategoryInput.value.trim();
 
         if (newCategory && !categories.includes(newCategory)) {
-            
+
             console.log('1. Array de Categorias ANTES:', categories); // <-- LOG 1
-            
+
             categories.push(newCategory);
-            
+
             console.log('2. Array de Categorias DEPOIS:', categories); // <-- LOG 2
-            
+
             saveCategories();
             newCategoryInput.value = '';
             activeCategory = newCategory;
-            
+
             console.log('3. Chamando renderCategories()...'); // <-- LOG 3
-            
+
             renderCategories();
         } else if (newCategory && categories.includes(newCategory)) {
             alert('Category already exists!');
@@ -215,21 +214,108 @@ document.addEventListener('DOMContentLoaded', () => {
             prompts.push(newPrompt);
             savePrompts();
             newPromptText.value = '';
-            
+
             // Se o prompt adicionado está na categoria ativa, apenas renderize os prompts.
             // NÃO precisamos chamar renderCategories aqui.
             if (selectedCategory === activeCategory) {
-                renderPrompts(); 
+                renderPrompts();
             }
-            
+
         } else {
             alert('Please enter a prompt and select a category.');
         }
-        
+
         // <--- A LINHA renderCategories() DEVE SER REMOVIDA DAQUI. --->
 
     });
-    
+
+    function downloadData() {
+        // 1. VERIFICAÇÃO
+        if (prompts.length === 0) {
+            // showToast('No prompts to download!', 'info'); // descomente se tiver showToast
+            console.warn('Nenhum prompt para download. Sair.');
+            return;
+        }
+
+        // 2. SERIALIZAÇÃO E CRIAÇÃO DO ARQUIVO (BLOB)
+        const dataStr = JSON.stringify(prompts, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+
+        // 3. CRIAÇÃO DO LINK E DOWNLOAD
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+
+        // Configurações do link
+        a.href = url;
+        a.download = 'prompt_organizer_data.json'; // Nome do arquivo de saída
+
+        // Dispara o download
+        document.body.appendChild(a);
+        a.click();
+
+        // 4. LIMPEZA
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        // showToast('Prompts baixados com sucesso!'); // descomente se tiver showToast
+        console.log('Download disparado!');
+    }
+
+    function handleUpload(event) {
+        const file = event.target.files[0];
+
+        // Se nenhum arquivo foi selecionado ou se a leitura não for bem-sucedida, saia
+        if (!file) {
+            // showToast('Nenhum arquivo selecionado.', 'info');
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            try {
+                // Tenta analisar o conteúdo do arquivo como JSON
+                const uploadedData = JSON.parse(e.target.result);
+
+                // Verifica se o arquivo JSON é uma lista válida de prompts (o formato que esperamos)
+                if (!Array.isArray(uploadedData) || uploadedData.some(p => !p.text || !p.category)) {
+                    // showToast('Arquivo inválido: formato incorreto.', 'error');
+                    return;
+                }
+
+                // 1. GARANTIR UNICIDADE DE IDS: Mapeia os dados, criando novos IDs para evitar conflitos
+                const newPrompts = uploadedData.map(p => ({
+                    id: Date.now() + Math.random(), // Novo ID único
+                    text: p.text,
+                    category: p.category
+                }));
+
+                // 2. ATUALIZA CATEGORIAS: Coleta todas as categorias novas e existentes
+                const newCategories = newPrompts.map(p => p.category);
+                // Usa 'Set' para garantir que não haja duplicatas
+                const combinedCategories = [...new Set([...categories, ...newCategories])];
+                categories = combinedCategories;
+                saveCategories();
+
+                // 3. ATUALIZA PROMPTS: Adiciona os prompts novos ao final da lista existente
+                prompts.push(...newPrompts);
+                savePrompts();
+
+                // 4. RENDERIZA TUDO
+                renderCategories(); // Redesenha categorias e, por consequência, prompts
+
+                // showToast('Dados importados com sucesso! Verifique todas as categorias.', 'success');
+
+            } catch (error) {
+                // showToast('Erro ao processar o arquivo. Verifique se é um JSON válido.', 'error');
+                console.error('Erro ao processar arquivo:', error);
+            }
+        };
+
+        // Inicia a leitura do arquivo como texto
+        reader.readAsText(file);
+    }
+
     // ====== DRAG & DROP ======
     let draggedItem = null;
     function makeCategoriesDraggable() {
@@ -301,6 +387,22 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mouseup', () => { isResizing = false; });
 
     setTimeout(autoResize, 100);
+
+    if (downloadDataBtn) {
+        downloadDataBtn.addEventListener('click', downloadData);
+    }
+
+    // <--- LISTENER 1: Botão clica no Input de arquivo (uploadDataBtn -> uploadFileInput) --->
+    if (uploadDataBtn && uploadFileInput) {
+        uploadDataBtn.addEventListener('click', () => {
+            uploadFileInput.click();
+        });
+    }
+
+    // <--- LISTENER 2: Processa o arquivo quando o usuário o seleciona (uploadFileInput -> handleUpload) --->
+    if (uploadFileInput) {
+        uploadFileInput.addEventListener('change', handleUpload);
+    }
 
     // ====== INICIALIZAÇÃO ======
     function initApp() {
