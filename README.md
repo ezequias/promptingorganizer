@@ -7,10 +7,13 @@ Works 100% in the browser – no server, no installation required.
 **Live Demo**: Just open `index.html` a stable version in any modern browser!
 >Or go to: !(https://ezequias.github.io/promptingorganizer/)
 
-## Screenshot
+## Screenshot :desktop_computer:
 ![Screenshot](./assets/img/screenshot.jpg)
 
-## Features
+## License :key:
+Apache License Version 2.0, January 2004
+                           
+## Features :page_with_curl:
 
 | Feature | Description |
 |-------|-----------|
@@ -28,7 +31,7 @@ Works 100% in the browser – no server, no installation required.
 | **Keyboard Friendly** | Press Enter to add categories or save edits |
 | **Safe Data Overwrite Protection** | Confirmation dialogs before deleting categories or importing data |
 
-## File Structure
+## File Structure :card_file_box:
 
 ```
 ├── index.html      → Main page
@@ -38,7 +41,7 @@ Works 100% in the browser – no server, no installation required.
 └── favicon.ico     → Favicon
 ```
 
-## How to Use
+## How to Use :technologist:
 
 1. **Open** `index.html` in your browser (double-click the file or drag it into Chrome/Firefox/Edge).
 2. **Add a category** → type name → “Add Category”
@@ -54,7 +57,7 @@ Works 100% in the browser – no server, no installation required.
    - Click **Download** → saves a timestamped `.json` file with everything
    - Click **Upload** → select a previously downloaded file → confirms overwrite → restores everything
 
-## Customization
+## Customization :man_artist:
 
 - Change colors by editing the `:root` variables at the top of `style.css`
 - Replace `logo-new.png` with your own logo (keep same filename or update the `<img src>` path)
@@ -64,20 +67,20 @@ Works 100% in the browser – no server, no installation required.
 let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
 ```
 
-## Privacy & Security
+## Privacy & Security :locked_with_key:
 
 - 100% client-side – nothing is ever sent to any server
 - Data lives only in your browser’s `localStorage` and in the JSON files you export
 - You control everything
 
-## Browser Support
+## Browser Support :motor_boat:
 
 Tested and working perfectly on:
 - Chrome / Edge / Brave (latest)
 - Firefox (latest)
 - Safari (macOS & iOS)
 
-## Future Ideas (feel free to contribute!)
+## Future Ideas (feel free to contribute!) 💡
 
 - Search / filter prompts
 - Drag-and-drop reordering
