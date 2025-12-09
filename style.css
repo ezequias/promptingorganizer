@@ -177,7 +177,7 @@ h1 {
 
 h2 {
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     color: var(--md-primary-color-dark);
     margin: 0 0 1rem 0;
 }
@@ -397,15 +397,14 @@ select {
 
 /* Scrollable prompt list */
 #promptDisplay {
-    /* display: flex;
+   /* Define o layout da lista de prompts */
+    display: flex; 
     flex-direction: column;
-    gap: 14px;
-    padding: 0;
-    margin: 0;
-    overflow: visible !important;    
-    min-height: auto;*/
-    overflow: visible !important;
-    max-height: none !important;
+    gap: 15px; /* Espaço entre cada card */
+    
+    /* Garante que ele não seja escondido por padrões */
+    width: 100%;
+    padding-top: 15px; /* Espaço entre o título e o primeiro card */
 }
 
 /* Nice scrollbar (Chrome/Edge/Safari) */
@@ -428,16 +427,14 @@ select {
 
 /* Prompt Cards */
 .prompt-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /*background-color: var(--md-surface-color); */
-    padding: 8px 12px;
+   /* Estilo básico do card */
+    background-color: #ffffff; /* Cor de fundo para garantir visibilidade */
+    border: 1px solid #e0e0e0;
+    padding: 15px;
     border-radius: 8px;
-    box-shadow: var(--md-shadow-1);
-    margin-bottom: 5px;
-    transition: all 0.2s ease;
-    height: auto !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .prompt-card:hover {
@@ -823,6 +820,7 @@ li.has-prompts .prompt-count::before {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    min-height: 250px;
 }
 
 /* ====== BOTÃO ADD PROMPT – ESTILO CONSISTENTE ====== */
