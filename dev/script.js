@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadDataBtn = document.getElementById('downloadDataBtn');
     const uploadFileInput = document.getElementById('uploadFileInput');
     const uploadDataBtn = document.getElementById('uploadDataBtn');
+    const searchInput = document.getElementById('searchInput');
+    const categoryHeading = document.getElementById('category-heading');
     // ====== DADOS ======
     let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryList.innerHTML = '';
         promptCategorySelect.innerHTML = '';
 
+        //const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
         if (categories.length === 0) {
             categoryList.innerHTML = '<p class="no-prompts-message">No categories yet. Add one!</p>';
             promptCategorySelect.innerHTML = '<option value="">No Categories Available</option>';
@@ -118,37 +121,80 @@ document.addEventListener('DOMContentLoaded', () => {
             promptCategorySelect.value = activeCategory;
         }
 
+        if (categoryHeading) {
+            // Atualiza o texto: "Categories (Total)"
+            categoryHeading.innerHTML = `Categories (${categories.length}) | Prompts (${prompts.length})`;
+        }
+
         renderPrompts();
         makeCategoriesDraggable();
         console.log("renderCategories() terminou");
     }
 
     // ====== RENDER PROMPTS ======
+    // ====== RENDER PROMPTS (CORRIGIDA) ======
     function renderPrompts() {
         promptDisplay.innerHTML = '';
+
+        // --- NOVO LOG DE DIAGNÓSTICO ---
+        console.log(`Prompts Totais no Array: ${prompts.length}`);
+        console.log(`Categoria Ativa: ${activeCategory}`);
+        // -------------------------------
+
+        // 1. INSERIDO AQUI: OBTÉM O TERMO DE PESQUISA (Resolve o ReferenceError)
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+
         if (!activeCategory) {
             promptDisplay.innerHTML = '<p class="no-prompts-message">Select a category to view prompts.</p>';
             return;
         }
 
-        const categoryPrompts = prompts.filter(p => p.category === activeCategory);
+        // CRÍTICO: Mude 'const' para 'let' para que possamos reatribuir o array após o filtro de busca.
+        let categoryPrompts = prompts.filter(p => p.category === activeCategory);
+
+        // let categoryPrompts = prompts.filter(p =>
+        //     p.category &&
+        //     p.category.trim().toLowerCase() === activeCategory.trim().toLowerCase()
+        // );
+
+        // 2. APLICA O FILTRO DE PESQUISA
+        if (searchTerm) {
+            categoryPrompts = categoryPrompts.filter(p =>
+                p.text && p.text.toLowerCase().includes(searchTerm)
+            );
+        }
+        // ------------------------------------------
+
         if (categoryPrompts.length === 0) {
-            promptDisplay.innerHTML = '<p class="no-prompts-message">No prompts in this category yet.</p>';
+            // 3. ATUALIZA A MENSAGEM
+            if (searchTerm) {
+                promptDisplay.innerHTML = `<p class="no-prompts-message">No prompts found matching "${searchTerm}" in this category.</p>`;
+            } else {
+                promptDisplay.innerHTML = '<p class="no-prompts-message">No prompts in this category yet.</p>';
+            }
             return;
         }
 
+        console.log(`Prompts encontrados para renderizar: ${categoryPrompts.length}`); // NOVO LOG
         categoryPrompts.forEach(prompt => {
             const card = document.createElement('div');
-            card.className = 'prompt-card';
+        card.className = 'prompt-card';
 
-            let text = prompt.text
-                .replace(/\[/g, '<span class="placeholder-highlight">[')
-                .replace(/\]/g, ']</span>');
+        // 1. Prepara o texto para exibição (com highlight)
+        let text = prompt.text
+            .replace(/\[/g, '<span class="placeholder-highlight">[')
+            .replace(/\]/g, ']</span>');
 
-            card.innerHTML = `
-                <p>${text}</p>
+        // 2. CRÍTICO: Prepara o texto para o atributo data-text. 
+        // Implementa o escape robusto.
+        const safeTextForAttribute = prompt.text
+            .replace(/"/g, '&quot;') // Escapa aspas duplas
+            .replace(/'/g, '&#39;'); // Escapa aspas simples
+
+        card.innerHTML = `
+            <p>${text}</p>
     <div class="prompt-actions">
-        <button class="copy-prompt-btn" data-text="${prompt.text.replace(/"/g, '&quot;')}" title="Copy">
+        <button class="copy-prompt-btn" data-text="${safeTextForAttribute}" title="Copy">
             <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                 <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
                 <path d="M5.25 1.75C5.25 .784 6.034 0 7 0h7.25C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11H7c-.966 0-1.75-.784-1.75-1.75v-7.5Z"></path>
@@ -160,23 +206,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </svg>
         </button>
     </div>
-            `;
-            promptDisplay.appendChild(card);
+        `;
+        promptDisplay.appendChild(card);
         });
-
-        // document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
-        //     btn.addEventListener('click', () => {
-        //         navigator.clipboard.writeText(btn.dataset.text);
-        //     });
-        // });
-
-        // document.querySelectorAll('.delete-prompt-btn').forEach(btn => {
-        //     btn.addEventListener('click', () => {
-        //         prompts = prompts.filter(p => p.id !== parseInt(btn.dataset.id));
-        //         savePrompts();
-        //         renderPrompts();
-        //     });
-        // });
     }
 
     addCategoryBtn.addEventListener('click', () => {
@@ -409,13 +441,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     newPromptText.addEventListener('input', autoResize);
 
-    resizeHandle.addEventListener('mousedown', e => {
-        isResizing = true;
-        startY = e.clientY;
-        startHeight = newPromptText.offsetHeight;
-        e.preventDefault();
-    });
-
+    if (resizeHandle) { // <--- PROTEÇÃO ADICIONADA
+        resizeHandle.addEventListener('mousedown', e => {
+            isResizing = true;
+            startY = e.clientY;
+            startHeight = newPromptText.offsetHeight;
+            e.preventDefault();
+        });
+    }
     document.addEventListener('mousemove', e => {
         if (!isResizing) return;
         const diff = e.clientY - startY;
@@ -447,6 +480,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function initApp() {
         console.log('Iniciando aplicação...');
         renderCategories();
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', renderPrompts);
     }
 
     initApp();
