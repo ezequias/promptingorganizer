@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ====== RENDER CATEGORIES (RECUPERADA) ======
     function renderCategories() {
         console.log("renderCategories() começou");
-        categoryList.innerHTML = '';
+                categoryList.innerHTML = '';
         promptCategorySelect.innerHTML = '';
 
         if (categories.length === 0) {
@@ -179,6 +179,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    addCategoryBtn.addEventListener('click', () => {
+        const newCategory = newCategoryInput.value.trim();
+
+        if (newCategory && !categories.includes(newCategory)) {
+            
+            console.log('1. Array de Categorias ANTES:', categories); // <-- LOG 1
+            
+            categories.push(newCategory);
+            
+            console.log('2. Array de Categorias DEPOIS:', categories); // <-- LOG 2
+            
+            saveCategories();
+            newCategoryInput.value = '';
+            activeCategory = newCategory;
+            
+            console.log('3. Chamando renderCategories()...'); // <-- LOG 3
+            
+            renderCategories();
+        } else if (newCategory && categories.includes(newCategory)) {
+            alert('Category already exists!');
+        }
+    });
+
+    addPromptBtn.addEventListener('click', () => {
+        const promptText = newPromptText.value.trim();
+        const selectedCategory = promptCategorySelect.value;
+
+        if (promptText && selectedCategory) {
+            const newPrompt = {
+                id: Date.now(),
+                text: promptText,
+                category: selectedCategory
+            };
+            prompts.push(newPrompt);
+            savePrompts();
+            newPromptText.value = '';
+            
+            // Se o prompt adicionado está na categoria ativa, apenas renderize os prompts.
+            // NÃO precisamos chamar renderCategories aqui.
+            if (selectedCategory === activeCategory) {
+                renderPrompts(); 
+            }
+            
+        } else {
+            alert('Please enter a prompt and select a category.');
+        }
+        
+        // <--- A LINHA renderCategories() DEVE SER REMOVIDA DAQUI. --->
+
+    });
+    
     // ====== DRAG & DROP ======
     let draggedItem = null;
     function makeCategoriesDraggable() {
