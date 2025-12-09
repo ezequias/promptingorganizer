@@ -91,7 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (confirm(`Delete "${category}" and all its prompts?`)) {
-                    prompts = prompts.filter(p => p.category !== category);
+                    //prompts = prompts.filter(p => p.category !== category);
+                    prompts = prompts.filter(p => p.id != promptIdToDelete);
                     categories = categories.filter(c => c !== category);
                     if (activeCategory === category) activeCategory = categories[0] || null;
                     saveCategories();
@@ -163,19 +164,19 @@ document.addEventListener('DOMContentLoaded', () => {
             promptDisplay.appendChild(card);
         });
 
-        document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                navigator.clipboard.writeText(btn.dataset.text);
-            });
-        });
+        // document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+        //     btn.addEventListener('click', () => {
+        //         navigator.clipboard.writeText(btn.dataset.text);
+        //     });
+        // });
 
-        document.querySelectorAll('.delete-prompt-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                prompts = prompts.filter(p => p.id !== parseInt(btn.dataset.id));
-                savePrompts();
-                renderPrompts();
-            });
-        });
+        // document.querySelectorAll('.delete-prompt-btn').forEach(btn => {
+        //     btn.addEventListener('click', () => {
+        //         prompts = prompts.filter(p => p.id !== parseInt(btn.dataset.id));
+        //         savePrompts();
+        //         renderPrompts();
+        //     });
+        // });
     }
 
     addCategoryBtn.addEventListener('click', () => {
@@ -198,6 +199,29 @@ document.addEventListener('DOMContentLoaded', () => {
             renderCategories();
         } else if (newCategory && categories.includes(newCategory)) {
             alert('Category already exists!');
+        }
+    });
+
+    // ====== DELEGAÇÃO DE EVENTOS PARA PROMPTS (COPY/DELETE) ======
+    promptDisplay.addEventListener('click', (event) => {
+        const targetButton = event.target.closest('button');
+
+        if (!targetButton) return;
+
+        // Lógica de DELETAR
+        if (targetButton.classList.contains('delete-prompt-btn')) {
+            const promptId = targetButton.dataset.id;
+
+            // Verifica se o usuário realmente quer deletar
+            if (confirm('Tem certeza que deseja deletar este prompt?')) {
+                deletePrompt(promptId);
+            }
+
+            // Lógica de COPIAR
+        } else if (targetButton.classList.contains('copy-prompt-btn')) {
+            const textToCopy = targetButton.dataset.text;
+            navigator.clipboard.writeText(textToCopy);
+            // showToast('Prompt copiado!', 'success');
         }
     });
 
@@ -228,6 +252,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // <--- A LINHA renderCategories() DEVE SER REMOVIDA DAQUI. --->
 
     });
+
+    // ====== FUNÇÃO DE DELETAR PROMPT ======
+    function deletePrompt(id) {
+        // CRÍTICO: Converte a string ID para número para garantir a comparação correta.
+        const promptIdToDelete = parseFloat(id);
+
+        console.log('--- DELETANDO PROMPT ---'); // LOG 1
+        console.log('ID a ser deletado (Number):', promptIdToDelete); // LOG 2
+        console.log('IDs do Array ANTES:', prompts.map(p => p.id)); // LOG 3
+
+        prompts = prompts.filter(p => p.id !== promptIdToDelete);
+        console.log('IDs do Array DEPOIS:', prompts.map(p => p.id)); // LOG 4
+        savePrompts();
+        renderCategories(); // Rerenderiza categorias para atualizar a contagem
+    }
 
     function downloadData() {
         // 1. VERIFICAÇÃO
