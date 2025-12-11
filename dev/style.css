@@ -423,15 +423,15 @@ select {
 
 /* Prompt Cards */
 .prompt-card {
-    /* Estilo básico do card */
+    position: relative;
     background-color: #ffffff;
     /* Cor de fundo para garantir visibilidade */
     border: 1px solid #e0e0e0;
-    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
     box-sizing: border-box;
+    padding: 30px 15px 15px 15px; /* T | R | D | L */
 }
 
 .prompt-card:hover {
@@ -452,7 +452,7 @@ select {
     background-color: var(--md-surface-color);
     transition: all 0.2s ease;
     gap: 12px;
-    /* Space between text and buttons */
+    padding-top: 25px;
 }
 
 .prompt-card:hover {
@@ -463,7 +463,7 @@ select {
 /* This is the key part — makes text behave exactly like a textarea */
 .prompt-card p {
     flex: 1;
-    margin: 0;
+    margin-top: 15px;
     padding: 8px 12px;
     /* Same padding as textarea */
     background-color: #fafafa;
@@ -884,4 +884,21 @@ li.has-prompts .prompt-count::before {
     top: 50% !important;
     transform: translateY(-50%) !important;
     z-index: 1 !important;
+}
+
+/* 2. O CONTÊINER da data precisa ser "absolute" */
+.prompt-header-info {
+    position: absolute;
+    top: 5px; /* Posição de 5px a partir do topo do card */
+    right: 5px; /* Posição de 5px a partir da borda direita do card */
+    pointer-events: none; /* Garante que o clique passe para o card, não para a data */
+    z-index: 1; 
+}
+
+/* 3. Estilo DISCRETO para a data */
+.date-added {
+    font-size: 0.75em; /* Fonte pequena */
+    color: #888; /* Cor cinza discreta */
+    opacity: 0.7; /* Suaviza a visibilidade */
+    user-select: none;
 }
