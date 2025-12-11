@@ -42,7 +42,7 @@ header {
 }
 
 .header-icon {
-    height: 88px;
+    height: 60px;
     width: auto;
 }
 
@@ -179,7 +179,7 @@ h2 {
     font-weight: 400;
     font-size: 1.1rem;
     color: var(--md-primary-color-dark);
-    margin: 0 0 1rem 0;
+    /*margin: 0 0 1rem 0; */
 }
 
 main {
@@ -212,7 +212,7 @@ main {
 
     gap: 16px !important;
     /* ← ESPAÇO ENTRE TODOS OS ELEMENTOS */
-    padding: 20px !important;
+    padding: 10px !important;
 }
 
 .card:hover {
@@ -354,15 +354,6 @@ select {
     background-color: #e00057;
 }
 
-/* === PERFECT PROMPT AREA LAYOUT (THE BIG FIX) === */
-/* .prompt-area {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100% !important;
-    flex: 1;
-} */
-
 /* Input section stays compact */
 .prompt-input-section.card {
     flex-shrink: 0;
@@ -385,15 +376,17 @@ select {
     flex: 1 1 300px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 10px;
     gap: 16px;
     overflow: visible !important;
-    /* permite crescer */
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .prompt-display-section h2 {
     margin-top: 0;
     flex-shrink: 0;
+    margin-bottom: 5px;
 }
 
 /* Scrollable prompt list */
