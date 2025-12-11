@@ -94,10 +94,16 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (confirm(`Delete "${category}" and all its prompts?`)) {
-                    //prompts = prompts.filter(p => p.category !== category);
-                    prompts = prompts.filter(p => p.id != promptIdToDelete);
+                    // ✅ CORREÇÃO 1: DELETA TODOS OS PROMPTS DESSA CATEGORIA
+                    // Filtra removendo todos os prompts onde p.category é igual à categoria sendo deletada.
+                    prompts = prompts.filter(p => p.category !== category); 
+                    
+                    // ✅ CORREÇÃO 2: DELETA A CATEGORIA
                     categories = categories.filter(c => c !== category);
+                    
+                    // Atualiza a categoria ativa se a deletada era a ativa
                     if (activeCategory === category) activeCategory = categories[0] || null;
+                    
                     saveCategories();
                     savePrompts();
                     renderCategories();
