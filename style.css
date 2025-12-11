@@ -431,7 +431,8 @@ select {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
     box-sizing: border-box;
-    padding: 30px 15px 15px 15px; /* T | R | D | L */
+    padding: 30px 15px 15px 15px;
+    /* T | R | D | L */
 }
 
 .prompt-card:hover {
@@ -889,16 +890,73 @@ li.has-prompts .prompt-count::before {
 /* 2. O CONTÊINER da data precisa ser "absolute" */
 .prompt-header-info {
     position: absolute;
-    top: 5px; /* Posição de 5px a partir do topo do card */
-    right: 5px; /* Posição de 5px a partir da borda direita do card */
-    pointer-events: none; /* Garante que o clique passe para o card, não para a data */
-    z-index: 1; 
+    top: 5px;
+    /* Posição de 5px a partir do topo do card */
+    right: 5px;
+    /* Posição de 5px a partir da borda direita do card */
+    pointer-events: none;
+    /* Garante que o clique passe para o card, não para a data */
+    z-index: 1;
 }
 
 /* 3. Estilo DISCRETO para a data */
 .date-added {
-    font-size: 0.75em; /* Fonte pequena */
-    color: #888; /* Cor cinza discreta */
-    opacity: 0.7; /* Suaviza a visibilidade */
+    font-size: 0.75em;
+    /* Fonte pequena */
+    color: #888;
+    /* Cor cinza discreta */
+    opacity: 0.7;
+    /* Suaviza a visibilidade */
     user-select: none;
+}
+
+/* Novo: Garante que os inputs e o botão fiquem lado a lado */
+.category-input-group {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    align-items: center;
+    /* Garante alinhamento vertical */
+}
+
+/* Estilo para o seletor de cores (para alinhamento e tamanho) */
+#categoryColorInput {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Definimos 40px, que é o tamanho mínimo aceitável pelo navegador */
+    width: 35px;
+    height: 35px;
+
+    padding: 0;
+    border: none;
+    /* A borda será colocada no wrapper */
+    box-sizing: border-box;
+    cursor: pointer;
+
+    /* CRÍTICO: Move o input 5px para cima e 5px para esquerda. 
+       (40px - 30px) / 2 = 5px. Isso centraliza o input 40x40 dentro do wrapper 30x30. */
+    transform: translate(-5px, -5px);
+}
+
+/* Faz o campo de texto crescer para preencher o espaço restante */
+#newCategoryInput {
+    flex-grow: 1;
+}
+
+/* 1. Estilo do Wrapper (Define o tamanho final) */
+.color-picker-wrapper {
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    /* CRÍTICO: Esconde as bordas do input 40x40 */
+    flex-shrink: 0;
+    /* Impede o encolhimento do Flexbox */
+    align-self: center;
+    /* Centraliza verticalmente no Flexbox */
+    border-radius: 4px;
+    /* Opcional: Para manter as bordas arredondadas */
+    border: 1px solid var(--border-color, #ccc);
+    /* Borda do wrapper */
 }
