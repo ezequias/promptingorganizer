@@ -12,10 +12,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadDataBtn = document.getElementById('uploadDataBtn');
     const searchInput = document.getElementById('searchInput');
     const categoryHeading = document.getElementById('category-heading');
+
+    // ======= CORES E CATEGORIAS PADRÃO =======
+    const DEFAULT_CATEGORIES = ['Geral', 'Criativo', 'Técnico']; // Use os nomes que você costuma usar
+    const DEFAULT_COLORS = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#9C27B0'];
+
+    // Função para garantir que todas as categorias são objetos com cores
+    function ensureCategoryObjects(cats) {
+        // Se a lista de categorias não existir ou for vazia, usa o padrão.
+        if (!cats || cats.length === 0) return DEFAULT_CATEGORIES.map((c, i) => ({
+            name: c,
+            color: DEFAULT_COLORS[i % DEFAULT_COLORS.length]
+        }));
+
+        // Converte categorias antigas (strings) em objetos (para manter dados antigos)
+        return cats.map((cat, index) => {
+            if (typeof cat === 'string') {
+                return {
+                    name: cat,
+                    color: DEFAULT_COLORS[index % DEFAULT_COLORS.length] // Cor padrão
+                };
+            }
+            return cat;
+        });
+    }
+
     // ====== DADOS ======
-    let categories = JSON.parse(localStorage.getItem('promptCategories')) || ['General', 'Creative', 'Technical'];
+    // 1. ATUALIZAÇÃO CRÍTICA: Usa a função de segurança
+    let categories = ensureCategoryObjects(JSON.parse(localStorage.getItem('promptCategories')));
+
+    // 2. Prompts permanece o mesmo
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
-    let activeCategory = categories.length > 0 ? categories[0] : null;
+
+    // 3. ATUALIZAÇÃO CRÍTICA: Pega o NOME da categoria ativa
+    let activeCategory = categories.length > 0 ? categories[0].name : null;
 
     console.log("SCRIPT EXECUTED");
     addCategoryBtn.textContent = 'Add';
@@ -35,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryList.innerHTML = '';
         promptCategorySelect.innerHTML = '';
 
-        //const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
         if (categories.length === 0) {
             categoryList.innerHTML = '<p class="no-prompts-message">No categories yet. Add one!</p>';
             promptCategorySelect.innerHTML = '<option value="">No Categories Available</option>';
@@ -44,9 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        categories.forEach(category => {
+        categories.forEach(catObj => { // Itera sobre o OBJETO da categoria
+            const name = catObj.name;
+            const color = catObj.color;
+
             const li = document.createElement('li');
-            li.dataset.category = category;
+            li.dataset.category = name; // Usa o nome
 
             // Grip
             const handle = document.createElement('span');
@@ -55,10 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Nome + contador
             const categoryNameSpan = document.createElement('span');
-            categoryNameSpan.textContent = category;
+            categoryNameSpan.textContent = name; // ✅ CORREÇÃO: Usa o NOME para exibir
             categoryNameSpan.classList.add('category-name');
 
-            const promptCount = prompts.filter(p => p.category === category).length;
+            // ✅ NOVO: Borda colorida
+            li.style.borderLeft = `5px solid ${color}`;
+            li.classList.add('category-item');
+
+            const promptCount = prompts.filter(p => p.category === name).length; // Filtra pelo nome
             const countSpan = document.createElement('span');
             countSpan.className = 'prompt-count';
             countSpan.textContent = promptCount;
@@ -70,12 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // ====== CLIQUE PARA ATIVAR CATEGORIA ======
             li.addEventListener('click', (e) => {
-                // Ignora clique no botão de delete
                 if (e.target.closest('.delete-category-btn')) return;
 
-                // Ativa a categoria
-                if (activeCategory !== category) {
-                    activeCategory = category;
+                if (activeCategory !== name) {
+                    activeCategory = name;
                     renderCategories();
                 }
             });
@@ -83,26 +117,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // Double-click no nome para renomear
             categoryNameSpan.addEventListener('dblclick', (e) => {
                 e.stopPropagation();
-                enterEditMode(li, category);
+                enterEditMode(li, name); // Passa o nome
             });
 
             // Botão delete
             const deleteBtn = document.createElement('button');
             deleteBtn.classList.add('delete-category-btn');
             deleteBtn.innerHTML = `<svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>`;
-            deleteBtn.title = `Delete "${category}" category`;
+            deleteBtn.title = `Delete "${name}" category`; // Usa o nome
             deleteBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                if (confirm(`Delete "${category}" and all its prompts?`)) {
-                    // ✅ CORREÇÃO 1: DELETA TODOS OS PROMPTS DESSA CATEGORIA
-                    // Filtra removendo todos os prompts onde p.category é igual à categoria sendo deletada.
-                    prompts = prompts.filter(p => p.category !== category);
+                if (confirm(`Delete "${name}" and all its prompts?`)) {
+                    // DELETA PROMPTS: Filtra por nome
+                    prompts = prompts.filter(p => p.category !== name);
 
-                    // ✅ CORREÇÃO 2: DELETA A CATEGORIA
-                    categories = categories.filter(c => c !== category);
+                    // DELETA CATEGORIA: Filtra o array de objetos 'categories'
+                    categories = categories.filter(c => c.name !== name);
 
-                    // Atualiza a categoria ativa se a deletada era a ativa
-                    if (activeCategory === category) activeCategory = categories[0] || null;
+                    // Atualiza a categoria ativa
+                    if (activeCategory === name) activeCategory = categories.length > 0 ? categories[0].name : null;
 
                     saveCategories();
                     savePrompts();
@@ -111,24 +144,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             li.appendChild(deleteBtn);
 
-            if (category === activeCategory) li.classList.add('active');
+            if (name === activeCategory) li.classList.add('active'); // Compara com o nome
             categoryList.appendChild(li);
 
+            // Renderiza o seletor de prompts
             const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
+            option.value = name;
+            option.textContent = name;
             promptCategorySelect.appendChild(option);
         });
 
-        if (activeCategory && categories.includes(activeCategory)) {
+        // Atualiza a categoria ativa se a lista mudar (agora usa .name)
+        if (activeCategory && categories.some(c => c.name === activeCategory)) {
             promptCategorySelect.value = activeCategory;
         } else if (categories.length > 0) {
-            activeCategory = categories[0];
+            activeCategory = categories[0].name; // Pega o nome
             promptCategorySelect.value = activeCategory;
         }
 
         if (categoryHeading) {
-            // Atualiza o texto: "Categories (Total)"
+            // ... (o restante da renderCategories)
             categoryHeading.innerHTML = `Categories (${categories.length}) | Prompts (${prompts.length})`;
         }
 
@@ -223,22 +258,23 @@ document.addEventListener('DOMContentLoaded', () => {
     addCategoryBtn.addEventListener('click', () => {
         const newCategory = newCategoryInput.value.trim();
 
-        if (newCategory && !categories.includes(newCategory)) {
+        // NOVO: Pega o valor da cor
+        const newColor = categoryColorInput ? categoryColorInput.value : DEFAULT_COLORS[0];
 
-            console.log('1. Array de Categorias ANTES:', categories); // <-- LOG 1
+        // Verifica se a categoria já existe (checando a propriedade .name)
+        if (newCategory && !categories.some(c => c.name.toLowerCase() === newCategory.toLowerCase())) {
 
-            categories.push(newCategory);
-
-            console.log('2. Array de Categorias DEPOIS:', categories); // <-- LOG 2
+            // Salva como OBJETO (nome + cor)
+            categories.push({ name: newCategory, color: newColor });
 
             saveCategories();
             newCategoryInput.value = '';
+
+            // Define o activeCategory usando o nome
             activeCategory = newCategory;
 
-            console.log('3. Chamando renderCategories()...'); // <-- LOG 3
-
             renderCategories();
-        } else if (newCategory && categories.includes(newCategory)) {
+        } else if (newCategory) {
             alert('Category already exists!');
         }
     });
