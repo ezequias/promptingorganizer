@@ -210,7 +210,8 @@ main {
     overflow: visible !important;
     max-height: none !important;
 
-    gap: 16px !important; /* ← ESPAÇO ENTRE TODOS OS ELEMENTOS */
+    gap: 16px !important;
+    /* ← ESPAÇO ENTRE TODOS OS ELEMENTOS */
     padding: 20px !important;
 }
 
@@ -397,14 +398,16 @@ select {
 
 /* Scrollable prompt list */
 #promptDisplay {
-   /* Define o layout da lista de prompts */
-    display: flex; 
+    /* Define o layout da lista de prompts */
+    display: flex;
     flex-direction: column;
-    gap: 15px; /* Espaço entre cada card */
-    
+    gap: 15px;
+    /* Espaço entre cada card */
+
     /* Garante que ele não seja escondido por padrões */
     width: 100%;
-    padding-top: 15px; /* Espaço entre o título e o primeiro card */
+    padding-top: 15px;
+    /* Espaço entre o título e o primeiro card */
 }
 
 /* Nice scrollbar (Chrome/Edge/Safari) */
@@ -427,8 +430,9 @@ select {
 
 /* Prompt Cards */
 .prompt-card {
-   /* Estilo básico do card */
-    background-color: #ffffff; /* Cor de fundo para garantir visibilidade */
+    /* Estilo básico do card */
+    background-color: #ffffff;
+    /* Cor de fundo para garantir visibilidade */
     border: 1px solid #e0e0e0;
     padding: 15px;
     border-radius: 8px;
@@ -692,6 +696,8 @@ select {
     position: relative;
     padding: 20px;
     overflow: visible !important;
+    min-height: 200px;
+    gap: 15px;
 }
 
 #newPromptText {
@@ -722,7 +728,8 @@ select {
 /* ====== HANDLE DE REDIMENSIONAMENTO – ESTILO PROFISSIONAL ====== */
 .textarea-wrapper {
     position: relative;
-    display: block;
+    width: 100%;
+    height: auto;
 }
 
 #newPromptText {
@@ -730,7 +737,6 @@ select {
     width: 100% !important;
     min-height: 80px !important;
     max-height: 400px !important;
-    resize: none !important;
     /* ← desativa o handle padrão */
     overflow-y: auto !important;
     padding: 12px 12px 28px 12px !important;
@@ -742,8 +748,10 @@ select {
     border-radius: 8px !important;
     background: #fafafa !important;
     margin: 1 !important;
-    box-sizing: border-box !important;
+
     transition: height 0.1s ease !important;
+    resize: none !important;
+    box-sizing: border-box !important;
 }
 
 /* Handle personalizado */
@@ -806,11 +814,9 @@ li.has-prompts .prompt-count::before {
 }
 
 .prompt-area {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 1;
-    min-width: 0;
+    height: auto !important;
+    min-height: min-content;
+    flex-grow: 1;
 }
 
 .prompt-input-section,
@@ -835,7 +841,8 @@ li.has-prompts .prompt-count::before {
     transition: all 0.2s ease !important;
     align-self: flex-start !important;
     margin-top: 8px !important;
-    border-radius: 5px !important; /* ← 50% do original (20px → 10px) */
+    border-radius: 5px !important;
+    /* ← 50% do original (20px → 10px) */
 }
 
 #addPromptBtn:hover {
@@ -847,14 +854,16 @@ li.has-prompts .prompt-count::before {
 
 /* ====== SELECT DE CATEGORIA – ESPAÇAMENTO E ESTILO ====== */
 #promptCategorySelect {
-    -webkit-appearance: none !important;   /* remove estilo padrão */
+    -webkit-appearance: none !important;
+    /* remove estilo padrão */
     -moz-appearance: none !important;
     appearance: none !important;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='%23666'%3e%3cpath d='M4.5 6.5l3.5 3.5 3.5-3.5z'/%3e%3c/svg%3e") !important;
     background-repeat: no-repeat !important;
     background-position: right 12px center !important;
     background-size: 12px !important;
-    padding-right: 40px !important; /* espaço pra setinha */
+    padding-right: 40px !important;
+    /* espaço pra setinha */
 }
 
 #promptCategorySelect:focus {
@@ -864,14 +873,16 @@ li.has-prompts .prompt-count::before {
 }
 
 .search-container {
-    position: relative !important; /* ← ESSA LINHA É OBRIGATÓRIA */
+    position: relative !important;
+    /* ← ESSA LINHA É OBRIGATÓRIA */
     margin: 0 0 16px 0;
     max-width: 100%;
 }
 
 #globalSearch {
     position: relative !important;
-    padding-right: 40px !important; /* ← espaço pro ícone */
+    padding-right: 40px !important;
+    /* ← espaço pro ícone */
 }
 
 .search-icon {
