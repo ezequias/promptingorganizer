@@ -96,14 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (confirm(`Delete "${category}" and all its prompts?`)) {
                     // ✅ CORREÇÃO 1: DELETA TODOS OS PROMPTS DESSA CATEGORIA
                     // Filtra removendo todos os prompts onde p.category é igual à categoria sendo deletada.
-                    prompts = prompts.filter(p => p.category !== category); 
-                    
+                    prompts = prompts.filter(p => p.category !== category);
+
                     // ✅ CORREÇÃO 2: DELETA A CATEGORIA
                     categories = categories.filter(c => c !== category);
-                    
+
                     // Atualiza a categoria ativa se a deletada era a ativa
                     if (activeCategory === category) activeCategory = categories[0] || null;
-                    
+
                     saveCategories();
                     savePrompts();
                     renderCategories();
@@ -137,8 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("renderCategories() terminou");
     }
 
-    // ====== RENDER PROMPTS ======
-    // ====== RENDER PROMPTS (CORRIGIDA) ======
     function renderPrompts() {
         promptDisplay.innerHTML = '';
 
@@ -169,7 +167,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 p.text && p.text.toLowerCase().includes(searchTerm)
             );
         }
-        // ------------------------------------------
+        // 💡 NOVA LINHA CRÍTICA: INVERTE A ORDEM DO ARRAY
+        // Isso garante que os prompts mais recentes (que têm maior ID/timestamp) apareçam primeiro.
+        categoryPrompts.reverse();
 
         if (categoryPrompts.length === 0) {
             // 3. ATUALIZA A MENSAGEM
@@ -184,20 +184,23 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`Prompts encontrados para renderizar: ${categoryPrompts.length}`); // NOVO LOG
         categoryPrompts.forEach(prompt => {
             const card = document.createElement('div');
-        card.className = 'prompt-card';
+            card.className = 'prompt-card';
 
-        // 1. Prepara o texto para exibição (com highlight)
-        let text = prompt.text
-            .replace(/\[/g, '<span class="placeholder-highlight">[')
-            .replace(/\]/g, ']</span>');
+            // 1. Prepara o texto para exibição (com highlight)
+            let text = prompt.text
+                .replace(/\[/g, '<span class="placeholder-highlight">[')
+                .replace(/\]/g, ']</span>');
 
-        // 2. CRÍTICO: Prepara o texto para o atributo data-text. 
-        // Implementa o escape robusto.
-        const safeTextForAttribute = prompt.text
-            .replace(/"/g, '&quot;') // Escapa aspas duplas
-            .replace(/'/g, '&#39;'); // Escapa aspas simples
+            // 2. CRÍTICO: Prepara o texto para o atributo data-text. 
+            // Implementa o escape robusto.
+            const safeTextForAttribute = prompt.text
+                .replace(/"/g, '&quot;') // Escapa aspas duplas
+                .replace(/'/g, '&#39;'); // Escapa aspas simples
 
-        card.innerHTML = `
+            card.innerHTML = `
+            <div class="prompt-header-info">
+                <span class="date-added">${prompt.dateAdded || 'N/A'}</span>
+            </div>
             <p>${text}</p>
     <div class="prompt-actions">
         <button class="copy-prompt-btn" data-text="${safeTextForAttribute}" title="Copy">
@@ -213,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
     </div>
         `;
-        promptDisplay.appendChild(card);
+            promptDisplay.appendChild(card);
         });
     }
 
@@ -268,17 +271,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCategory = promptCategorySelect.value;
 
         if (promptText && selectedCategory) {
+            // 1. Cria a data formatada
+            const currentDate = new Date(Date.now());
+            const formattedDate = currentDate.toLocaleDateString('pt-BR', {
+                day: '2-digit', month: '2-digit', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+
             const newPrompt = {
                 id: Date.now(),
                 text: promptText,
-                category: selectedCategory
+                category: selectedCategory,
+                // 2. SALVA A DATA FORMATADA NO PROMPT
+                dateAdded: formattedDate
             };
             prompts.push(newPrompt);
             savePrompts();
             newPromptText.value = '';
 
-            // Se o prompt adicionado está na categoria ativa, apenas renderize os prompts.
-            // NÃO precisamos chamar renderCategories aqui.
             if (selectedCategory === activeCategory) {
                 renderPrompts();
             }
