@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ====== RENDER CATEGORIES (RECUPERADA) ======
     function renderCategories() {
-        console.log("renderCategories() começou");
+        searchInput.value = '';
         categoryList.innerHTML = '';
         promptCategorySelect.innerHTML = '';
 
@@ -237,20 +237,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="date-added">${prompt.dateAdded || 'N/A'}</span>
             </div>
             <p>${text}</p>
-    <div class="prompt-actions">
-        <button class="copy-prompt-btn" data-text="${safeTextForAttribute}" title="Copy">
-            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
-                <path d="M5.25 1.75C5.25 .784 6.034 0 7 0h7.25C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11H7c-.966 0-1.75-.784-1.75-1.75v-7.5Z"></path>
-            </svg>
-        </button>
-        <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete">
-            <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
-            </svg>
-        </button>
-    </div>
+            <div class="prompt-actions">
+                <button class="copy-prompt-btn" data-text="${safeTextForAttribute}" title="Copy">
+                    <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
+                        <path d="M5.25 1.75C5.25 .784 6.034 0 7 0h7.25C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11H7c-.966 0-1.75-.784-1.75-1.75v-7.5Z"></path>
+                    </svg>
+                </button>
+                <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete">
+                    <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                        <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
+                    </svg>
+                </button>
+            </div>
         `;
+
+            const pElement = card.querySelector('p');
+            if (pElement) {
+                pElement.addEventListener('dblclick', (e) => {
+                    e.stopPropagation();
+                    enterEditModePrompt(card, prompt.id, prompt.text);
+                });
+            }
             promptDisplay.appendChild(card);
         });
     }
@@ -328,13 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selectedCategory === activeCategory) {
                 renderPrompts();
             }
-
         } else {
             alert('Please enter a prompt and select a category.');
         }
-
-        // <--- A LINHA renderCategories() DEVE SER REMOVIDA DAQUI. --->
-
     });
 
     // ====== FUNÇÃO DE DELETAR PROMPT ======
@@ -526,6 +530,93 @@ document.addEventListener('DOMContentLoaded', () => {
     // <--- LISTENER 2: Processa o arquivo quando o usuário o seleciona (uploadFileInput -> handleUpload) --->
     if (uploadFileInput) {
         uploadFileInput.addEventListener('change', handleUpload);
+    }
+
+    // ====== FUNÇÃO PARA ENTRAR NO MODO DE EDIÇÃO DE PROMPT ======
+    function enterEditModePrompt(card, promptId, currentText) {
+        // 1. Elementos existentes
+        const pElement = card.querySelector('p');
+        const actionsDiv = card.querySelector('.prompt-actions');
+        const headerInfo = card.querySelector('.prompt-header-info'); // O elemento da data
+
+        if (card.querySelector('.prompt-edit-textarea')) return;
+
+        // 2. Criação dos novos elementos
+
+        // A. Textarea
+        const textarea = document.createElement('textarea');
+        textarea.value = currentText;
+        textarea.classList.add('prompt-edit-textarea');
+        textarea.rows = 5;
+
+        // B. Botões (Salvar e Cancelar)
+        const saveButton = document.createElement('button');
+        saveButton.textContent = 'SAVE'; // Usando caixa alta para estética
+        saveButton.classList.add('md-button', 'save-edit-btn');
+
+        const cancelButton = document.createElement('button');
+        cancelButton.textContent = 'CANCEL';
+        cancelButton.classList.add('md-button', 'cancel-edit-btn');
+
+        // C. Wrapper para os botões (Coluna Esquerda)
+        const leftColumnWrapper = document.createElement('div');
+        leftColumnWrapper.classList.add('edit-left-column');
+
+        // D. Wrapper para o Textarea e Data (Coluna Direita)
+        const rightColumnWrapper = document.createElement('div');
+        rightColumnWrapper.classList.add('edit-right-column');
+
+        // 3. Montagem da Nova Estrutura
+
+        // Esconde as ações antigas
+        if (actionsDiv) actionsDiv.style.display = 'none';
+
+        // Coluna Esquerda: Botões empilhados
+        leftColumnWrapper.appendChild(saveButton);
+        leftColumnWrapper.appendChild(cancelButton);
+
+        // Coluna Direita: Data e Textarea
+        if (headerInfo) rightColumnWrapper.appendChild(headerInfo);
+        rightColumnWrapper.appendChild(textarea);
+
+        // Insere no Card: remove o <p>
+        pElement.remove(); // Remove o parágrafo original
+
+        // Adiciona os wrappers ao card
+        card.prepend(rightColumnWrapper);
+        card.prepend(leftColumnWrapper);
+
+        textarea.focus();
+
+        // 4. Lógica de Salvar e Cancelar (CRÍTICO: Adicionar os Listeners)
+        saveButton.addEventListener('click', () => {
+            const newText = textarea.value.trim();
+            if (newText) {
+                const promptIndex = prompts.findIndex(p => p.id == promptId);
+                if (promptIndex !== -1) {
+                    prompts[promptIndex].text = newText;
+                    savePrompts();
+                    renderPrompts();
+                }
+            } else {
+                alert('Prompt text cannot be empty.');
+            }
+        });
+        cancelButton.addEventListener('click', () => {
+            renderPrompts(); // Renderiza para sair do modo de edição
+        });
+    }
+
+    // ====== FUNÇÃO DE FEEDBACK VISUAL SIMPLES (para o JS) ======
+    function showSuccessFlash(cardElement) {
+        if (cardElement) {
+            cardElement.classList.add('flash-success');
+
+            // Remove a classe após 0.6 segundos (um pouco mais que a duração da animação)
+            setTimeout(() => {
+                cardElement.classList.remove('flash-success');
+            }, 600);
+        }
     }
 
     // ====== INICIALIZAÇÃO ======
