@@ -468,11 +468,17 @@ select {
     padding-top: 25px; /* Mantém o espaço para a data no modo de exibição */
     
     position: relative; /* Necessário para ancorar a data */
+
+    max-height: 200px; /* Altura máxima em estado compacto */
+    min-height: 120px; /* Garante que cards menores não fiquem espremidos */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, box-shadow 0.2s ease-out;
 }
 
 .prompt-card:hover {
     background-color: #F2F2EE;
-    border-color: rgb(1, 164, 20); 
+    border-color: #FFEEBC; 
+    border-width: 2px;
     
     /* CRÍTICO: Elevação e Sombra Juntos */
     transform: translateY(-1px);
@@ -482,27 +488,30 @@ select {
 /* This is the key part — makes text behave exactly like a textarea */
 .prompt-card p {
     flex: 1;
-    margin-top: 15px;
+    margin-top: 5px; /* Novo respiro superior sutil */
+    margin-bottom: 0; /* GARANTE que não vaze */
+    
     padding: 8px 12px;
-    /* Same padding as textarea */
+    
     background-color: #ffffff;
-    /* Very light gray background like a text field */
     border: 1px solid #e0e0e0;
-    /* Subtle border */
     border-radius: 6px;
     min-height: 48px;
-    /* Minimum height so short prompts look nice */
     line-height: 1.5;
     word-wrap: break-word;
-    /* Ensures long words break */
     white-space: pre-wrap;
-    /* Preserves line breaks and wraps text */
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: var(--md-text-color);
     overflow: hidden;
     resize: none;
     line-height: 1.6;
+    
+    /* Mantenha o overflow, pois ele ajuda a conter o texto */
+    overflow: hidden; 
+    resize: none;
+    line-height: 1.6;
+    height: -webkit-fill-available;
 }
 
 .placeholder-highlight {
@@ -1116,4 +1125,11 @@ li.has-prompts .prompt-count::before {
     animation: success-flash 0.5s ease-out; 
     /* Adicione a cor de fundo inicial AQUI, com !important, para sobrepor o hover */
     background-color: #e0f5e0 !important;
+}
+
+.prompt-card.expanded {
+    max-height: 1000px; /* Valor alto para garantir a expansão total (pode ser "none") */
+    min-height: 200px; /* Garante que a rolagem funcione se o card for muito longo */
+    overflow: auto; /* Permite que o usuário role dentro do card se necessário */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais forte ao expandir */
 }

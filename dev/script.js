@@ -221,6 +221,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'prompt-card';
 
+            // BOTÃO DE EXPANDIR CARD
+            card.addEventListener('click', (e) => {
+                const target = e.target;
+
+                // 2. Verifica se o clique ocorreu em um elemento de AÇÃO ou EDIÇÃO
+                // Se o clique foi em um destes elementos, a função retorna (ignora a expansão)
+                if (
+                    // Verifica se o clique foi em um dos wrappers de ações (Copy/Delete)
+                    target.closest('.prompt-actions') ||
+
+                    // Verifica se o clique foi no textarea (no modo edição)
+                    target.tagName === 'TEXTAREA' ||
+
+                    // Verifica se o clique foi nos botões de edição (Save/Cancel)
+                    target.closest('.save-edit-btn') ||
+                    target.closest('.cancel-edit-btn')
+                ) {
+                    // Ignora a expansão e permite que a ação de controle aconteça
+                    return;
+                }
+
+                // 3. Se o clique foi em uma área segura, alterna a classe 'expanded'
+                card.classList.toggle('expanded');
+                // BOTÃO DE EXPANDIR CARD FIM
+            });
             // 1. Prepara o texto para exibição (com highlight)
             let text = prompt.text
                 .replace(/\[/g, '<span class="placeholder-highlight">[')
