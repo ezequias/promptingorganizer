@@ -62,7 +62,7 @@ header h1 {
     text-align: center;
     width: 100%;
     gap: 8px;
-    /* padding-top: 5px; */
+    padding-top: 5px;
 }
 
 .header-right-image img {
