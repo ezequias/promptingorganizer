@@ -445,72 +445,73 @@ select {
 }
 
 /* Prompt Cards */
+/* ====== PROMPT CARD CONSOLIDADO ====== */
 .prompt-card {
-    position: relative;
-    
-    
-    /* Cor de fundo para garantir visibilidade */
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    box-sizing: border-box;
-    padding: 30px 15px 15px 15px;
-    /* T | R | D | L */
-    background-color: #FCFCF9 !important;
-}
-
-.prompt-card:hover {
-    background-color: #F3F3EE;
-    transform: translateY(-1px);
-}
-
-.prompt-card {
+    /* Layout e Dimensões (Mantido do segundo bloco, mas refinado) */
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    /* Changed from "center" → allows text to start at top */
-    padding: 12px 14px;
-    /* Slightly more breathing room */
-    margin-bottom: 8px;
-    border-radius: 8px;
-    box-shadow: var(--md-shadow-1);
-    background-color: var(--md-surface-color);
-    transition: all 0.2s ease;
+    align-items: flex-start; /* CRÍTICO: Permite que o texto comece no topo */
+    width: 100%;
+    box-sizing: border-box; /* Garante que padding e borda estejam incluídos no width */
     gap: 12px;
-    padding-top: 25px;
-    background-color: #F2F2EE;
+    
+    /* Estilo e Cores */
+    background-color: #FCFCF9; /* Use uma única cor de fundo */
+    border: 1px solid #e0e0e0; /* Mantenha a borda do primeiro bloco */
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-1, 0 1px 3px rgba(0,0,0,0.1)); /* Use o var ou um fallback */
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+    
+    /* Padding (Ajustado para o modo de exibição, mas o modo de edição tem suas próprias regras) */
+    padding: 12px 14px; 
+    padding-top: 25px; /* Mantém o espaço para a data no modo de exibição */
+    
+    position: relative; /* Necessário para ancorar a data */
+
+    max-height: 200px; /* Altura máxima em estado compacto */
+    min-height: 120px; /* Garante que cards menores não fiquem espremidos */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, box-shadow 0.2s ease-out;
 }
 
 .prompt-card:hover {
-      background-color: #f1f1f1;
+    background-color: #F2F2EE;
+    border-color: #FFEEBC; 
+    border-width: 2px;
+    
+    /* CRÍTICO: Elevação e Sombra Juntos */
     transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adiciona sombra na elevação */
 }
 
 /* This is the key part — makes text behave exactly like a textarea */
 .prompt-card p {
     flex: 1;
-    margin-top: 15px;
+    margin-top: 5px; /* Novo respiro superior sutil */
+    margin-bottom: 0; /* GARANTE que não vaze */
+    
     padding: 8px 12px;
-    /* Same padding as textarea */
+    
     background-color: #ffffff;
-    /* Very light gray background like a text field */
     border: 1px solid #e0e0e0;
-    /* Subtle border */
     border-radius: 6px;
     min-height: 48px;
-    /* Minimum height so short prompts look nice */
     line-height: 1.5;
     word-wrap: break-word;
-    /* Ensures long words break */
     white-space: pre-wrap;
-    /* Preserves line breaks and wraps text */
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: var(--md-text-color);
     overflow: hidden;
     resize: none;
     line-height: 1.6;
+    
+    /* Mantenha o overflow, pois ele ajuda a conter o texto */
+    overflow: hidden; 
+    resize: none;
+    line-height: 1.6;
+    height: -webkit-fill-available;
 }
 
 .placeholder-highlight {
@@ -918,14 +919,11 @@ li.has-prompts .prompt-count::before {
 
 /* 2. O CONTÊINER da data precisa ser "absolute" */
 .prompt-header-info {
-    position: absolute;
-    top: 5px;
-    /* Posição de 5px a partir do topo do card */
-    right: 5px;
-    /* Posição de 5px a partir da borda direita do card */
-    pointer-events: none;
-    /* Garante que o clique passe para o card, não para a data */
-    z-index: 1;
+    position: absolute; 
+    top: 5px; 
+    right: 5px; 
+    font-size: 0.85em; 
+    z-index: 2;
 }
 
 /* 3. Estilo DISCRETO para a data */
@@ -988,4 +986,150 @@ li.has-prompts .prompt-count::before {
     /* Opcional: Para manter as bordas arredondadas */
     border: 1px solid var(--border-color, #ccc);
     /* Borda do wrapper */
+}
+
+/* Estilo para a área de texto de edição */
+.prompt-edit-textarea {
+    width: 100%; 
+    min-height: 100px;
+    padding: 10px;
+    
+    /* NOVO: Empurra o textarea para baixo da área ocupada pela data */
+    margin-top: 25px; 
+    
+    box-sizing: border-box;
+
+    width: 100%;
+    min-height: 100px; /* Garante visibilidade */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: inherit;
+    resize: vertical; /* Permite redimensionar verticalmente */
+
+    margin-top: 5px; /* Reduzimos para um valor pequeno, já que o problema não era ele */
+    margin-right: 120px; /* NOVO: Deixa espaço para os botões à direita (SAVE e CANCEL) */
+}
+
+/* Estilos para os botões de edição (ajuste a cor se necessário) */
+.save-edit-btn {
+    background-color: #38b2ac; /* Verde Menta Sutil */
+    color: white;
+    margin-right: 10px;
+}
+
+.cancel-edit-btn {
+    background-color: #e53e3e; /* Vermelho/Vinho Sutil */
+    color: white;
+}
+
+/* Novo Contêiner para os botões de Edição */
+.edit-actions-wrapper {
+    /* CRÍTICO: Posiciona o wrapper de forma absoluta no canto inferior direito */
+    position: absolute;
+    bottom: 10px; /* Afasta da borda inferior */
+    right: 10px; /* Afasta da borda direita */
+    display: flex; /* Alinha os botões horizontalmente */
+    gap: 10px;
+    z-index: 20;
+    
+    /* CRÍTICO: Garante que o wrapper comece ABAIXO da data. */
+    /* Como a data tem ~15px de altura e está no topo, definimos um top mínimo para o wrapper. */
+    top: 35px; /* Posiciona o wrapper ABAIXO da data. */
+    height: 35px; /* Altura fixa para o wrapper de botões */
+}
+
+/* 1. Coluna da Esquerda (Botões) */
+.edit-left-column {
+    display: flex;
+    flex-direction: column; /* Empilha verticalmente */
+    gap: 10px; 
+    flex-shrink: 0; /* Impede que a coluna encolha */
+    
+    /* CRÍTICO: Largura mínima para os botões (Ajuste para caber o texto 'CANCEL') */
+    width: 80px; 
+    padding-top: 5px; /* Pequeno ajuste vertical */
+}
+
+/* 2. Coluna da Direita (Textarea e Data) */
+.edit-right-column {
+    flex-grow: 1; /* CRÍTICO: Ocupa todo o espaço restante */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Necessário para ancorar a data */
+}
+
+/* 3. Textarea (Garante que ocupe o espaço na coluna) */
+.prompt-edit-textarea {
+    width: 100%; /* Ocupa 100% da COLUNA DIREITA */
+    min-height: 100px;
+    padding: 10px;
+    margin-top: 5px; 
+    box-sizing: border-box;
+    /* ... outras regras ... */
+}
+
+/* 4. Posicionamento da Data */
+.prompt-header-info {
+    position: absolute; 
+    top: 5px; /* Ancorado no topo */
+    right: 5px; /* Ancorado na direita da coluna */
+    font-size: 0.85em; 
+    z-index: 2;
+}
+
+/* Corrigindo a largura dos botões no modo de edição */
+.edit-left-column button {
+    width: 80px; /* Define uma largura fixa para todos os botões na coluna */
+    text-align: center;
+    padding: 8px 5px; /* Ajusta o padding vertical/horizontal */
+}
+
+/* Garante que a coluna tenha espaço para o texto (se 80px for muito pequeno) */
+.edit-left-column {
+    /* ... regras existentes ... */
+    width: 85px; /* Damos 5px extra de margem */
+}
+
+/* ====== EFEITO FLASH DE SUCESSO (NOVO) ====== */
+
+/* 1. Define o Keyframe (Brilho e Fade) */
+@keyframes success-flash {
+   /* 0% é o pico do brilho e da elevação */
+    0% { 
+        /* Fundo do Flash: Cinza muito claro */
+        background-color: #e8e8e8 !important; 
+        
+        /* Borda: Usamos box-shadow para simular a borda grossa e cinza 60% */
+        box-shadow: 0 0 0 4px rgba(100, 100, 100, 0.6), /* Cinza 60% (o outline) */
+                    0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra de elevação */
+        
+        transform: scale(1.01); /* Pequena elevação */
+    } 
+    
+    /* 100% volta ao estado normal do card */
+    100% { 
+        background-color: #F2F2EE; /* Cor de fundo normal do card */
+        transform: scale(1); 
+        /* Volta à sombra padrão (sem o outline cinza) */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); 
+    }
+}
+
+/* 2. Aplica a animação no card quando a classe é adicionada pelo JS */
+.prompt-card.flash-success {
+    /* CRÍTICO: Força a prioridade máxima da cor de fundo no início da animação */
+    animation: success-flash 0.5s ease-out; 
+    /* Adicione a cor de fundo inicial AQUI, com !important, para sobrepor o hover */
+    background-color: #e0f5e0 !important;
+}
+
+.prompt-card.expanded {
+    max-height: 1000px; /* Valor alto para garantir a expansão total (pode ser "none") */
+    min-height: 200px; /* Garante que a rolagem funcione se o card for muito longo */
+    overflow: auto; /* Permite que o usuário role dentro do card se necessário */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais forte ao expandir */
 }
