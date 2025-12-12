@@ -20,12 +20,13 @@
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    background-color: var(--md-background-color);
     color: var(--md-text-color);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     line-height: 1.5;
+    background-color: #FCFCF9;
+
 }
 
 header {
@@ -61,7 +62,14 @@ header h1 {
     text-align: center;
     width: 100%;
     gap: 8px;
-    padding: 16px 20px;
+    /* padding-top: 5px; */
+}
+
+.header-right-image img {
+    /* Ajuste o tamanho da imagem conforme necessário */
+    display: grid;
+    height: 80px;
+    width: auto;
 }
 
 .title-wrapper {
@@ -124,7 +132,7 @@ header h1 {
 /* Em telas pequenas mantém bonito */
 @media (max-width: 600px) {
     .header-content {
-        padding: 12px 10px;
+        padding: 12px 5px;
     }
 
     header h1 {
@@ -213,8 +221,12 @@ main {
     gap: 16px !important;
     /* ← ESPAÇO ENTRE TODOS OS ELEMENTOS */
     padding: 10px !important;
+    background-color: #FCFCF9;
 }
 
+#searchInput{
+    background-color: white;
+}
 .card:hover {
     box-shadow: var(--md-shadow-2);
 }
@@ -298,7 +310,7 @@ select {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: var(--md-text-color);
-    background-color: var(--md-surface-color);
+    background-color: white;
     box-sizing: border-box;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -336,6 +348,15 @@ select {
     box-shadow: var(--md-shadow-2);
 }
 
+#downloadDataBtn{
+    background-color: var(--md-primary-color);
+    color: white;
+}
+
+#uploadDataBtn {
+    background-color: var(--md-primary-color);
+    color: white;
+}
 #addCategoryBtn {
     background-color: var(--md-primary-color);
     color: white;
@@ -358,6 +379,7 @@ select {
 .prompt-input-section.card {
     flex-shrink: 0;
     max-height: none;
+    background-color: #FCFCF9;
 }
 
 .prompt-input-section textarea {
@@ -381,12 +403,14 @@ select {
     overflow: visible !important;
     margin-top: 10px;
     margin-bottom: 10px;
+    background-color: #FCFCF9;
 }
 
 .prompt-display-section h2 {
     margin-top: 0;
     flex-shrink: 0;
     margin-bottom: 5px;
+    background-color: #FCFCF9;
 }
 
 /* Scrollable prompt list */
@@ -424,7 +448,8 @@ select {
 /* Prompt Cards */
 .prompt-card {
     position: relative;
-    background-color: #ffffff;
+    
+    
     /* Cor de fundo para garantir visibilidade */
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -433,10 +458,11 @@ select {
     box-sizing: border-box;
     padding: 30px 15px 15px 15px;
     /* T | R | D | L */
+    background-color: #FCFCF9 !important;
 }
 
 .prompt-card:hover {
-    background-color: #fcfcfc;
+    background-color: #F3F3EE;
     transform: translateY(-1px);
 }
 
@@ -454,10 +480,11 @@ select {
     transition: all 0.2s ease;
     gap: 12px;
     padding-top: 25px;
+    background-color: #F2F2EE;
 }
 
 .prompt-card:hover {
-    background-color: white;
+      background-color: #f1f1f1;
     transform: translateY(-1px);
 }
 
@@ -467,7 +494,7 @@ select {
     margin-top: 15px;
     padding: 8px 12px;
     /* Same padding as textarea */
-    background-color: #fafafa;
+    background-color: #ffffff;
     /* Very light gray background like a text field */
     border: 1px solid #e0e0e0;
     /* Subtle border */
@@ -501,7 +528,7 @@ select {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-top: 8px;
+    padding-top: 3px;
 }
 
 .delete-prompt-btn,
@@ -692,6 +719,7 @@ select {
     overflow: visible !important;
     min-height: 200px;
     gap: 15px;
+    background-color: #F2F2EE;
 }
 
 #newPromptText {
@@ -821,6 +849,7 @@ li.has-prompts .prompt-count::before {
     flex-direction: column;
     box-sizing: border-box;
     min-height: 250px;
+    background-color: #F2F2EE;
 }
 
 /* ====== BOTÃO ADD PROMPT – ESTILO CONSISTENTE ====== */
@@ -857,6 +886,7 @@ li.has-prompts .prompt-count::before {
     background-position: right 12px center !important;
     background-size: 12px !important;
     padding-right: 40px !important;
+    background-color: white;
     /* espaço pra setinha */
 }
 
