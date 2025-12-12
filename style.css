@@ -61,7 +61,6 @@ header h1 {
     justify-content: center;
     text-align: center;
     width: 100%;
-    gap: 8px;
     padding-top: 5px;
 }
 
@@ -76,7 +75,7 @@ header h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 header h1 {
@@ -132,7 +131,7 @@ header h1 {
 /* Em telas pequenas mantém bonito */
 @media (max-width: 600px) {
     .header-content {
-        padding: 12px 5px;
+        padding-top: 12px;
     }
 
     header h1 {
