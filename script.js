@@ -104,29 +104,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.appendChild(categoryNameSpan);
 
-            // ====== CLIQUE PARA ATIVAR CATEGORIA ======
+            // ====== CLIQUE PARA ATIVAR CATEGORIA (SEM DESTRUIR O DOM) ======
             li.addEventListener('click', (e) => {
-                // Se clicar no botão de delete ou se estivermos editando (input), ignore o clique de seleção
-                if (e.target.closest('.delete-category-btn') || e.target.tagName === 'INPUT') return;
+                // Proteções padrão
+                if (e.target.closest('.delete-category-btn') || 
+                    e.target.closest('.drag-handle') || 
+                    e.target.tagName === 'INPUT') return;
 
-                // Define a categoria ativa pelo NOME (que é como você filtra os prompts)
+                // 1. Atualiza a variável global
                 activeCategory = name;
 
-                // Atualiza a interface das categorias (para mostrar qual está ativa/azul)
-                renderCategories();
+                // 2. ATUALIZAÇÃO VISUAL MANUAL (O Segredo!)
+                // Em vez de chamar renderCategories(), apenas trocamos as classes
+                const allItems = document.querySelectorAll('.category-item');
+                allItems.forEach(item => item.classList.remove('active'));
+                li.classList.add('active');
 
-                // CRÍTICO: Chama a renderização dos prompts para a nova categoria selecionada
+                // 3. Renderiza APENAS os prompts (painel central)
                 renderPrompts();
-
-                console.log("Categoria ativa alterada para:", activeCategory);
+                
+                console.log("Clique simples: Categoria ativada ->", activeCategory);
             });
 
-            // Double-click para renomear a categoria
+            // ====== DUPLO CLIQUE (EDITAR) ======
             li.addEventListener('dblclick', (e) => {
+                e.preventDefault();
                 e.stopPropagation();
-                // Ignora se o clique for no botão de deletar ou no ícone de arrastar
+                
                 if (e.target.closest('.delete-category-btn') || e.target.closest('.drag-handle')) return;
 
+                console.log("Duplo clique detectado! Editando:", name);
                 enterCategoryEditMode(li, name);
             });
 
@@ -182,67 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("renderCategories() terminou");
     }
 
-    function editCategoryName(element, categoryId) {
-        // 1. Pega o nome atual (removendo espaços extras ou contagem de itens se houver)
-        const currentName = element.childNodes[0].textContent.trim();
 
-        // 2. Cria o input de edição
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.value = currentName;
-        input.classList.add('edit-category-input'); // Estilize no CSS
 
-        // 3. Substitui o texto pelo input
-        element.innerHTML = '';
-        element.appendChild(input);
-        input.focus();
-
-        // 4. Lógica para salvar ao apertar Enter ou perder o foco (Blur)
-        const saveChange = () => {
-            const newName = input.value.trim();
-            if (newName && newName !== currentName) {
-                updateCategoryInStorage(categoryId, newName);
-            }
-            // Re-renderiza as categorias para voltar ao normal
-            renderCategories();
-        };
-
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') saveChange();
-            if (e.key === 'Escape') renderCategories(); // Cancela
-        });
-
-        input.addEventListener('blur', saveChange);
-    }
-
-    function updateCategoryInStorage(categoryId, newName) {
-        // 1. Carrega os dados atuais (ajuste as chaves 'categories' conforme seu código)
-        let categories = JSON.parse(localStorage.getItem('categories')) || [];
-        let prompts = JSON.parse(localStorage.getItem('prompts')) || [];
-
-        // 2. Localiza a categoria e atualiza o nome
-        const categoryIndex = categories.findIndex(cat => cat.id === categoryId);
-
-        if (categoryIndex !== -1) {
-            const oldName = categories[categoryIndex].name;
-            categories[categoryIndex].name = newName;
-
-            // 3. SE seus prompts usam o NOME da categoria como referência (e não o ID)
-            // Você precisa atualizar os prompts também para eles não "sumirem"
-            prompts = prompts.map(prompt => {
-                if (prompt.category === oldName) {
-                    return { ...prompt, category: newName };
-                }
-                return prompt;
-            });
-
-            // 4. Salva as atualizações no localStorage
-            localStorage.setItem('categories', JSON.stringify(categories));
-            localStorage.setItem('prompts', JSON.stringify(prompts));
-
-            console.log(`Categoria '${oldName}' atualizada para '${newName}'`);
-        }
-    }
 
     function renderPrompts() {
         promptDisplay.innerHTML = '';
@@ -353,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (pElement) {
                 pElement.addEventListener('dblclick', (e) => {
                     e.stopPropagation();
-                    enterEditModePrompt(card, prompt.id, prompt.text); 
+                    enterEditModePrompt(card, prompt.id, prompt.text);
                 });
             }
             promptDisplay.appendChild(card);
@@ -717,9 +665,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function enterCategoryEditMode(liElement, oldName) {
+        console.log("Entrando no modo de edição para:", oldName);
         const nameSpan = liElement.querySelector('.category-name');
         if (!nameSpan) return;
 
+        // Remove qualquer listener anterior para evitar chamadas duplas
         const input = document.createElement('input');
         input.type = 'text';
         input.value = oldName;
@@ -728,29 +678,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         nameSpan.innerHTML = '';
         nameSpan.appendChild(input);
-        input.focus();
-        input.select();
+
+        // O foco precisa de um tempo mínimo para estabilizar após o dblclick
+        setTimeout(() => {
+            input.focus();
+            input.select();
+        }, 50);
 
         const save = () => {
             const newName = input.value.trim();
-            if (newName && newName !== oldName) {
-                // Atualiza o nome no array de categorias
-                categories = categories.map(c => c.name === oldName ? { ...c, name: newName } : c);
-                // Atualiza a referência em todos os prompts vinculados
-                prompts = prompts.map(p => p.category === oldName ? { ...p, category: newName } : p);
-
-                if (activeCategory === oldName) activeCategory = newName;
-                saveCategories();
-                savePrompts();
+            // Apenas processa se o input ainda estiver no DOM para evitar erros
+            if (document.body.contains(input)) {
+                if (newName && newName !== oldName) {
+                    categories = categories.map(c => c.name === oldName ? { ...c, name: newName } : c);
+                    prompts = prompts.map(p => p.category === oldName ? { ...p, category: newName } : p);
+                    if (activeCategory === oldName) activeCategory = newName;
+                    saveCategories();
+                    savePrompts();
+                }
+                renderCategories();
             }
-            renderCategories();
         };
 
         input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') save();
-            if (e.key === 'Escape') renderCategories();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                save();
+            }
+            if (e.key === 'Escape') {
+                renderCategories();
+            }
         });
-        input.addEventListener('blur', save);
+
+        // O blur só deve disparar se não for um cancelamento manual
+        input.addEventListener('blur', () => {
+            // Pequeno atraso para garantir que o Enter/Escape seja processado primeiro
+            setTimeout(save, 100);
+        });
     }
 
     // ====== INICIALIZAÇÃO ======
