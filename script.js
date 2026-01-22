@@ -106,7 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // ====== CLIQUE PARA ATIVAR CATEGORIA ======
             li.addEventListener('click', (e) => {
+                // Importante: impede que o clique suba para outros elementos
+                e.stopPropagation();
+
                 if (e.target.closest('.delete-category-btn')) return;
+
+                // Chama a função de edição passando o 'li' (o elemento atual) e o nome
+                enterEditMode(li, name);
 
                 if (activeCategory !== name) {
                     activeCategory = name;
@@ -114,10 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Double-click no nome para renomear
-            categoryNameSpan.addEventListener('dblclick', (e) => {
+            // Double-click para renomear a categoria
+            li.addEventListener('dblclick', (e) => {
                 e.stopPropagation();
-                enterEditMode(li, name); // Passa o nome
+                // Ignora se o clique for no botão de deletar ou no ícone de arrastar
+                if (e.target.closest('.delete-category-btn') || e.target.closest('.drag-handle')) return;
+                
+                enterCategoryEditMode(li, name); 
             });
 
             // Botão delete
@@ -170,6 +179,68 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPrompts();
         makeCategoriesDraggable();
         console.log("renderCategories() terminou");
+    }
+
+    function editCategoryName(element, categoryId) {
+        // 1. Pega o nome atual (removendo espaços extras ou contagem de itens se houver)
+        const currentName = element.childNodes[0].textContent.trim();
+
+        // 2. Cria o input de edição
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentName;
+        input.classList.add('edit-category-input'); // Estilize no CSS
+
+        // 3. Substitui o texto pelo input
+        element.innerHTML = '';
+        element.appendChild(input);
+        input.focus();
+
+        // 4. Lógica para salvar ao apertar Enter ou perder o foco (Blur)
+        const saveChange = () => {
+            const newName = input.value.trim();
+            if (newName && newName !== currentName) {
+                updateCategoryInStorage(categoryId, newName);
+            }
+            // Re-renderiza as categorias para voltar ao normal
+            renderCategories();
+        };
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') saveChange();
+            if (e.key === 'Escape') renderCategories(); // Cancela
+        });
+
+        input.addEventListener('blur', saveChange);
+    }
+
+    function updateCategoryInStorage(categoryId, newName) {
+        // 1. Carrega os dados atuais (ajuste as chaves 'categories' conforme seu código)
+        let categories = JSON.parse(localStorage.getItem('categories')) || [];
+        let prompts = JSON.parse(localStorage.getItem('prompts')) || [];
+
+        // 2. Localiza a categoria e atualiza o nome
+        const categoryIndex = categories.findIndex(cat => cat.id === categoryId);
+
+        if (categoryIndex !== -1) {
+            const oldName = categories[categoryIndex].name;
+            categories[categoryIndex].name = newName;
+
+            // 3. SE seus prompts usam o NOME da categoria como referência (e não o ID)
+            // Você precisa atualizar os prompts também para eles não "sumirem"
+            prompts = prompts.map(prompt => {
+                if (prompt.category === oldName) {
+                    return { ...prompt, category: newName };
+                }
+                return prompt;
+            });
+
+            // 4. Salva as atualizações no localStorage
+            localStorage.setItem('categories', JSON.stringify(categories));
+            localStorage.setItem('prompts', JSON.stringify(prompts));
+
+            console.log(`Categoria '${oldName}' atualizada para '${newName}'`);
+        }
     }
 
     function renderPrompts() {
@@ -644,6 +715,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function enterCategoryEditMode(liElement, oldName) {
+        const nameSpan = liElement.querySelector('.category-name');
+        if (!nameSpan) return;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = oldName;
+        input.className = 'edit-category-input';
+        input.style.width = "85%";
+
+        nameSpan.innerHTML = '';
+        nameSpan.appendChild(input);
+        input.focus();
+        input.select();
+
+        const save = () => {
+            const newName = input.value.trim();
+            if (newName && newName !== oldName) {
+                // Atualiza o nome no array de categorias
+                categories = categories.map(c => c.name === oldName ? { ...c, name: newName } : c);
+                // Atualiza a referência em todos os prompts vinculados
+                prompts = prompts.map(p => p.category === oldName ? { ...p, category: newName } : p);
+                
+                if (activeCategory === oldName) activeCategory = newName;
+                saveCategories();
+                savePrompts();
+            }
+            renderCategories();
+        };
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') save();
+            if (e.key === 'Escape') renderCategories();
+        });
+        input.addEventListener('blur', save);
+    }
+    
     // ====== INICIALIZAÇÃO ======
     function initApp() {
         console.log('Iniciando aplicação...');
