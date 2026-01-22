@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (pElement) {
                 pElement.addEventListener('dblclick', (e) => {
                     e.stopPropagation();
-                    enterEditModePrompt(card, prompt.id, prompt.text);
+                    enterEditModePrompt(card, prompt.id, prompt.text); 
                 });
             }
             promptDisplay.appendChild(card);
