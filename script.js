@@ -106,18 +106,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // ====== CLIQUE PARA ATIVAR CATEGORIA ======
             li.addEventListener('click', (e) => {
-                // Importante: impede que o clique suba para outros elementos
-                e.stopPropagation();
+                // Se clicar no botão de delete ou se estivermos editando (input), ignore o clique de seleção
+                if (e.target.closest('.delete-category-btn') || e.target.tagName === 'INPUT') return;
 
-                if (e.target.closest('.delete-category-btn')) return;
+                // Define a categoria ativa pelo NOME (que é como você filtra os prompts)
+                activeCategory = name;
 
-                // Chama a função de edição passando o 'li' (o elemento atual) e o nome
-                enterEditMode(li, name);
+                // Atualiza a interface das categorias (para mostrar qual está ativa/azul)
+                renderCategories();
 
-                if (activeCategory !== name) {
-                    activeCategory = name;
-                    renderCategories();
-                }
+                // CRÍTICO: Chama a renderização dos prompts para a nova categoria selecionada
+                renderPrompts();
+
+                console.log("Categoria ativa alterada para:", activeCategory);
             });
 
             // Double-click para renomear a categoria
@@ -125,8 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.stopPropagation();
                 // Ignora se o clique for no botão de deletar ou no ícone de arrastar
                 if (e.target.closest('.delete-category-btn') || e.target.closest('.drag-handle')) return;
-                
-                enterCategoryEditMode(li, name); 
+
+                enterCategoryEditMode(li, name);
             });
 
             // Botão delete
@@ -737,7 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 categories = categories.map(c => c.name === oldName ? { ...c, name: newName } : c);
                 // Atualiza a referência em todos os prompts vinculados
                 prompts = prompts.map(p => p.category === oldName ? { ...p, category: newName } : p);
-                
+
                 if (activeCategory === oldName) activeCategory = newName;
                 saveCategories();
                 savePrompts();
@@ -751,7 +752,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         input.addEventListener('blur', save);
     }
-    
+
     // ====== INICIALIZAÇÃO ======
     function initApp() {
         console.log('Iniciando aplicação...');
