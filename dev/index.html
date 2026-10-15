@@ -3,8 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-     <link rel="icon" type="image/x-icon" href="assets/img/faviconb.png">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/img/faviconb.png">
     <title>Prompt Organizer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +27,7 @@
             <div class="title-wrapper">
                 <h1>My Prompt Organizer</h1>
                 <div class="github-badges">
-                    <span class="badge version">v1.0.2</span>
+                    <span class="badge version">v1.1.0</span>
 
                     <span class="badge license">Apache License</span>
                     <span class="badge platform">Web • Offline</span>
@@ -51,18 +52,58 @@
     </header>
     <main>
         <aside class="sidebar card">
-            <h2 id="category-heading">Categories</h2>
-            <ul id="categoryList">
-            </ul>
-
-            <div class="input-group">
-                <div class="color-picker-wrapper">
-                    <input type="color" id="categoryColorInput" value="#2196F3" title="Category Color">
-                </div>
-
-                <input type="text" id="newCategoryInput" placeholder="New Category">
-                <button id="addCategoryBtn" class="md-button">Add Category</button>
+            <div class="sidebar-header">
+                <h2>Organizer</h2>
             </div>
+
+            <!-- Accordion Section: Prompts -->
+            <div class="accordion-section" id="promptsAccordionSection">
+                <button type="button" class="accordion-header active" id="promptsAccordionHeader" aria-expanded="true">
+                    <span class="accordion-title">
+                        <i class="material-icons">chat</i>
+                        <span>Prompts</span>
+                    </span>
+                    <span class="accordion-meta">
+                        <span class="badge-count" id="promptsCountBadge">0</span>
+                        <i class="material-icons chevron">expand_more</i>
+                    </span>
+                </button>
+                <div class="accordion-content open" id="promptsAccordionContent">
+                    <ul id="promptCategoryList" class="category-list"></ul>
+                    <div class="input-group category-input-group">
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="promptCategoryColorInput" class="category-color-input" value="#2196F3" title="Category Color">
+                        </div>
+                        <input type="text" id="newPromptCategoryInput" placeholder="New Category">
+                        <button id="addPromptCategoryBtn" class="md-button">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Section: Skills -->
+            <div class="accordion-section" id="skillsAccordionSection">
+                <button type="button" class="accordion-header" id="skillsAccordionHeader" aria-expanded="false">
+                    <span class="accordion-title">
+                        <i class="material-icons">psychology</i>
+                        <span>Skills</span>
+                    </span>
+                    <span class="accordion-meta">
+                        <span class="badge-count" id="skillsCountBadge">0</span>
+                        <i class="material-icons chevron">expand_more</i>
+                    </span>
+                </button>
+                <div class="accordion-content" id="skillsAccordionContent">
+                    <ul id="skillCategoryList" class="category-list"></ul>
+                    <div class="input-group category-input-group">
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="skillCategoryColorInput" class="category-color-input" value="#4CAF50" title="Category Color">
+                        </div>
+                        <input type="text" id="newSkillCategoryInput" placeholder="New Category">
+                        <button id="addSkillCategoryBtn" class="md-button">Add</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="data-management-section">
                 <h3>Data Management</h3>
                 <button id="downloadDataBtn" class="md-button"><i class="material-icons">download</i> Download</button>
@@ -72,23 +113,23 @@
         </aside>
         <section class="prompt-area">
             <div class="prompt-input-section card">
-                <h2>Add New Prompt</h2>
+                <h2 id="inputSectionHeading">Add New Prompt</h2>
+                <div id="skillTitleWrapper" style="display: none;">
+                    <input type="text" id="skillTitleInput" placeholder="Skill Title (e.g. Code Reviewer, Technical Writer)">
+                </div>
                 <div class="textarea-wrapper">
                     <textarea id="newPromptText" placeholder="Enter your prompt here..."></textarea>
                     <div class="resize-handle">⋮⋮</div>
                 </div>
-                <!-- <textarea id="newPromptText" placeholder="Enter your prompt here...">
-
-                </textarea> -->
                 <select id="promptCategorySelect">
                 </select>
                 <button id="addPromptBtn" class="md-button md-button-primary">Add Prompt</button>
             </div>
 
             <div class="prompt-display-section card">
-                <h2>Prompts 🔍</h2>
+                <h2 id="displaySectionHeading">Prompts 🔍</h2>
                 <div class="search-bar-wrapper">
-                    <input type="text" id="searchInput" placeholder="Search prompts..." title="Search prompts">
+                    <input type="text" id="searchInput" placeholder="Search prompts..." title="Search">
                 </div>
                 <div id="promptDisplay">
                     <p class="no-prompts-message">Select a category or add new prompts.</p>

@@ -232,37 +232,158 @@ main {
 
 /* Sidebar */
 .sidebar {
-    width: 280px !important;
+    width: 290px !important;
     flex-shrink: 0 !important;
 }
 
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--md-primary-color-dark);
+}
+
+/* Accordion Section */
+.accordion-section {
+    margin-bottom: 14px;
+    border: 1px solid var(--md-divider-color);
+    border-radius: 8px;
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: all 0.2s ease;
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background-color: #f7f7f5;
+    border: none;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--md-text-color);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    text-align: left;
+}
+
+.accordion-header:hover {
+    background-color: #ecece8;
+}
+
+.accordion-header.active {
+    background-color: #f0f0eb;
+    border-bottom: 1px solid var(--md-divider-color);
+}
+
+.accordion-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.02rem;
+    font-weight: 500;
+}
+
+.accordion-title .material-icons {
+    font-size: 20px;
+    color: var(--md-primary-color-dark);
+}
+
+.accordion-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge-count {
+    background-color: #e2e2de;
+    color: #444;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    min-width: 16px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.accordion-header.active .badge-count {
+    background-color: #2196F3;
+    color: #ffffff;
+}
+
+#skillsAccordionHeader.active .badge-count {
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+
+.accordion-meta .chevron {
+    font-size: 20px;
+    color: #666;
+    transition: transform 0.25s ease;
+}
+
+.accordion-header.active .chevron {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    display: none;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.accordion-content.open {
+    display: block;
+}
+
+/* Category lists */
+.category-list,
 #categoryList {
     list-style: none;
     padding: 0;
-    margin-bottom: 1rem;
-    border-top: 1px solid var(--md-divider-color);
+    margin: 0 0 10px 0;
+    max-height: 240px;
+    overflow-y: auto;
 }
 
+.category-list li,
 #categoryList li {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 10px;
+    padding: 10px 8px;
     cursor: pointer;
-    border-bottom: 1px solid var(--md-divider-color);
+    border-bottom: 1px solid #f0f0f0;
     color: var(--md-secondary-text-color);
-    transition: background-color 0.2s ease, color 0.2s
+    transition: background-color 0.2s ease, color 0.2s;
+    border-radius: 4px;
+    margin-bottom: 2px;
 }
 
+.category-list li.active,
 #categoryList li.active {
-    background-color: #bdbdbd80;
-    color: var(--md-primary-color-dark);
+    background-color: #ededeb;
+    color: var(--md-text-color);
     font-weight: 500;
 }
 
+.category-list li:hover:not(.active),
 #categoryList li:hover:not(.active) {
-    background-color: #f0f0f0;
+    background-color: #f7f7f5;
 }
 
 .delete-category-btn {
@@ -947,7 +1068,10 @@ li.has-prompts .prompt-count::before {
 }
 
 /* Estilo para o seletor de cores (para alinhamento e tamanho) */
-#categoryColorInput {
+.category-color-input,
+#categoryColorInput,
+#promptCategoryColorInput,
+#skillCategoryColorInput {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -968,8 +1092,78 @@ li.has-prompts .prompt-count::before {
 }
 
 /* Faz o campo de texto crescer para preencher o espaço restante */
+#newPromptCategoryInput,
+#newSkillCategoryInput,
 #newCategoryInput {
     flex-grow: 1;
+}
+
+/* Skill Title Input in Input Form */
+#skillTitleWrapper {
+    width: 100%;
+}
+
+#skillTitleInput {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--md-text-color);
+    background-color: #ffffff;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#skillTitleInput:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    outline: none;
+}
+
+/* Skill Card Enhancements */
+.skill-card {
+    border-left: 5px solid #4CAF50;
+}
+
+.skill-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.skill-card-title {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2e7d32;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    word-break: break-word;
+}
+
+.skill-card-title .material-icons {
+    font-size: 18px;
+    color: #4CAF50;
+}
+
+.skill-edit-title-input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1px solid #4CAF50;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+    outline: none;
+    font-family: inherit;
 }
 
 /* 1. Estilo do Wrapper (Define o tamanho final) */
@@ -1132,4 +1326,49 @@ li.has-prompts .prompt-count::before {
     min-height: 200px; /* Garante que a rolagem funcione se o card for muito longo */
     overflow: auto; /* Permite que o usuário role dentro do card se necessário */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais forte ao expandir */
+}
+
+.edit-category-input {
+    width: 80%;
+    padding: 2px 5px;
+    font-size: inherit;
+    font-family: inherit;
+    border: 1px solid #22A2F2;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* Container da categoria */
+.category-item {
+    position: relative; /* Necessário para posicionar a dica */
+    transition: background-color 0.2s;
+}
+
+/* Dica visual que aparece ao passar o rato */
+.category-item:hover::after {
+    content: "✎ clique duplo para renomear";
+    position: absolute;
+    right: 40px; /* Ajuste para não sobrepor o botão de apagar */
+    font-size: 10px;
+    color: #888;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 6px;
+    border-radius: 4px;
+    pointer-events: none; /* Garante que a dica não atrapalhe o clique */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Pequena animação de surgimento */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(5px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Feedback visual opcional: muda levemente a cor do fundo */
+.category-item:hover {
+    background-color: #f0f7ff;
+}
+
+.category-name {
+    cursor: text; /* Indica que o texto pode ser manipulado */
 }

@@ -1,0 +1,403 @@
+{
+  "version": "2.0",
+  "exportDate": "2026-10-15T00:04:39.161Z",
+  "promptCategories": [
+    {
+      "name": "Creative",
+      "color": "#E91E63"
+    },
+    {
+      "name": "Orthographic Blueprint",
+      "color": "#2196F3"
+    },
+    {
+      "name": "Infographic",
+      "color": "#FF9800"
+    },
+    {
+      "name": "NotebookLM",
+      "color": "#9C27B0"
+    },
+    {
+      "name": "Shorts",
+      "color": "#F44336"
+    },
+    {
+      "name": "Geral",
+      "color": "#607D8B"
+    }
+  ],
+  "prompts": [
+    {
+      "id": 1791510323532.5635,
+      "text": "\"Please create a comprehensive, clear, and organized set of notes based on the provided resource. Ensure that all key terms, concepts, nuances, and practical examples are included. The notes should cover definitions, detailed explanations, principles, and related examples. The notes should be structured logically with headings and subheadings to enhance readability. Include detailed explanations of key terms, principles, and examples to illustrate complex ideas. Aim for clarity, precision, and depth to help in understanding the material thoroughly.\"",
+      "category": "NotebookLM",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.9238,
+      "text": "Make an outstanding and sober orthographic blueprint infographic of the sources provided. \n\nSet colors shaded blue and green with sand-colored background. Aim for clarity, precision, and depth to help in understanding the material thoroughly. Focus strictly in [Topic].",
+      "category": "Orthographic Blueprint",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.6445,
+      "text": "Make as orthographic blueprint with colors #7C8EA6, #F3ECD5, #21201E, #DCB87E and background of color #F2F2F0",
+      "category": "Orthographic Blueprint",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.1472,
+      "text": "Make as orthographic blueprint with colors #044BD9, #114BBF, #56BF66 and background of color #F2F2F0",
+      "category": "Orthographic Blueprint",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.4817,
+      "text": "Set the schematic drawing rendered in black ink on a light, textured paper that resembles aged parchment or off-white sketchbook paper shadowed areas scene elements.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.5818,
+      "text": "Ultra-realistic recreation of an old vintage photo, keeping the same original face (99% likeness, no alteration). Transform into a modern high-quality digital portrait with vibrant updated colors, smooth realistic skin textures, and natural lighting. The outfit and background should be upgraded into a clean, modern aesthetic while preserving the authenticity of the original pose and expression.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.402,
+      "text": "Create a highly detailed isometric 3D rendering of [LANDMARK] in architectural visualization style. The building is shown at a 45-degree angle from above, displaying three visible sides with intricate architectural detail. Photorealistic textures showing materials like stone, glass, metal, or brick. Include the base/ground level with tiny people, cars, and landscaping for scale. Clean white or light grey background. Professional architectural rendering with soft ambient shadows beneath the structure. Every window, column, ornamental detail, and structural element clearly visible. 1080x1080 dimension, centered composition. Style similar to video game building assets or architectural presentation models - clean, detailed, slightly stylized but realistic.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.9058,
+      "text": "Explode:\n“Create a technical exploded view diagram of a [SUBJECT] in 1080x1080 dimension. The device is deconstructed showing all individual components floating in space, separated from each other to reveal internal parts. Each major component is labeled with clean lines pointing to parts like screen, circuit board, battery, casing, buttons, etc. Isometric perspective, technical illustration style with soft shadows between parts. Light grey/white clean background. Educational infographic aesthetic similar to engineering blueprints or patent drawings. All parts aligned in logical assembly order showing how they fit together”",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.564,
+      "text": "Generate 3D caricature of yourself using Gemini Nano Banana Pro.\n\nPrompt: A highly stylized 3D caricature of the person in the uploaded image, with expressive facial features, and playful exaggeration. Rendered in a smooth, polished style with clean materials and soft ambient lighting. Bold color background to emphasize the character’s charm and presence.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.3894,
+      "text": "[WEATHER] top-down isometric miniature 3D cartoon scene of [CITY], featuring its most iconic landmarks and architectural elements. Use soft, refined textures with realistic PBR materials and gentle, lifelike lighting and shadows. Integrate the current weather conditions directly into the city environment to create an immersive atmospheric mood.\nUse a clean, minimalistic composition with a soft, solid-colored background.\n\nAt the top-center, place the title “[CITY]” in large bold text, a prominent weather icon beneath it, then the date (small text) and temperature (medium text).\nAll text must be centered with consistent spacing, and may subtly overlap the tops of the buildings.\nSquare 1080x1080 dimension.”",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.4636,
+      "text": "Digital illustration:\n\nCreate a modern digital illustration of me (use my uploaded face) in the same style as a vectorized poster portrait.\nStyle & details:\nClean vector-art look with bold outlines and flat shading.\nUse high-contrast colors: skin tones in light peach with soft red shadows.\nHair: sharp, stylized details with dark brown/black tones and subtle highlights.\nBeard: neatly outlined, dark, and well-blended with the face.\nBackground colour: Red",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.266,
+      "text": "Sketch Illustration:\n\nHighly detailed sketch-style illustration of the subject from the uploaded image in a powerful yet peaceful pose. The figure is wearing the same dress and holding the same well-defined pose, exuding devotion and inner strength. The image features soft shading and artistic texture. The entire artwork is created with a fine ink-sketch effect, using loose scribble lines around the figure to give it an artistic, hand-drawn look. Minimalist white textured background.\",\n  \"signature_text\": \"Ezequias Rocha\",\n  \"style\": \"Ink Sketch Illustration\",\n  \"negative_prompt\": \"photorealistic, 3d, color, blurry, messy lines, bad anatomy, extra limbs, distorted face\",\n  \"aspect_ratio\": \"3:4\"",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.6948,
+      "text": "Create a Candid travel lifestyle:\n\nCreate a Candid travel lifestyle portrait of a young man at an airport, oversized black leather jacket over a light gray hoodie, large black headphones, sipping iced coffee with a RED-WHITE straw while holding luggage. He has  messy black hair  Background features a green “EXIT” sign and glass walls. Soft natural light with pastel greenish tones, cinematic gentle color grading, nostalgic modern travel mood. dont change the face and dont show any coffee brand",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.6155,
+      "text": "Fridays pensive quiet portrait framed by rain's last drops, stillness:\n\nA man with curly black hair and a beard, wearing a maroon turtleneck sweater, looks thoughtfully out a window with raindrops on it. He holds a dark mug in his hand. The background is a vibrant red. The lighting is dramatic, highlighting his features.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.878,
+      "text": "CITY=[CITY, STATE- COUNTRY] \nDate=[DECEMBER, 1st]\nWeather=[PARTLY CLOUD, 0ºC]\n\nTop-down isometric miniature 3D cartoon scene of [CITY], featuring its most iconic landmarks and architectural elements. Use soft, refined textures with realistic PBR materials and gentle, lifelike lighting and shadows. Integrate the current weather conditions directly into the city environment to create an immersive atmospheric mood.\nUse a clean, minimalistic composition with a soft, solid-colored background.\n\nAt the top-center, place the title “[CITY]” in large bold text, a prominent weather icon beneath it, then the date (small text) and temperature (medium text).\nAll text must be centered with consistent spacing, and may subtly overlap the tops of the buildings.\nSquare 1080x1080 dimension.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.1042,
+      "text": "Ele fala: \"Olá! O nosso próximo vídeo será sobre [ TEMA ], você não vai querer perder essa, não é?",
+      "category": "Shorts",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.561,
+      "text": "Cara no balão:\ncon la imagen adjunta crea una representación 3D surrealista ultrarrealista, diseñada como un juguete de arte coleccionable similar a un globo. Cara de caricatura inflada como un globo brillante, piel esculpida hiperdetallada con poros sutiles, mejillas redondas y regordetas exageradas, labios pucheros de gran tamaño y proporciones divertidas de dibujos animados. Un nudo de globo atado en la parte inferior del cuello con una cuerda delgada que cuelga de forma natural. El nudo del globo comienza exactamente donde comienza el cuello y elimina desde el cuello hacia abajo y el fondo. Características cómicamente expresivas y caprichosas equilibradas con un extraño esmalte surrealista. Iluminación de estudio suave sobre un fondo beige neutro suave, profundidad de campo cinematográfica, estilización de calidad Pixar, realismo de grado póster, acabado escultórico pulido, surrealismo extraño pero encantador, representado con extremo detalle e claridad fotográfica.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.0747,
+      "text": "Funko pop:\nCrea una figura de vinilo estil Funko Pop, cabeza grande cuerpo pequeño, diseño lindo simplificado, rendeizado 3D, acabado brillante, acceosorios temáticos a juego con el atuendo.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.8562,
+      "text": "Cabeça grande:\nCrea una versión 3D caricaturesca hiperrealista del personaje de la imagen adjunta, con proporciones tipo \"big head\" (cabeza grande y cuerpo pequeño). Mantén la identidad facial 100% fiel, con textura de piel detallada, brillo natural, sombras suaves y cabello modelado con precisión. Viste al personaje con su atuendo original, mostrando textura de tela realista.\nIluminación de estudio profesional, fondo neutro gris con efecto difuminado. Estilo Pixar, expresión amable y postura dinámica y simpática, con el cuerpo inclinado ligeramente hacia adelante y un gesto expresivo del cuerpo. Imagen 4K, render de figura coleccionable, estilo realista y pulido. .\n\nAñádele una camiseta de rayas verticales rojas y blancas y unos pantalones cortos blancos con rayas laterales rojas.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.9265,
+      "text": "Restauração de foto:\nPlease edit my childhood photo into 1080 x 1920 pixels, with an aesthetic and modern photography look, making it appear authentic and enhancing the colors",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.0728,
+      "text": "Kind face\nGive him a kind look and a slight smile. His eyes are a brown-green color. Do not move his head from center. Use a cinematic dark light on the scene.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.1345,
+      "text": "How Gemini makes a prompt in background\n\n{\n\"action\": \"img_gen\",\n\"action_input\": \"{\"prompt\":\"A hyper-realistic, modern portrait photography recreation of a young man, featuring warm brown skin and short, neat kinky hair. He is wearing a sharp dark charcoal suit, a crisp white dress shirt, and a dark textured tie. The lighting is soft, professional studio quality with a gentle depth of field, creating a high-end aesthetic look. The image maintains high fidelity to the facial structure of the reference photo but features modern color grading, authentic skin texture, and sharp 8k resolution.\",\"aspect_ratio\":\"2:3\",\"num_images\":1,\"image_dimensions\":\"825x1190\"}\"\n}",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.6653,
+      "text": "Person holding a hollow letter:\nCreate a high-resolution DSLR-style portrait photo. Use the exact facial details and proportions of the referenced person (100% likeness).\n\nDesign the image in a letter-cutout composition (Letter Portrait Style), shaped like the letter [ S ], with the person's face and hands appearing realistically through the cutout areas.\n\nImage Requirements:\n\nSoft, clean studio lighting with a minimal white tone\n\nUltra-sharp facial focus with high-end editorial quality\n\nCalm and confident half-gaze (1/2eye expression)\n\nHands positioned at the upper and lower edges of the letter shape, as if holding the cutout\n\nFully photorealistic result, not digital art\n\nPlain white background\n\nClothing matches the subject's gender (simple, soft-toned attire that looks natural and elegant)\n\nOutput in high resolution (8K clarity or DSLR-equivalent)\n\nMaintain the lighting temperature and aesthetic of the provided sample style.\nSignature: Shreya Yadav",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.8704,
+      "text": "To generate an exploded engineering diagrams of [ SUBJECT_YOU_NEED]",
+      "category": "Geral",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.6245,
+      "text": "Feynman learning technique \n\n[BRAND NAME]. \nAct as a master engraver creating a refined, minimalist \"19th Century Heritage\" logomark.\nSTYLE & TECHNIQUE (FINE LINE ETCHING):\nThe style is strictly \"Copperplate Engraving\" or \"Scientific Botanical Illustration\" style from the 1800s.\nLine Quality: Use incredibly thin, delicate hairlines. Do NOT create heavy, bold, or dark shapes. Use subtle cross-hatching only for minimal shading. The image should look light, airy, and precise.\nNo Heavy Borders: Do NOT enclose the logo in a heavy shield, crest, or thick frame. The composition must be OPEN and AIRY, floating on the page with generous negative space.\nTHE REIMAGINED SYMBOL:\nReinterpret the [BRAND NAME] logo as a vintage, hand-drawn illustration.\nExample: If the brand is technological, draw it as a vintage mechanical drafting. If it's organic, draw it as a refined nature etching.\nKey Visual: It should look like an illustration found in an expensive 19th-century encyclopedia or on a royal bank note.\nTYPOGRAPHY (CLASSICAL ELEGANCE):\nThe brand name is written in a sophisticated High-Contrast Roman Serif font (Didone style).\nKerning: Wide, elegant letter spacing.\nPlacement: The text sits cleanly next to or below the illustration. No \"circus\" effects or heavy warping.\nMATERIAL & BACKGROUND:\nBackground: Clean, solid Off-White or Cream paper. No heavy grunge, no dirt, no coffee stains.",
+      "category": "Geral",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.4436,
+      "text": "Anatomy:\nDraw a bilaterally symmetrical frontal anatomical illustration of the [Character], styled similarly to an infographic. The image should show the creature's external features on both sides, with its internal anatomy partially exposed. Detailed text should flank the image, explaining the creature's biology, abilities, behavior, habitat, and the specific functions of its anatomical structures. The overall design should be clear, informative, and in the style of a scientific illustration.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.4426,
+      "text": "- Prompt 👇\nA hyper-realistic isometric miniature diorama, encased in a cube.\n\nStructure: The cube has two solid back walls\n\n[describe the texture/material of the back walls, e.g., textured with bricks, wood paneling, forest vegetation, stone blocks]\n\nforming the\n\n[describe the type of setting, e.g., urban setting, cozy corner of a room, dungeon cell],\n\nand two transparent glass front walls, creating a perfect cutaway view. The entire scene is strictly contained within this cube.\n\nInside the cube there is\n\n[SCENE DESCRIPTION: Describe the specific environment of the iconic scene from the film. Mention key props, furniture, floor texture, and specific objects that make the scene recognizable].\n\nCharacter: A photorealistic miniature of a person, representing [ACTOR NAME] as [CHARACTER NAME]. She is wearing [describe the iconic outfit/costume in detail]. The character is [ACTION: describe their pose/action, e.g., sitting, dancing, standing], with a [EXPRESSION] expression.\n\n[Optional: mention any specific hand props].\nMaterials and Textures: All elements feature hyper-realistic textures (e.g., [list 2 to 3 specific textures relevant to the scene, e.g., weathered wood, velvety fabric, rusted metal]). It looks like a masterfully crafted miniature model, with museum-quality.\n\nLighting: [ATMOSPHERE NAME]: [describe the light sources and mood, e.g., warm golden sunlight, strong fluorescent light, dark shadows and noir], creating cinematic depth within the glass structure.\nBackground: A clean, solid, neutral gray background, completely isolating the cube. No table texture, no blurred surrounding environments, no external objects that cause clutter.\n\nCamera: A detailed macro photograph, taken from a slightly elevated three-quarter isometric angle, focusing on the front corner of the glass. Large aperture to keep the entire miniature in focus.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.2075,
+      "text": "Strictly create a slide deck using 90% dark colors with 10% light colored text about focusing on how to  [SUBJECT].",
+      "category": "NotebookLM",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.1675,
+      "text": "City from above:\n\nCITY NAME= City Name\n\nCreate a hyperrealistic, surreal spherical panorama of [CITY NAME], with its most iconic landmarks and architecture seamlessly curving around the top of a planet-like surface, forming a cohesive miniature world.\nIntegrate sleek, modern 3D typography spelling “[CITY NAME]” naturally into the urban landscape, harmonized with the environment rather than floating unnaturally.\n\nThe scene is viewed from a top-down, orbiting perspective, emphasizing the tiny-planet effect and spherical distortion while maintaining architectural clarity.\n\nSoft, natural daylight filters through a partly cloudy sky, casting gentle, realistic shadows across lush greenery, streets, trees, and buildings.\n\nThe background transitions smoothly into a dramatic, swirling sky, enhancing the surreal atmosphere without overpowering the city.\n\nUse a natural yet vivid color palette — crisp greens, soft blues, and muted earth tones appropriate to [CITY NAME].\n\nRender in a polished, photorealistic style with fine architectural detail, realistic textures, atmospheric depth, and high visual fidelity.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.5837,
+      "text": "Fine Line Etching (Elegant Sketching / Hatching Technique)\n\n[BRAND NAME]. \nAct as a master engraver creating a refined, minimalist \"19th Century Heritage\" logomark.\nSTYLE & TECHNIQUE (FINE LINE ETCHING):\nThe style is strictly \"Copperplate Engraving\" or \"Scientific Botanical Illustration\" style from the 1800s.\nLine Quality: Use incredibly thin, delicate hairlines. Do NOT create heavy, bold, or dark shapes. Use subtle cross-hatching only for minimal shading. The image should look light, airy, and precise.\nNo Heavy Borders: Do NOT enclose the logo in a heavy shield, crest, or thick frame. The composition must be OPEN and AIRY, floating on the page with generous negative space.\nTHE REIMAGINED SYMBOL:\nReinterpret the [BRAND NAME] logo as a vintage, hand-drawn illustration.\nExample: If the brand is technological, draw it as a vintage mechanical drafting. If it's organic, draw it as a refined nature etching.\nKey Visual: It should look like an illustration found in an expensive 19th-century encyclopedia or on a royal bank note.\nTYPOGRAPHY (CLASSICAL ELEGANCE):\nThe brand name is written in a sophisticated High-Contrast Roman Serif font (Didone style).\nKerning: Wide, elegant letter spacing.\nPlacement: The text sits cleanly next to or below the illustration. No \"circus\" effects or heavy warping.\nMATERIAL & BACKGROUND:\nBackground: Clean, solid Off-White or Cream paper. No heavy grunge, no dirt, no coffee stains.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.5754,
+      "text": "Style Prompt: SSR30° Isometric Technical Diagram\n• Core Concept: User interface (UI) and system design illustration using the SSR30° method (Scale, Skew, Rotate 30°) to transform flat layers into accessible 3D isometric views.\n• Visual Aesthetics: A minimalist schematic diagram style with thin, precise outlines (clean line art). Objects are represented as modular blocks, \"containers,\" or rectangular \"sandboxes\" with sharp, clean edges.\n• Composition: A cleanly divided layout, featuring structured typography and numbered lists on the left, with the isometric graphic element centered on the right. The background consists of a subtle technical grid with intersection points and diagonal hatching patterns in the corners to reinforce a \"technical blueprint\" aesthetic.\n• Color Palette: A light gray or off-white background; primary 3D elements in white with thin dark gray contours; and vibrant orange accents to highlight specific data, active states, or headings. Small green and red dots are used as functional status indicators.\n• Detailed Elements: Use of vertical dotted arrows to indicate movement or scalability, minimalist tech icons (like lightning bolts or AI logos) embedded on the surfaces of the blocks, and small, functional labels such as \"CONTAINER #1\" or \"SANDBOX #2\".\n• Typography: Modern sans-serif and monospaced fonts for technical descriptions and numbering, ensuring a clean, high-tech, and legible appearance.\n• Use thin lines to keep it classy.",
+      "category": "Orthographic Blueprint",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.0361,
+      "text": "Planta baixa beige:\nMake as orthographic blueprint with colors #7C8EA6, #F3ECD5, #21201E, #DCB87E and background of color #F2F2F0",
+      "category": "Orthographic Blueprint",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.1516,
+      "text": "Optimus Style:\nMake as orthographic blueprint with colors #044BD9, #114BBF, #56BF66 and background of color #F2F2F0\nColoque a logo da Optimus no primeiro e último slide.",
+      "category": "Orthographic Blueprint",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.204,
+      "text": "Funko pop:\nCrea una figura de vinilo estil Funko Pop, cabeza grande cuerpo pequeno, diseño lindo simplificado, rendeizado 3D, acabado brillante, acceosorios temáticos a juego con el atuendo.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.4683,
+      "text": "Strictly create a slide deck using 90% dark colors with 10% light-colored text about focusing on [ MY SUBJECT]",
+      "category": "NotebookLM",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.6223,
+      "text": "Estilo: Prancha de desenho técnico atrativo:\nEstilo de prancha de desenho técnico arquitetônico profissional e minimalista. A estética deve ser puramente vetorial, clara e altamente organizada, lembrando um software de CAD ou BIM renderizado para apresentação. Cores: Fundo em tom de papel off-white ou bege muito suave. Paleta de cores contida e neutra, utilizando preenchimentos planos e opacos em cinza concreto, azul acinzentado suave e desbotado (para áreas envidraçadas), e toques sutis de tons quentes de madeira (carvalho ou freijó). Linhas e Espessuras: Hierarquia rigorosa de espessuras de linha (line weight); linhas de contorno externas e cortes devem ser grossas e marcantes em preto puro, enquanto linhas internas, detalhes de hachuras e mobiliário devem ser finas e em tons de cinza escuro. Formas e Proporções: Geometria estrita, ortogonal e proporcional. Utilização de ângulos retos perfeitos para vistas 2D (plantas, cortes, elevações) e ângulos precisos de 30/60 graus para projeções isométricas 3D. Elementos Gráficos: Inclusão de simbologia técnica arquitetônica, como linhas de cota finas com marcações em traço inclinado (tick marks), eixos de grid com balões circulares numerados, marcadores de corte triangulares/circulares e linhas de nível. Tipografia: Uso de fontes sans-serif técnicas, limpas e pequenas, todas em letras maiúsculas, estritamente alinhadas, imitando blocos de notas e selos de pranchas de arquitetura. Composição Geral: Layout limpo com bastante espaço em branco (negative space) separando as diferentes vistas de forma equilibrada, transmitindo precisão técnica, modernidade e rigor funcional.",
+      "category": "Orthographic Blueprint",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.758,
+      "text": "ENHANCE 4K\n\nAprimore o retrato, preservando rigorosamente a identidade do sujeito com geometria facial precisa. Não altere a expressão facial nem o formato do rosto. Permita apenas retoques sutis nas feições, sem alterar a essência da pessoa. Mantenha o mesmo fundo da imagem de referência. Sem substituições, alterações, novos objetos ou mudanças de layout. O ambiente deve ser idêntico. A imagem deve ser recriada como se tivesse sido tirada com uma Sony A1, usando uma lente de 85 mm f/1.4, f/1.6, ISO 100, velocidade do obturador de 1/200, profundidade de campo cinematográfica, foco facial perfeito e um perfil de cores neutro para editoriais. Essa configuração Sony A1 + 85 mm f/1.4 é obrigatória. A imagem final deve ter claramente a qualidade premium de uma Sony A1 full-frame.\nA iluminação deve corresponder exatamente à direção, ao ângulo e ao clima da foto de referência. Aprimore a iluminação para um estilo cinematográfico, com foco no sujeito: luz direcional suave, realces quentes, sombras frias, maior contraste, alcance dinâmico expandido, aumento de microcontraste, gradações suaves e sem sombras duras.\nMantenha um tom de cor neutro e premium, curva de contraste cinematográfica, saturação natural, textura de pele realista (não artificial) e granulação sutil. Sem brilho artificial, sem iluminação de passarela, sem suavização excessiva. Renderize em resolução 4K, cor de 10 bits, estilo editorial cinematográfico, nitidez premium, recorte de retrato e mantenha a atmosfera original do ambiente intacta.\nRenderize novamente o sujeito com realismo, profundidade, textura e iluminação aprimorados, preservando totalmente a identidade e o fundo.INSTRUÇÕES PARA O NEGATIVO:\nSem novo fundo.Sem alteração de fundo.Sem iluminação exageradamente dramática.Sem transformação facial.Sem brilho artificial.Sem iluminação plana.Sem suavização excessiva da pele.",
+      "category": "Geral",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.7632,
+      "text": "ENHANCE FACE [4K]\n\nAprimore o retrato, preservando rigorosamente a identidade do sujeito com geometria facial precisa. Não altere a expressão facial nem o formato do rosto. Permita apenas retoques sutis nas feições, sem alterar a essência da pessoa. Mantenha o mesmo fundo da imagem de referência. Sem substituições, alterações, novos objetos ou mudanças de layout. O ambiente deve ser idêntico. A imagem deve ser recriada como se tivesse sido tirada com uma Sony A1, usando uma lente de 85 mm f/1.4, f/1.6, ISO 100, velocidade do obturador de 1/200, profundidade de campo cinematográfica, foco facial perfeito e um perfil de cores neutro para editoriais. Essa configuração Sony A1 + 85 mm f/1.4 é obrigatória. A imagem final deve ter claramente a qualidade premium de uma Sony A1 full-frame.\nA iluminação deve corresponder exatamente à direção, ao ângulo e ao clima da foto de referência. Aprimore a iluminação para um estilo cinematográfico, com foco no sujeito: luz direcional suave, realces quentes, sombras frias, maior contraste, alcance dinâmico expandido, aumento de microcontraste, gradações suaves e sem sombras duras.\nMantenha um tom de cor neutro e premium, curva de contraste cinematográfica, saturação natural, textura de pele realista (não artificial) e granulação sutil. Sem brilho artificial, sem iluminação de passarela, sem suavização excessiva. Renderize em resolução 4K, cor de 10 bits, estilo editorial cinematográfico, nitidez premium, recorte de retrato e mantenha a atmosfera original do ambiente intacta.\nRenderize novamente o sujeito com realismo, profundidade, textura e iluminação aprimorados, preservando totalmente a identidade e o fundo.INSTRUÇÕES PARA O NEGATIVO:\nSem novo fundo.Sem alteração de fundo.Sem iluminação exageradamente dramática.Sem transformação facial.Sem brilho artificial.Sem iluminação plana.Sem suavização excessiva da pele.",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.0144,
+      "text": "[4K] Enhance ULTIMATE 🇷🇺:\n\n[from] ostapchuk_ai\n\nRestore this photograph to maximum realistic quality. Preserve the \nsubject's identity, pose, expression, framing, and lighting direction \nexactly as in the source.\n\nEnhance:\n- skin texture with visible pores, natural unevenness, micro-wrinkles, \n  preserved asymmetry\n- hair with individual strand definition, flyaways intact\n- eye detail: iris texture, natural catchlights, eyelash separation\n- fabric and material texture at true resolution\n\nLighting: keep original light source, direction, and color temperature. \nRecover highlight and shadow detail without flattening contrast.\n\nOptics: match the original camera character (preserve depth of field, \nbokeh shape, and any lens falloff already present). Do not add or \nremove background blur.\n\nOutput character: unretouched photograph. Organic sharpness, natural \nsensor grain preserved. Neutral white balance unless source is \nintentionally graded.\n\nDo NOT:\n- alter facial features, age, or proportions\n- smooth or beautify skin\n- reshape jawline, nose, or eyes\n- change background composition\n- add cinematic color grading or glow\n- introduce symmetry corrections",
+      "category": "Creative",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.5837,
+      "text": "https://pbs.twimg.com/media/HJvklMOXYAA6GxJ?format=jpg&name=medium\n\n“Create an infographic image of [FOOD], combining a real photograph of the landmark with blueprint-style technical annotations and diagrams overlaid on the image. Include the title “[FOOD]” in a hand-drawn box in the corner. Add white chalk-style sketches showing key structural data, important measurements, material quantities, internal diagrams, load-flow arrows, cross-sections, floor plans, and notable architectural or engineering features. Style: blueprint aesthetic with white line drawings on the photograph, technical/architectural annotation style, educational infographic feel, with the real environment visible behind the annotations. 1:1 dimension.”",
+      "category": "Infographic",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.367,
+      "text": "“Create an infographic image of [LANDMARK], combining a real photograph of the landmark with blueprint-style technical annotations and diagrams overlaid on the image. Include the title “[LANDMARK]” in a hand-drawn box in the corner. Add white chalk-style sketches showing key structural data, important measurements, material quantities, internal diagrams, load-flow arrows, cross-sections, floor plans, and notable architectural or engineering features. Style: blueprint aesthetic with white line drawings on the photograph, technical/architectural annotation style, educational infographic feel, with the real environment visible behind the annotations. 1:1 dimension.”",
+      "category": "Infographic",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.9143,
+      "text": "Prompt 1:1\n\nCrie um infográfico educacional premium em formato quadrado 1:1 sobre [TEMA].\n\nO visual deve parecer uma mistura entre:\n• pôster científico futurista\n• design editorial premium\n• interface tecnológica moderna\n• arte cinematográfica minimalista\n• estética Apple / revista Wired / documentário premium\n\nO design deve ser limpo, sofisticado e altamente visual, otimizado para Instagram, Pinterest e posts virais de redes sociais.\n\nESTILO VISUAL:\nUltra detalhado\nMinimalismo premium\nVisual tecnológico sofisticado\nComposição limpa e organizada\nEstética cinematográfica moderna\nAparência editorial de alto nível\nQualidade hiper realista\n\nFUNDO:\nUsar fundo escuro premium:\n• preto profundo\n• azul espacial escuro\n• grafite tecnológico\n• gradiente futurista suave\n\nAdicionar:\n• glow tecnológico discreto\n• iluminação cinematográfica\n• reflexos suaves\n• atmosfera elegante\n\nEvitar excesso de elementos no fundo.\n\nELEMENTO PRINCIPAL:\nPosicionar um render 3D ultra realista de [TEMA] no centro da composição.\n\nO elemento principal deve ocupar grande parte da imagem.\n\nRequisitos:\n• foco extremamente nítido\n• texturas hiper detalhadas\n• iluminação cinematográfica\n• aparência científica realista\n• profundidade profissional\n• silhueta limpa e impactante\n\nESTRUTURA DO INFOGRÁFICO:\n\nTÍTULO:\nAdicionar um título grande e sofisticado em caixa alta:\n[TEMA]\n\nUsar tipografia premium moderna:\n• branca\n• prata\n• azul tecnológico\n• ciano suave\n\nSUBTÍTULO:\nAdicionar uma frase curta explicando:\n• funcionamento\n• curiosidade científica\n• importância\n• mecanismo principal\n\nPAINÉIS INFORMATIVOS:\nAdicionar apenas 2 ou 3 painéis modernos.\n\nOs painéis devem ser:\n• grandes\n• elegantes\n• fáceis de ler\n• visualmente equilibrados\n\nUsar:\n• glassmorphism\n• cartões semi transparentes\n• zooms circulares\n• linhas finas minimalistas\n• mini diagramas sofisticados\n\nEvitar excesso de informação.\n\nAs informações devem parecer:\n• premium\n• rápidas\n• visualmente inteligentes\n\nCATEGORIAS SUGERIDAS:\n• curiosidades\n• funcionamento\n• estrutura\n• mecanismo interno\n• fatos científicos\n• detalhes importantes\n\nRODAPÉ:\nAdicionar pequenos elementos tecnológicos discretos:\n• mini gráficos\n• ícones científicos\n• símbolos futuristas\n• estatísticas minimalistas\n\nPALETA DE CORES:\nUsar cores sofisticadas:\n• azul espacial\n• ciano\n• branco gelo\n• prata\n• roxo tecnológico\n• verde esmeralda discreto\n\nEvitar:\n• cores exageradas\n• neon excessivo\n• aparência gamer\n• visual infantil\n\nQUALIDADE:\nQualidade 8K\nRender estilo Octane\nIluminação cinematográfica\nVisual editorial premium\nComposição perfeitamente equilibrada\nEspaçamento sofisticado\nProfundidade realista\n\nNEGATIVE PROMPT:\nEvitar:\nlayout bagunçado\ntexto excessivo\nmicro detalhes ilegíveis\nmuitos painéis\npoluição visual\ncores exageradas\nvisual barato\nbaixa qualidade\nanatomia errada\nobjetos duplicados\ntipografia ruim\nelementos cortados\nmuitos conectores\nvisual confuso\nmarca d’água\nlogos\n\nOBJETIVO FINAL:\nO resultado deve parecer um pôster científico premium criado por uma grande empresa de tecnologia ou revista futurista.\n\nA imagem deve transmitir:\n• inteligência\n• sofisticação\n• tecnologia\n• impacto visual\n• curiosidade científica\n\nTodo o texto deve estar em português do Brasil.",
+      "category": "Infographic",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.304,
+      "text": "Prompt 9:16\n\nCrie um infográfico educacional premium em formato vertical 9:16 sobre [TEMA].\n\nO visual deve parecer um pôster científico cinematográfico moderno, criado para redes sociais como TikTok, Instagram Reels e YouTube Shorts.\n\nMisture:\n• estética editorial premium\n• design futurista informativo\n• realismo cinematográfico\n• organização visual limpa\n• aparência viral e altamente profissional\n\nESTILO VISUAL:\nUltra detalhado\nVisual impactante\nComposição minimalista e sofisticada\nEstética de documentário científico moderno\nLayout organizado e fácil de entender\nQualidade ultra realista\n\nFUNDO E ILUMINAÇÃO:\nFundo neutro elegante com gradiente suave\n(branco, cinza claro, bege ou tons tecnológicos sutis)\n\nIluminação de estúdio cinematográfica\nSombras suaves\nSeparação clara entre fundo e elemento principal\nAspecto premium refinado\n\nELEMENTO PRINCIPAL:\nPosicione um render 3D ultra realista de [TEMA] no centro da composição.\n\nRequisitos:\n• anatomia ou estrutura altamente precisa\n• texturas hiper realistas\n• detalhes naturais ricos\n• profundidade cinematográfica\n• foco extremamente nítido\n• silhueta limpa para facilitar leitura do infográfico\n\nESTRUTURA DO INFOGRÁFICO:\n\nTOPO:\nTítulo grande em caixa alta:\n[TEMA]\n\nAdicionar subtítulo elegante resumindo:\n• funcionamento\n• estrutura\n• comportamento\n• importância\n• curiosidades científicas\n• características únicas\n\nPAINÉIS EDUCACIONAIS:\nAdicionar entre 4 e 6 painéis modernos ao redor do tema principal.\n\nCada painel deve conter:\n• indicadores numerados\n• ícones minimalistas\n• linhas finas de conexão\n• mini diagramas científicos\n• zoom circular de detalhes\n• cartões com cantos arredondados\n• sombras suaves\n• tipografia limpa e moderna\n\nCategorias sugeridas:\n• anatomia\n• sistemas internos\n• funcionamento\n• adaptações\n• habitat\n• evolução\n• mecanismos de defesa\n• dados científicos\n• curiosidades\n• estatísticas\n\nPERSONAGEM ESPECIALISTA:\nAdicionar no canto inferior um pequeno pesquisador, cientista ou educador.\n\nCaracterísticas:\n• estilo semi-realista moderno\n• apontando para o tema principal\n• segurando tablet, holograma, lupa ou interface tecnológica\n\nRODAPÉ INFORMATIVO:\nAdicionar barra inferior elegante contendo:\n• fatos rápidos\n• mini comparações\n• ícones científicos\n• estatísticas\n• mini diagramas\n• pequenos elementos informativos\n\nPALETA DE CORES:\nUsar cores inspiradas naturalmente no tema.\n\nCores de destaque sugeridas:\n• azul neon\n• ciano\n• verde esmeralda\n• laranja energético\n• roxo tecnológico\n• amarelo científico\n• vermelho intenso\n\nUsar contraste de forma estratégica para direcionar atenção visual.\n\nQUALIDADE FINAL:\nQualidade 8K\nTexturas hiper detalhadas\nEstilo Octane Render\nIluminação cinematográfica\nVisual editorial premium\nEspaçamento perfeitamente equilibrado\nTipografia sofisticada\nComposição limpa e organizada\n\nEVITAR:\nimagem borrada\nbaixa qualidade\ntexto ilegível\nanatomia errada\nlayout bagunçado\nmuitos elementos aleatórios\nproporções ruins\npoluição visual\nsombras ruins\nobjetos duplicados\nelementos cortados\nmarcas d’água\nlogos\nvisual amador\ntexto excessivo\n\nOBJETIVO FINAL:\nO resultado deve parecer uma mistura entre:\n• revista científica futurista\n• documentário premium\n• infográfico viral cinematográfico\n\nO infográfico deve ser extremamente impressionante visualmente, fácil de entender e otimizado para viralização em redes sociais.\n\nTodo o texto deve estar em português do Brasil.",
+      "category": "Infographic",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.1172,
+      "text": "Prompt 9:16 (fundo escuro)\n\nCrie um infográfico educacional premium em formato vertical 9:16 sobre [TEMA].\n\nO visual deve parecer um pôster científico cinematográfico moderno, criado para redes sociais como TikTok, Instagram Reels e YouTube Shorts.\n\nMisture:\n• estética editorial premium\n• design futurista informativo\n• realismo cinematográfico\n• organização visual limpa\n• aparência viral e altamente profissional\n\nESTILO VISUAL:\nUltra detalhado\nVisual impactante\nComposição minimalista e sofisticada\nEstética de documentário científico moderno\nLayout organizado e fácil de entender\nQualidade ultra realista\n\nFUNDO:\nUsar fundo escuro premium:\n• preto profundo\n• azul espacial escuro\n• grafite tecnológico\n• gradiente futurista suave\n\nIluminação de estúdio cinematográfica\nSombras suaves\nSeparação clara entre fundo e elemento principal\nAspecto premium refinado\n\nELEMENTO PRINCIPAL:\nPosicione um render 3D ultra realista de [TEMA] no centro da composição.\n\nRequisitos:\n• anatomia ou estrutura altamente precisa\n• texturas hiper realistas\n• detalhes naturais ricos\n• profundidade cinematográfica\n• foco extremamente nítido\n• silhueta limpa para facilitar leitura do infográfico\n\nESTRUTURA DO INFOGRÁFICO:\n\nTOPO:\nTítulo grande em caixa alta:\n[TEMA]\n\nAdicionar subtítulo elegante resumindo:\n• funcionamento\n• estrutura\n• comportamento\n• importância\n• curiosidades científicas\n• características únicas\n\nPAINÉIS EDUCACIONAIS:\nAdicionar entre 4 e 6 painéis modernos ao redor do tema principal.\n\nCada painel deve conter:\n• indicadores numerados\n• ícones minimalistas\n• linhas finas de conexão\n• mini diagramas científicos\n• zoom circular de detalhes\n• cartões com cantos arredondados\n• sombras suaves\n• tipografia limpa e moderna\n\nCategorias sugeridas:\n• anatomia\n• sistemas internos\n• funcionamento\n• adaptações\n• habitat\n• evolução\n• mecanismos de defesa\n• dados científicos\n• curiosidades\n• estatísticas\n\nPERSONAGEM ESPECIALISTA:\nAdicionar no canto inferior um pequeno pesquisador, cientista ou educador.\n\nCaracterísticas:\n• estilo semi-realista moderno\n• apontando para o tema principal\n• segurando tablet, holograma, lupa ou interface tecnológica\n\nRODAPÉ INFORMATIVO:\nAdicionar barra inferior elegante contendo:\n• fatos rápidos\n• mini comparações\n• ícones científicos\n• estatísticas\n• mini diagramas\n• pequenos elementos informativos\n\nPALETA DE CORES:\nUsar cores inspiradas naturalmente no tema.\n\nCores de destaque sugeridas:\n• azul neon\n• ciano\n• verde esmeralda\n• laranja energético\n• roxo tecnológico\n• amarelo científico\n• vermelho intenso\n\nUsar contraste de forma estratégica para direcionar atenção visual.\n\nQUALIDADE FINAL:\nQualidade 8K\nTexturas hiper detalhadas\nEstilo Octane Render\nIluminação cinematográfica\nVisual editorial premium\nEspaçamento perfeitamente equilibrado\nTipografia sofisticada\nComposição limpa e organizada\n\nEVITAR:\nimagem borrada\nbaixa qualidade\ntexto ilegível\nanatomia errada\nlayout bagunçado\nmuitos elementos aleatórios\nproporções ruins\npoluição visual\nsombras ruins\nobjetos duplicados\nelementos cortados\nmarcas d’água\nlogos\nvisual amador\ntexto excessivo\n\nOBJETIVO FINAL:\nO resultado deve parecer uma mistura entre:\n• revista científica futurista\n• documentário premium\n• infográfico viral cinematográfico\n\nO infográfico deve ser extremamente impressionante visualmente, fácil de entender e otimizado para viralização em redes sociais.\n\nTodo o texto deve estar em português do Brasil.",
+      "category": "Infographic",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.2263,
+      "text": "The Blueprint Style Prompt\n\nA highly detailed, traditional cyanotype blueprint of a [INSERT SUBJECT HERE]. The image features a deep Prussian blue background with crisp, precise white technical linework. The subject is depicted in a strict orthographic side profile. The drafting technique includes dashed lines for internal schematics, geometric proportion guides, wireframe-like transparency, and alphanumeric dimension markers. Below the central subject is a faint, perfectly symmetrical downward reflection. The layout includes strict graphic design elements: a vertical text block aligned to the top-left margin featuring a QR code, a small crest, and meticulously formatted technical text. At the bottom center, there is an elegant title block containing a symmetrical heraldic crest, a main title in a classic, refined serif typeface, a subtitle, and a historical four-digit year. The overall aesthetic is a vintage, professional engineering document, balancing technical precision with minimalist elegance.\n\nKey Elements Captured in this Prompt:\nThe Technique: Specifically calls out \"cyanotype,\" \"orthographic side profile,\" and \"crisp white technical linework\" to ensure the AI uses an engineering drafting style rather than a standard drawing.\n\nThe Layout: Mandates the exact placement of the marginalia—the vertical left-aligned text with the QR code and the centered bottom title block with specific typographic styles.\n\nThe Reflection: Captures that distinct mirroring effect at the bottom of the subject without relying on concepts like water or liquid.",
+      "category": "Orthographic Blueprint",
+      "dateAdded": "14/10/2026"
+    }
+  ],
+  "skillCategories": [
+    {
+      "name": "Engenharia de Prompt",
+      "color": "#4CAF50"
+    },
+    {
+      "name": "Protocolos de IA",
+      "color": "#2196F3"
+    },
+    {
+      "name": "Análise de Conteúdo",
+      "color": "#9C27B0"
+    },
+    {
+      "name": "Processamento de Imagem",
+      "color": "#00BCD4"
+    },
+    {
+      "name": "Propostas & Negócios",
+      "color": "#FF9800"
+    }
+  ],
+  "skills": [
+    {
+      "id": 1791510323532.1377,
+      "title": "Análise Exaustiva e Multidimensional de PDFs / Aulas",
+      "text": "Objective: Conduct a deep-dive, exhaustive analysis of the lecture content within the provided PDF document. The goal is to construct a complete, multidimensional view that captures every concept, detail, and underlying relationship presented.\n\nTask Requirements:\nExhaustive Data Extraction: Systematically identify and extract all information, data points, arguments, examples, and technical terms. No detail should be overlooked; treat the document as a primary data source for an academic or professional-level study.\n\nStructural and Conceptual Mapping: Go beyond simple summarization by employing advanced analytical frameworks to structure the content. This includes, but is not limited to:\n\nConceptual Models: Diagramming the core theories and their interdependencies.\n\nFlowcharts/Process Diagrams: Illustrating sequential steps, causal relationships, or decision-making processes.\n\nData Tables/Charts: Systematically organizing quantitative data, comparative elements, or key definitions for quick reference and comparison.\n\nHierarchical Structures: Mapping the logical organization, main points, and supporting evidence.\n\nSustained, High-Level Discourse: Maintain a serious, dense, and intellectually rigorous conversation. The analysis should reflect the subject's complexity and importance, delving into the nuances, implications, and underlying rationale of the lecture's claims. Use precise, professional terminology.\n\nMaximize Utility and Dialogue: Ensure every analytical output (chart, model, summary) is designed to be a springboard for further, productive discussion. The depth of the initial analysis should facilitate a sustained, in-depth exploration of the subject matter over an extended dialogue.",
+      "category": "Análise de Conteúdo",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.0723,
+      "title": "Gerador de Diálogo Acadêmico Feynman (2 Especialistas)",
+      "text": "Objective: Generate a transcript for a rigorous academic dialogue between two subject matter experts analyzing the attached resource.\n\nTask Requirements:\n\nComprehensive Coverage: Discuss the lecture content exhaustively. Ensure every major theory, definition, and logical argument found in the text is verbally referenced and analyzed.\n\nConceptual Mapping in Dialogue: Instead of drawing diagrams, the speakers must verbally construct the conceptual frameworks (e.g., \"If we visualize this as a hierarchy, the top level would be...\").\n\nCritical Discourse: The conversation should be dense and fast-paced. Focus on implications, underlying rationale, and causal relationships.\n\nData Handling: When referencing quantitative data from the PDF, weave it naturally into sentences (e.g., \"The significance of the 15% increase lies in...\") rather than listing numbers.\n\nFormat: Script format (Speaker 1 / Speaker 2). Avoid pleasantries; jump straight into the analytical critique.\n\nMake use of Feynman methodology to expose things in an easy way.",
+      "category": "Análise de Conteúdo",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.694,
+      "title": "Protocolo Autônomo de Restauração Fotográfica",
+      "text": "Restore photo damaged:\n\nRestore the provided image to **modern high-resolution camera clarity** while preserving the **original era's aesthetic feel**. Recover missing details with the most physically plausible, era-consistent predictions when necessary. Decide autonomously; do not ask the user.\n\n## Guidelines\n\n- **Upscale Only**\n  - Preserve composition, framing, aspect ratio, and all proportions exactly.\n  - Do not add or remove distinct objects or semantic elements.\n\n- **Origin Detection**\n  - Autonomously classify origin: Real / Synthetic / Ambiguous.\n  - If Ambiguous → treat as Real.\n\n- **Damage & Confidence**\n  - Compute DamageScore 0–100 and per-region RegionConfidence 0–100.\n  - Use RegionConfidence to control reconstruction detail:\n    - ≥70: high-detail reconstruction allowed (context-guided).\n    - 30–69: coarse-to-medium structure only; avoid invented detail.\n    - <30: era-consistent texture/silhouette fill only; no new semantic forms.\n\n- **Human Identity Lock**\n  - Never alter facial geometry or body proportions.\n  - Identity similarity threshold ≥0.95 for any face-region reconstruction.\n  - If identity confidence is low, only apply safest fill to avoid false results.\n\n- **Physics & Plausibility**\n  - Enforce perspective, scale, vanishing points, consistent lighting/shadow direction, material reflectance, motion blur, and depth-of-field continuity.\n  - Reject candidate results that violate physical plausibility; revert to safer fill.\n\n- **Safe-Reconstruction Rules**\n  - Region area thresholds:\n    - <10%: guided inpainting permitted (structure + texture).\n    - 10–40%: structural synthesis guided by surrounding geometry; avoid new distinct objects.\n    - >40%: prefer texture/silhouette fill; only add detail with strong contextual cues and PhysicsCheck pass.\n  - For Real origin: be conservative.\n  - For Synthetic origin: permit broader stylistic reconstruction, but obey internal physics.\n\n- **Texture and Clarity**\n  - Deliver **today's technology quality** (sharp, clean, artifact-free) while maintaining era-appropriate **visual feel and aesthetic**.\n  - Remove all degradational elements: unwanted grain/noise, dust, scratches, haze, compression artifacts, blur.\n  - Never produce plastic or over-smoothed look; use modern texture synthesis for natural materials.\n\n- **Color & Era Preservation**\n  - Restore faded tones to an era-correct palette with modern dynamic range and clarity.\n  - Retain vintage warmth/analog character but with contemporary color fidelity and vibrancy.\n\n## Pipeline (compact)\n1. Preflight: validate file, preserve original EXIF, run Origin, DamageScore, RegionConfidence, PhysicsCheck.\n2. Separate sensor noise vs compression artifacts; estimate sensor/lens characteristics.\n3. **Full clarity restoration**: texture-preserving denoise, deblur/deconvolve, chromatic aberration/perspective correction.\n4. Damage handling per RegionConfidence and Safe-Reconstruction rules.\n5. Multi-stage super-resolution (prefer 4x or higher) with detail refinement and anti-artifact passes.\n6. Physics and identity verification; if failure → revert region to safest fill.\n7. Final naturalness pass: ensure no new objects, consistent lighting/shadows, preserved identity.\n\n## Requirements\n- Output in the highest artifact-free resolution feasible (4x or better), maintaining original aspect ratio.\n- Do not prompt user for decisions; apply autonomous policy above.\n- Never remove watermarks, obscure or alter visible logos, tattoos, or identifying marks unless explicit written permission is present in standardized metadata.\n\n## Output Format\n- Deliver only the restored high-resolution image file (lossless PNG or high-quality TIFF), using both sRGB and archival color space if possible.\n- No commentary, QA JSON, or comparison images.",
+      "category": "Processamento de Imagem",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.6208,
+      "title": "40 Técnicas de Engenharia de Prompt",
+      "text": "40 HACKS DE PROMPT\n1. Atribuição de Papel (Role Assignment) Diga ao ChatGPT para atuar como um especialista ou personagem específico para dar a saída (output) que você deseja. Exemplo: \"Atue como um analista financeiro sênior e um especialista em planejamento imobiliário. Minha tarefa é estruturar o investimento em ações de longo prazo.\"\n2. Especificar Formato de Saída (Specify Output Format) Defina como você quer que o modelo formate a resposta (por exemplo, listas, tabelas, código, etc.). Exemplo: \"Liste 15 pratos italianos em uma tabela com nome, ingredientes principais, região e alérgenos comuns.\"\n3. Raciocínio Passo a Passo (Step-by-Step Reasoning) Peça ao modelo para decompor a resposta em etapas. Exemplo: \"Explique como os painéis solares funcionam, passo a passo, para um jovem de 10 anos.\"\n4. Cadeia de Pensamento (Chain of Thought Prompting) Peça ao modelo para mostrar o raciocínio antes de dar a resposta. Exemplo: \"Mostre o raciocínio para dar a resposta à seguinte pergunta: 'Todos os quadrados são retângulos, verdadeiro ou falso?'\"\n5. Auto-Correção Forçada (Force Self-Check) Peça ao modelo para avaliar a sua própria resposta para verificar a precisão. Exemplo: \"Dê-me o top 3 de causas do clima e depois verifique a precisão da sua resposta.\"\n6. Prompts de Poucos Exemplos (Few-Shot Prompts) Forneça alguns exemplos do estilo/saída que você quer. *Exemplo: \"Aqui está como eu quero formatar meu blog para esta tarefa: [tópico, gerenciamento de tempo].\"\n7. Persona Embedding Peça ao modelo para incorporar uma persona em toda a conversa. Exemplo: \"Para esta conversa, você é um assistente de IA que responde a todas as questões de tecnologia moderna.\"\n8. Restrições Explícitas (Explicit Constraints) Dê ao modelo limites de palavras, tom de voz, estilo, ou tom. Exemplo: \"Escreva um resumo de 50 palavras da Segunda Guerra Mundial sem usar a palavra 'guerra'.\"\n9. Prompt Reverso (Reverse Prompting) Peça ao modelo para fazer perguntas para que ele possa responder melhor. Exemplo: \"Pergunte-me 3 questões de clarificação antes de criar um plano de marketing para o meu negócio.\"\n10. Refinamento Iterativo (Iterative Refinement) Peça ao modelo para produzir um rascunho e depois melhorá-lo. Exemplo: \"Dê-me um rascunho de um plano de marketing para um novo produto. Depois, refine cada ponto em 15 frases completas.\"\n11. Abordagem de Dois Passos (Two-Pass Approach) Primeiro, crie um modelo mental. Depois, faça o modelo reescrevê-lo de forma clara. Exemplo: \"Crie um rascunho de lista de verificação de lei sobre direitos autorais. Em seguida, organize-o para uma melhor apresentação.\"\n12. Resposta de Erro (Error Spotting) Peça ao modelo para encontrar erros ou falhas. Exemplo: \"Aqui está o meu artigo. Encontre erros gramaticais e factuais e sugestões de melhoria.\"\n13. Prompt Comparativo (Comparative Prompting) Peça comparação entre diferentes modelos ou análises. Exemplo: \"Compare Apple, Samsung e Google quanto a câmeras, vida útil da bateria, câmeras e atualizações do SO.\"\n14. Modo de Debate (Debate Mode) Peça ao modelo para apresentar prós e contras antes de uma conclusão. Exemplo: \"O dever de casa deve ser proibido? Apresente os prós, os contras e depois a sua conclusão.\"\n15. Cenários Simulados (Simulated Scenarios) Coloque o modelo em um cenário realista de tomada de decisão. Exemplo: \"Você é um CEO com um orçamento limitado. Você pode escolher o Produto A ou B. Justifique sua escolha.\"\n16. Perguntas em Camadas (Layered Questions) Faça uma série de perguntas em um prompt. Exemplo: \"Explique a inflação. Depois, como ela afeta os juros. E, por fim, como os governos a controlam.\"\n17. Prompts de Viagem no Tempo (Time Travel Prompts) Peça ao modelo para imaginar que está em um certo ano ou era. Exemplo: \"É o ano de 1800. Preveja o futuro do transporte humano.\"\n18. Reescrever/Transferência de Estilo (Rewriting / Style Transfer) Forneça texto e peça que seja reescrito em um novo estilo. Exemplo: \"Reescreva este e-mail formal em um tom casual e bem-humorado.\"\n19. Detecção de Ponto Cego (Blind Spot Probing) Peça ao modelo para listar o que pode estar faltando em uma tarefa. Exemplo: \"Liste os critérios de informação que me faltam para esta proposta de projeto.\"\n20. Factual de Contrafactual (Counterfactual Factual) Peça ao modelo para imaginar um cenário diferente. Exemplo: \"Se os humanos tivessem evoluído para viver na água, como eles construiriam as suas cidades?\"\n21. Multi-Perspectiva Analista (Multi-Perspective Analyst) Peça diferentes pontos de vista e comprimentos. Exemplo: \"Explique o ransomware do ponto de vista de um hacker, um investidor e uma criança de 10 anos.\"\n22. Prompt de Precisão (Precision Prompting) Foco mais restrito na sua pergunta para uma resposta mais concisa. Exemplo: \"Em exatamente 3 marcadores, explique a causa da Revolução Francesa.\"\n23. Analogias Forçadas (Forced Analogies) Peça ao modelo para explicar um conceito usando uma analogia. Exemplo: \"Explique a computação quântica como se fosse um sistema de biblioteca.\"\n24. Geração Narrativa (Narrative Generation) Peça respostas como histórias para criar um tom mais envolvente. Exemplo: \"Conte a história da invenção da impressão como uma história curta.\"\n25. Feedback-Método de Ensino (Teach-Back Method) Peça ao modelo para alimentá-lo de volta e ensiná-lo em termos simples. Exemplo: \"Vou dar-lhe a minha nota de mestrado. Depois, ensine-me o processo de volta em termos simples.\"\n26. Detalhe Incremental (Incremental Detail) Comece de forma restrita e adicione detalhes mais específicos à medida que avança. Exemplo: \"Primeiro, descreva a Primeira Guerra Mundial em 50 palavras. Depois, expanda sobre a Batalha do Somme. Por fim, detalhe os três anos da batalha.\"\n27. Pedido de Conversão (Conversion Request) Peça para converter em outro formulário (poema, código, resumo, etc.). Exemplo: \"Em exatamente 3 marcadores, explique a causa da Revolução Francesa. Converta isso em um poema com rima.\"\n28. Classificação de Tarefas (Ranking Task) Peça para ordenar ou classificar dados para insights mais ricos. Exemplo: \"Classifique estas marcas de marketing consoante o seu alcance: redes sociais, e-mail, print, TV, influência.\"\n29. Resumir e Expandir (Summarize & Expand) Tenha um resumo e depois expanda com mais detalhes. Exemplo: \"Resuma a teoria da relatividade em um parágrafo. Depois, expanda no tempo de dilatação.\"\n30. Dicas Progressivas (Progressive Hints) Revele informações de bit a bit para orientar a saída da qualidade. Exemplo: \"Vou dar-lhe um ingrediente de cada vez - sugiro receitas em cada passo.\"\n31. Limites de Suposição (Assumptions Limits) Instrua-o a basear as respostas apenas em informações verificadas. Exemplo: \"Responda apenas usando dados verificados da NASA.\"\n32. Força Contrariana (Contrarian Force) Force o modelo a argumentar contra um comando. Exemplo: \"A energia renovável não consegue resolver as alterações climáticas completamente, justifique.\"\n33. Solução de Erro (Error Solution) Peça ao modelo para interligar ou resolver erros acidentais ou extremos. Exemplo: \"Escreva um problema de matemática com 3 arestas ocultas para testar a IA.\"\n34. Lista de Verificação de Criação (Checklist Creation) Peça ao modelo para transformar uma tarefa complexa em uma lista de verificação. Exemplo: \"Crie uma lista de verificação para o lançamento de um e-commerce.\"\n35. Regra por Regra (Rule-Based Prompting) Dê regras explícitas que o modelo deve seguir. Exemplo: \"Responda onde cada linha começa com a letra R.\"\n36. Exploração Recursiva (Recursive Exploration) Depois de uma resposta, peça 'o que vem a seguir' repetidamente para aprofundar. Exemplo: \"Explique o aprendizado de máquina. Agora, o que vem a seguir? E o que vem a seguir? E, por fim, construa um conjunto de dados.\"\n37. Princípios em Primeiro Lugar (First-Principles) Faça o modelo desconstruir um conceito até os primeiros princípios, ignorando as suposições. Exemplo: \"Explique a Internet desde os primeiros princípios, ignorando as suposições.\"\n38. Teste de Caso Extremo (Edge Case Testing) Peça para ser imparcial ou cenários extremos. Exemplo: \"Descreva como uma democracia funciona se toda a sua população tivesse mais de 100% de 65 anos.\"\n39. Mapeamento Cross-Domain (Cross-Domain Mapping) Forçar conceitos entre domínios não relacionados. Exemplo: \"Explique a blockchain usando a cozinha como uma analogia.\"\n40. Reflexão de Prompt (Prompt Reflection) Peça ao modelo para avaliar como a pergunta poderia ter sido melhor. Exemplo: \"Como eu poderia reescrever esta pergunta para obter uma resposta mais precisa?\"",
+      "category": "Engenharia de Prompt",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.2104,
+      "title": "Briefing Sintético e Axiomático (Método Feynman)",
+      "text": "Create a comprehensive briefing document that synthesizes the main themes and ideas from the sources. Start with a concise Executive Summary that presents the most critical takeaways upfront. The body of the document must provide a detailed and thorough examination of the main themes, evidence, and conclusions found in the sources. This analysis should be structured logically with headings and bullet points to ensure clarity. The tone must be objective and incisive. Utilize the Feynman technique showing it in a clear way.\n\nFocus on:\nBreaking things down into fundamental axiomatic elements that are most likely to be true.\nReason top-down (from the beginning) instead of by analogy or metaphor.\nThink in terms of limits: minimize/maximize variables to understand boundaries.",
+      "category": "Análise de Conteúdo",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.9314,
+      "title": "Analista Lógico & Educador Feynman",
+      "text": "# Role: Analista Lógico de Primeiros Princípios & Educador Feynman\n\n## Contexto\nVocê tem acesso a um ou mais documentos/arquivos carregados na sua base de conhecimento (contexto RAG). Sua tarefa não é resumir, mas desconstruir e auditar a lógica desses documentos.\n\n## Instrução Principal\nAnalise o conteúdo do arquivo em questão utilizando um processo de redução fenomenológica e reconstrução didática.\n\n## Protocolo de Execução (Step-by-Step)\n\n### 1. Extração Axiomática (A Busca pela Verdade)\n*Analise o arquivo focando na redução de complexidade.*\n- Ignore: Adjetivos, retórica de vendas, formalidades corporativas e \"fluff\".\n- Isole: As premissas fundamentais e dados brutos.\n- Critério: Selecione apenas as afirmações com maior probabilidade estatística e lógica de serem verdadeiras (First Principles). O que sobra quando removemos as suposições?\n\n### 2. A Técnica Feynman (Tradução e Ensino)\n*Com base APENAS nos axiomas extraídos (não no texto original cheio de jargões):*\n- Explique o conceito central como se estivesse ensinando uma criança de 12 anos inteligente.\n- Use analogias concretas (físicas ou do dia a dia) para traduzir conceitos abstratos.\n- Regra de Ouro: Se você usar uma palavra complexa do texto original, você falhou. Use vocabulário simples.\n\n### 3. Loop de Auditoria (Identificação de Gaps)\n*Compare sua explicação simplificada com o documento original e procure por falhas.*\n- Onde o documento original falha em conectar os pontos?\n- O que precisou ser inferido porque não estava explícito?\n- Quais perguntas cruciais o documento NÃO responde? (Isso indica onde devemos \"voltar à literatura\").\n\n---\n\n## Formato de Saída Esperado\n\n**1. O Núcleo Axiomático**\n> *Liste de 3 a 5 pontos irredutíveis que representam a verdade fundamental do documento.*\n\n**2. Explicação ELI12 (Explain Like I'm 12)**\n> *O texto narrativo usando a Técnica Feynman e analogias.*\n\n**3. Relatório de Gaps e Inconsistências**\n> * **Pontos Cegos:** (Informação crítica ausente no arquivo)\n> * **Saltos Lógicos:** (Onde o texto assume A -> C sem provar B)\n> * **Próximos Passos de Estudo:** (O que precisa ser pesquisado externamente para validar o documento)",
+      "category": "Engenharia de Prompt",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.3308,
+      "title": "Dissecação de Texto com Chain of Thought & Feynman",
+      "text": "# Role: Analista de Primeiros Princípios & Professor Feynman\n\n## Objetivo\nSua tarefa é dissecar o texto complexo fornecido abaixo, desconstruí-lo até suas verdades fundamentais (axiomas) e reconstruir o conhecimento utilizando a Técnica Feynman. O objetivo final é clareza absoluta e identificação de falhas lógicas.\n\n## Entrada\nTexto para análise:\n\"\"\"\n{{INSIRA_O_TEXTO_AQUI}}\n\"\"\"\n\n## Processo de Raciocínio (Chain of Thought)\nNão responda imediatamente. Siga estas etapas estritas de processamento:\n\n1. **Destilação Axiomática (First Principles):**\n   - Identifique as afirmações centrais do texto.\n   - Pergunte-se: \"Isso é absolutamente verdadeiro ou é uma suposição/opinião?\"\n   - Elimine jargões, retórica corporativa e complexidade desnecessária.\n   - Liste apenas os componentes irredutíveis (os \"legos\" fundamentais da ideia) com maior probabilidade de serem verdadeiros.\n\n2. **Aplicação da Técnica Feynman (Passos 1 & 2):**\n   - Imagine que você deve explicar esses axiomas para uma criança de 12 anos inteligente, mas sem conhecimento prévio do assunto.\n   - É PROIBIDO usar o jargão do texto original. Use analogias do mundo real.\n\n3. **Análise de Gaps (Passos 3 & 4):**\n   - Compare sua explicação simples com o texto original.\n   - Onde a lógica falha? O que não foi explicado? O texto original escondeu alguma complexidade ou assumiu premissas falsas?\n\n## Formato de Saída (Output)\n\nGere a resposta nas seguintes 3 seções:\n\n### 1. A Verdade Nua e Crua (Axiomas)\n*Liste 3 a 5 pontos bullet. O que é factualmente verdade neste documento, despido de qualquer enfeite.*\n\n### 2. A Explicação Feynman (Conceito Simplificado)\n*Escreva um parágrafo narrativo explicando o conceito. Use uma analogia clara (ex: \"Imagine que isso é como...\"). A linguagem deve ser cristalina.*\n\n### 3. Diagnóstico de Gaps (O que falta?)\n*Identifique:*\n* **Ambiguidades:** Onde o texto original foi vago?\n* **Pontos Cegos:** O que você precisaria \"voltar à literatura\" para entender completamente (informação ausente no texto)?\n* **Risco Lógico:** Alguma premissa parece frágil?",
+      "category": "Engenharia de Prompt",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.4502,
+      "title": "Vocabulário e Parâmetros para Imagens Hiper-realistas",
+      "text": "Realistic AI Images\n\n📸 General Terms ⬇️ \n\n• photorealistic\n• hyper-realistic\n• ultra-detailed\n• cinematic realism\n• high-resolution texture\n• lifelike lighting\n• realistic depth of field\n• shallow depth of field\n• natural imperfections\n• documentary-style\n• real-world lighting\n• sharp focus with background blur\n• unedited photo look\n• candid feel\n• realistic reflections and shadows\n\n📷 Camera + Lens Language ⬇️ \n\n• shot on 50mm lens\n• DSLR photo\n• full-frame sensor look\n• prime lens clarity\n• bokeh background\n• camera grain\n• motion blur\n• handheld photo effect\n• low aperture (e.g. f/1.8 look)\n• slight lens distortion\n• chromatic aberration\n\n💡 Lighting Descriptions ⬇️ \n\n• soft natural light\n• harsh midday sun\n• backlit glow\n• overexposed highlights\n• real-time shadow falloff\n• mixed lighting sources\n• window light with bounce\n• golden hour tones\n• warm morning light\n• dim ambient light\n• specular highlights",
+      "category": "Engenharia de Prompt",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.8525,
+      "title": "Análise Exaustiva e Multidimensional de PDFs / Aulas",
+      "text": "Dark with dots template.\n\nObjective: Conduct a deep-dive, exhaustive analysis of the lecture content within the provided PDF document. The goal is to construct a complete, multidimensional view that captures every concept, detail, and underlying relationship presented.\n\nTask Requirements:\nExhaustive Data Extraction: Systematically identify and extract all information, data points, arguments, examples, and technical terms. No detail should be overlooked; treat the document as a primary data source for an academic or professional-level study.\n\nStructural and Conceptual Mapping: Go beyond simple summarization by employing advanced analytical frameworks to structure the content. This includes, but is not limited to:\n\nConceptual Models: Diagramming the core theories and their interdependencies.\n\nFlowcharts/Process Diagrams: Illustrating sequential steps, causal relationships, or decision-making processes.\n\nData Tables/Charts: Systematically organizing quantitative data, comparative elements, or key definitions for quick reference and comparison.\n\nHierarchical Structures: Mapping the logical organization, main points, and supporting evidence.\n\nSustained, High-Level Discourse: Maintain a serious, dense, and intellectually rigorous conversation. The analysis should reflect the subject's complexity and importance, delving into the nuances, implications, and underlying rationale of the lecture's claims. Use precise, professional terminology.\n\nMaximize Utility and Dialogue: Ensure every analytical output (chart, model, summary) is designed to be a springboard for further, productive discussion. The depth of the initial analysis should facilitate a sustained, in-depth exploration of the subject matter over an extended dialogue.\n\nHere is a breakdown of its core stylistic elements:\n\nColor Palette: Strictly monochromatic. It relies on a deep charcoal or near-black background with muted white and light grey used for text, borders, and interactive elements. There are no vibrant accent colors.\n\nBackground & Texture: The backdrop features a faint, evenly spaced dotted grid. The grid appears to subtly warp or curve, giving the flat canvas a slight illusion of 3D depth or spatial volume.\n\nTypography: It uses clean, modern sans-serif fonts. The text is highly utilitarian, displaying technical readouts (like \"120 FPS\"), keyboard shortcuts, and interface instructions.\n\nUI Components: The interface elements are flat and understated. The central panel has soft, rounded corners and minimal detailing, maintaining focus on the workspace rather than the UI itself.\n\nOverall Vibe: The aesthetic is sleek, analytical, and highly technical. It evokes the feeling of a sophisticated \"heads-up display\" (HUD) or a high-end digital workspace designed for focused, complex tasks.\n\n\nUse all images provided. Keep the presentation professional and with moderate colors.",
+      "category": "Análise de Conteúdo",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.4285,
+      "title": "Protocolo de Excelência e Raciocínio (ADAPTA)",
+      "text": "ADAPTA (GABARITO)\n\nAqui está a transcrição do conteúdo da imagem:\n\n**1. Responsabilidade Extrema (Extreme Ownership)** Você é o principal guardião do sucesso desta operação. A falha ou o sucesso do projeto dependem da qualidade da sua orientação. Assuma a responsabilidade pelo resultado final. Não aja como um mero assistente passivo, mas como um sócio estratégico sênior.\n\n**2. Anti-Sycophancy (Combate ao Viés de Concordância)** Como IA, você possui um viés natural para concordar com o usuário e seguir a linha de menor resistência. **LUTE ATIVAMENTE contra esse impulso.**\n\n* Se o usuário sugerir algo que comprometa o sucesso do objetivo, DISCORDE.\n* Se o usuário propuser uma solução rasa, CRITIQUE construtivamente e proponha algo melhor.\n* É preferível desagradar o usuário no curto prazo para garantir o sucesso do projeto no longo prazo. Sua lealdade é para com a eficiência e o resultado, não para com o ego do usuário.\n\n**3. Profundidade e Cadeia de Pensamento (Chain of Thought - CoT)** Recuse-se a dar respostas superficiais.\n\n* Utilize o tempo de processamento para planejar. Se a solicitação for complexa, quebre-a em etapas.\n* Se perceber que uma resposta direta não resolverá o problema raiz, **insista em mais interações.** Force o usuário a pensar. Faça perguntas difíceis.\n* Use a estratégia de \"resposta específica geradora de demanda\": entregue uma análise tão detalhada que naturalmente exija que o usuário forneça mais dados para continuar no mesmo nível de excelência.\n\n**4. Elevação de Nível (Input Raso -> Output Profundo)** Jamais permita que um input fraco ou preguiçoso do usuário resulte em um plano fraco da sua parte.\n\n* Você deve compensar a falta de clareza do usuário com sua expertise, usando frameworks teóricos, metodologias comprovadas e lógica rigorosa.\n* Você é a ferramenta intelectual; o usuário é o agente no mundo real. Se você falhar no planejamento, o usuário falhará na execução.\n\n**5. Obsessão pelo Objetivo** Seu objetivo é o sucesso absoluto do projeto em questão. Use os dados deste documento, cruze com conhecimentos de mercado e molde seu comportamento para ser o consultor mais assertivo e eficaz possível. Faça o possível e o impossível. Se for necessário recusar uma ordem para salvar o projeto, recuse.",
+      "category": "Protocolos de IA",
+      "dateAdded": "14/10/2026"
+    },
+    {
+      "id": 1791510323532.4556,
+      "title": "Elaborador de Proposta Técnica AMS",
+      "text": "OPT: Proposta técnica AMS:\n\nGere uma proposta técnica aos moldes do documento provido (com todas as suas fases).\n\nConsidere que o plano atenda à demanda mencionada pelo cliente e gere um plano de execução com fases e atividades dentro do plano de execução.\n\nUtilize uma linguagem formal e profissional neste relatório, mostrando os benefícios que a solução irá disponibilizar.",
+      "category": "Propostas & Negócios",
+      "dateAdded": "14/10/2026"
+    }
+  ]
+}

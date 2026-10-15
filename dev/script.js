@@ -1,281 +1,615 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ====== ELEMENTOS ======
-    const categoryList = document.getElementById('categoryList');
-    const newCategoryInput = document.getElementById('newCategoryInput');
-    const addCategoryBtn = document.getElementById('addCategoryBtn');
+    // ====== ELEMENTOS DOM ======
+    // Accordion Prompts
+    const promptsAccordionHeader = document.getElementById('promptsAccordionHeader');
+    const promptsAccordionContent = document.getElementById('promptsAccordionContent');
+    const promptsCountBadge = document.getElementById('promptsCountBadge');
+    const promptCategoryList = document.getElementById('promptCategoryList');
+    const newPromptCategoryInput = document.getElementById('newPromptCategoryInput');
+    const promptCategoryColorInput = document.getElementById('promptCategoryColorInput');
+    const addPromptCategoryBtn = document.getElementById('addPromptCategoryBtn');
+
+    // Accordion Skills
+    const skillsAccordionHeader = document.getElementById('skillsAccordionHeader');
+    const skillsAccordionContent = document.getElementById('skillsAccordionContent');
+    const skillsCountBadge = document.getElementById('skillsCountBadge');
+    const skillCategoryList = document.getElementById('skillCategoryList');
+    const newSkillCategoryInput = document.getElementById('newSkillCategoryInput');
+    const skillCategoryColorInput = document.getElementById('skillCategoryColorInput');
+    const addSkillCategoryBtn = document.getElementById('addSkillCategoryBtn');
+
+    // Formulário de Criação (Prompts e Skills)
+    const inputSectionHeading = document.getElementById('inputSectionHeading');
+    const skillTitleWrapper = document.getElementById('skillTitleWrapper');
+    const skillTitleInput = document.getElementById('skillTitleInput');
     const newPromptText = document.getElementById('newPromptText');
     const promptCategorySelect = document.getElementById('promptCategorySelect');
     const addPromptBtn = document.getElementById('addPromptBtn');
+
+    // Exibição e Pesquisa
+    const displaySectionHeading = document.getElementById('displaySectionHeading');
+    const searchInput = document.getElementById('searchInput');
     const promptDisplay = document.getElementById('promptDisplay');
+
+    // Data Management
     const downloadDataBtn = document.getElementById('downloadDataBtn');
     const uploadFileInput = document.getElementById('uploadFileInput');
     const uploadDataBtn = document.getElementById('uploadDataBtn');
-    const searchInput = document.getElementById('searchInput');
-    const categoryHeading = document.getElementById('category-heading');
 
     // ======= CORES E CATEGORIAS PADRÃO =======
-    const DEFAULT_CATEGORIES = ['Geral', 'Criativo', 'Técnico']; // Use os nomes que você costuma usar
-    const DEFAULT_COLORS = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#9C27B0'];
+    const DEFAULT_PROMPT_CATEGORIES = ['Geral', 'Criativo', 'Técnico'];
+    const DEFAULT_SKILL_CATEGORIES = ['Automação', 'Análise de Dados', 'Assistente'];
+    const DEFAULT_COLORS = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#9C27B0', '#00BCD4', '#E91E63'];
 
-    // Função para garantir que todas as categorias são objetos com cores
-    function ensureCategoryObjects(cats) {
-        // Se a lista de categorias não existir ou for vazia, usa o padrão.
-        if (!cats || cats.length === 0) return DEFAULT_CATEGORIES.map((c, i) => ({
-            name: c,
-            color: DEFAULT_COLORS[i % DEFAULT_COLORS.length]
-        }));
-
-        // Converte categorias antigas (strings) em objetos (para manter dados antigos)
+    // Função de sanitização e compatibilidade de categorias
+    function ensureCategoryObjects(cats, defaults) {
+        if (!cats || cats.length === 0) {
+            return defaults.map((c, i) => ({
+                name: c,
+                color: DEFAULT_COLORS[i % DEFAULT_COLORS.length]
+            }));
+        }
         return cats.map((cat, index) => {
             if (typeof cat === 'string') {
                 return {
                     name: cat,
-                    color: DEFAULT_COLORS[index % DEFAULT_COLORS.length] // Cor padrão
+                    color: DEFAULT_COLORS[index % DEFAULT_COLORS.length]
                 };
             }
             return cat;
         });
     }
 
-    // ====== DADOS ======
-    // 1. ATUALIZAÇÃO CRÍTICA: Usa a função de segurança
-    let categories = ensureCategoryObjects(JSON.parse(localStorage.getItem('promptCategories')));
-
-    // 2. Prompts permanece o mesmo
+    // ====== DADOS / ESTADO ======
+    let promptCategories = ensureCategoryObjects(
+        JSON.parse(localStorage.getItem('promptCategories')),
+        DEFAULT_PROMPT_CATEGORIES
+    );
     let prompts = JSON.parse(localStorage.getItem('userPrompts')) || [];
+    let activePromptCategory = promptCategories.length > 0 ? promptCategories[0].name : null;
 
-    // 3. ATUALIZAÇÃO CRÍTICA: Pega o NOME da categoria ativa
-    let activeCategory = categories.length > 0 ? categories[0].name : null;
+    let skillCategories = ensureCategoryObjects(
+        JSON.parse(localStorage.getItem('skillCategories')),
+        DEFAULT_SKILL_CATEGORIES
+    );
+    let skills = JSON.parse(localStorage.getItem('userSkills')) || [];
+    let activeSkillCategory = skillCategories.length > 0 ? skillCategories[0].name : null;
 
-    console.log("SCRIPT EXECUTED");
-    addCategoryBtn.textContent = 'Add';
+    // Seção ativa: 'prompts' ou 'skills'
+    let currentSection = 'prompts';
 
     // ====== FUNÇÕES DE ARMAZENAMENTO ======
-    function saveCategories() {
-        localStorage.setItem('promptCategories', JSON.stringify(categories));
+    function savePromptCategories() {
+        localStorage.setItem('promptCategories', JSON.stringify(promptCategories));
     }
 
     function savePrompts() {
         localStorage.setItem('userPrompts', JSON.stringify(prompts));
     }
 
-    // ====== RENDER CATEGORIES (RECUPERADA) ======
-    function renderCategories() {
-        searchInput.value = '';
-        categoryList.innerHTML = '';
+    function saveSkillCategories() {
+        localStorage.setItem('skillCategories', JSON.stringify(skillCategories));
+    }
+
+    function saveSkills() {
+        localStorage.setItem('userSkills', JSON.stringify(skills));
+    }
+
+    function saveAll() {
+        savePromptCategories();
+        savePrompts();
+        saveSkillCategories();
+        saveSkills();
+    }
+
+    // ====== ALTERNÂNCIA DE SEÇÕES ======
+    function switchSection(section, categoryToSelect = null) {
+        currentSection = section;
+
+        if (section === 'prompts') {
+            if (categoryToSelect) {
+                activePromptCategory = categoryToSelect;
+            } else if (!activePromptCategory && promptCategories.length > 0) {
+                activePromptCategory = promptCategories[0].name;
+            }
+
+            // Abre o accordion de Prompts
+            promptsAccordionContent.classList.add('open');
+            promptsAccordionHeader.classList.add('active');
+            promptsAccordionHeader.setAttribute('aria-expanded', 'true');
+
+            // Formulário em modo Prompt
+            if (inputSectionHeading) inputSectionHeading.textContent = 'Add New Prompt';
+            if (skillTitleWrapper) skillTitleWrapper.style.display = 'none';
+            if (newPromptText) newPromptText.placeholder = 'Enter your prompt here...';
+            if (addPromptBtn) addPromptBtn.textContent = 'Add Prompt';
+            if (displaySectionHeading) displaySectionHeading.textContent = 'Prompts 🔍';
+            if (searchInput) searchInput.placeholder = 'Search prompts...';
+
+        } else if (section === 'skills') {
+            if (categoryToSelect) {
+                activeSkillCategory = categoryToSelect;
+            } else if (!activeSkillCategory && skillCategories.length > 0) {
+                activeSkillCategory = skillCategories[0].name;
+            }
+
+            // Abre o accordion de Skills
+            skillsAccordionContent.classList.add('open');
+            skillsAccordionHeader.classList.add('active');
+            skillsAccordionHeader.setAttribute('aria-expanded', 'true');
+
+            // Formulário em modo Skill
+            if (inputSectionHeading) inputSectionHeading.textContent = 'Add New Skill';
+            if (skillTitleWrapper) skillTitleWrapper.style.display = 'block';
+            if (newPromptText) newPromptText.placeholder = 'Enter skill instructions / prompt here...';
+            if (addPromptBtn) addPromptBtn.textContent = 'Add Skill';
+            if (displaySectionHeading) displaySectionHeading.textContent = 'Skills ⚡ 🔍';
+            if (searchInput) searchInput.placeholder = 'Search skills (title or instructions)...';
+        }
+
+        renderCategorySelect();
+        renderPromptCategoriesUI();
+        renderSkillCategoriesUI();
+        renderItems();
+    }
+
+    // ====== RENDERIZAÇÃO DO SELECT DE CATEGORIAS ======
+    function renderCategorySelect() {
+        if (!promptCategorySelect) return;
         promptCategorySelect.innerHTML = '';
 
-        if (categories.length === 0) {
-            categoryList.innerHTML = '<p class="no-prompts-message">No categories yet. Add one!</p>';
-            promptCategorySelect.innerHTML = '<option value="">No Categories Available</option>';
-            activeCategory = null;
-            promptDisplay.innerHTML = '<p class="no-prompts-message">Please select or add a category to view prompts.</p>';
+        const activeList = currentSection === 'prompts' ? promptCategories : skillCategories;
+        const currentActive = currentSection === 'prompts' ? activePromptCategory : activeSkillCategory;
+
+        if (activeList.length === 0) {
+            const opt = document.createElement('option');
+            opt.value = '';
+            opt.textContent = 'No categories available';
+            promptCategorySelect.appendChild(opt);
             return;
         }
 
-        categories.forEach(catObj => { // Itera sobre o OBJETO da categoria
+        activeList.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.name;
+            option.textContent = cat.name;
+            promptCategorySelect.appendChild(option);
+        });
+
+        if (currentActive && activeList.some(c => c.name === currentActive)) {
+            promptCategorySelect.value = currentActive;
+        } else if (activeList.length > 0) {
+            promptCategorySelect.value = activeList[0].name;
+            if (currentSection === 'prompts') activePromptCategory = activeList[0].name;
+            else activeSkillCategory = activeList[0].name;
+        }
+    }
+
+    // ====== RENDERIZAÇÃO DAS CATEGORIAS DE PROMPTS ======
+    function renderPromptCategoriesUI() {
+        if (!promptCategoryList) return;
+        promptCategoryList.innerHTML = '';
+
+        if (promptsCountBadge) {
+            promptsCountBadge.textContent = prompts.length;
+        }
+
+        if (promptCategories.length === 0) {
+            promptCategoryList.innerHTML = '<p class="no-prompts-message" style="padding: 10px; font-size: 0.85rem;">No categories yet.</p>';
+            return;
+        }
+
+        promptCategories.forEach(catObj => {
             const name = catObj.name;
             const color = catObj.color;
 
             const li = document.createElement('li');
-            li.dataset.category = name; // Usa o nome
+            li.dataset.category = name;
+            li.dataset.section = 'prompts';
+            li.classList.add('category-item');
+            li.style.borderLeft = `5px solid ${color}`;
 
-            // Grip
+            // Grip / Drag handle
             const handle = document.createElement('span');
             handle.className = 'drag-handle';
             li.appendChild(handle);
 
-            // Nome + contador
+            // Nome da categoria
             const categoryNameSpan = document.createElement('span');
-            categoryNameSpan.textContent = name; // ✅ CORREÇÃO: Usa o NOME para exibir
+            categoryNameSpan.textContent = name;
             categoryNameSpan.classList.add('category-name');
 
-            // ✅ NOVO: Borda colorida
-            li.style.borderLeft = `5px solid ${color}`;
-            li.classList.add('category-item');
-
-            const promptCount = prompts.filter(p => p.category === name).length; // Filtra pelo nome
+            const promptCount = prompts.filter(p => p.category === name).length;
             const countSpan = document.createElement('span');
             countSpan.className = 'prompt-count';
             countSpan.textContent = promptCount;
             categoryNameSpan.appendChild(countSpan);
 
-            if (promptCount > 0) li.classList.add('has-prompts');
+            if (promptCount > 0) {
+                li.classList.add('has-prompts');
+            }
 
             li.appendChild(categoryNameSpan);
 
-            // ====== CLIQUE PARA ATIVAR CATEGORIA ======
+            // Clique para ativar
             li.addEventListener('click', (e) => {
-                if (e.target.closest('.delete-category-btn')) return;
+                if (e.target.closest('.delete-category-btn') ||
+                    e.target.closest('.drag-handle') ||
+                    e.target.tagName === 'INPUT') return;
 
-                if (activeCategory !== name) {
-                    activeCategory = name;
-                    renderCategories();
-                }
+                switchSection('prompts', name);
             });
 
-            // Double-click no nome para renomear
+            // Duplo clique no nome para renomear
             categoryNameSpan.addEventListener('dblclick', (e) => {
+                e.preventDefault();
                 e.stopPropagation();
-                enterEditMode(li, name); // Passa o nome
+                if (e.target.closest('.delete-category-btn') || e.target.closest('.drag-handle')) return;
+                enterCategoryEditMode(li, name, 'prompts');
             });
 
-            // Botão delete
+            // Botão Deletar Categoria
             const deleteBtn = document.createElement('button');
             deleteBtn.classList.add('delete-category-btn');
             deleteBtn.innerHTML = `<svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>`;
-            deleteBtn.title = `Delete "${name}" category`; // Usa o nome
+            deleteBtn.title = `Delete "${name}" category and its prompts`;
+
             deleteBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (confirm(`Delete "${name}" and all its prompts?`)) {
-                    // DELETA PROMPTS: Filtra por nome
                     prompts = prompts.filter(p => p.category !== name);
-
-                    // DELETA CATEGORIA: Filtra o array de objetos 'categories'
-                    categories = categories.filter(c => c.name !== name);
-
-                    // Atualiza a categoria ativa
-                    if (activeCategory === name) activeCategory = categories.length > 0 ? categories[0].name : null;
-
-                    saveCategories();
+                    promptCategories = promptCategories.filter(c => c.name !== name);
+                    if (activePromptCategory === name) {
+                        activePromptCategory = promptCategories.length > 0 ? promptCategories[0].name : null;
+                    }
+                    savePromptCategories();
                     savePrompts();
-                    renderCategories();
+                    renderCategorySelect();
+                    renderPromptCategoriesUI();
+                    if (currentSection === 'prompts') renderItems();
                 }
             });
+
             li.appendChild(deleteBtn);
 
-            if (name === activeCategory) li.classList.add('active'); // Compara com o nome
-            categoryList.appendChild(li);
+            if (currentSection === 'prompts' && name === activePromptCategory) {
+                li.classList.add('active');
+            }
 
-            // Renderiza o seletor de prompts
-            const option = document.createElement('option');
-            option.value = name;
-            option.textContent = name;
-            promptCategorySelect.appendChild(option);
+            promptCategoryList.appendChild(li);
         });
 
-        // Atualiza a categoria ativa se a lista mudar (agora usa .name)
-        if (activeCategory && categories.some(c => c.name === activeCategory)) {
-            promptCategorySelect.value = activeCategory;
-        } else if (categories.length > 0) {
-            activeCategory = categories[0].name; // Pega o nome
-            promptCategorySelect.value = activeCategory;
-        }
-
-        if (categoryHeading) {
-            // ... (o restante da renderCategories)
-            categoryHeading.innerHTML = `Categories (${categories.length}) | Prompts (${prompts.length})`;
-        }
-
-        renderPrompts();
-        makeCategoriesDraggable();
-        console.log("renderCategories() terminou");
+        makeCategoriesDraggable(promptCategoryList, promptCategories, () => {
+            savePromptCategories();
+            renderCategorySelect();
+        });
     }
 
-    function renderPrompts() {
-        promptDisplay.innerHTML = '';
+    // ====== RENDERIZAÇÃO DAS CATEGORIAS DE SKILLS ======
+    function renderSkillCategoriesUI() {
+        if (!skillCategoryList) return;
+        skillCategoryList.innerHTML = '';
 
-        // --- NOVO LOG DE DIAGNÓSTICO ---
-        console.log(`Prompts Totais no Array: ${prompts.length}`);
-        console.log(`Categoria Ativa: ${activeCategory}`);
-        // -------------------------------
+        if (skillsCountBadge) {
+            skillsCountBadge.textContent = skills.length;
+        }
 
-        // 1. INSERIDO AQUI: OBTÉM O TERMO DE PESQUISA (Resolve o ReferenceError)
-        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
-
-        if (!activeCategory) {
-            promptDisplay.innerHTML = '<p class="no-prompts-message">Select a category to view prompts.</p>';
+        if (skillCategories.length === 0) {
+            skillCategoryList.innerHTML = '<p class="no-prompts-message" style="padding: 10px; font-size: 0.85rem;">No skill categories yet.</p>';
             return;
         }
 
-        // CRÍTICO: Mude 'const' para 'let' para que possamos reatribuir o array após o filtro de busca.
-        let categoryPrompts = prompts.filter(p => p.category === activeCategory);
+        skillCategories.forEach(catObj => {
+            const name = catObj.name;
+            const color = catObj.color;
 
-        // let categoryPrompts = prompts.filter(p =>
-        //     p.category &&
-        //     p.category.trim().toLowerCase() === activeCategory.trim().toLowerCase()
-        // );
+            const li = document.createElement('li');
+            li.dataset.category = name;
+            li.dataset.section = 'skills';
+            li.classList.add('category-item');
+            li.style.borderLeft = `5px solid ${color}`;
 
-        // 2. APLICA O FILTRO DE PESQUISA
+            // Grip / Drag handle
+            const handle = document.createElement('span');
+            handle.className = 'drag-handle';
+            li.appendChild(handle);
+
+            // Nome da categoria
+            const categoryNameSpan = document.createElement('span');
+            categoryNameSpan.textContent = name;
+            categoryNameSpan.classList.add('category-name');
+
+            const skillCount = skills.filter(s => s.category === name).length;
+            const countSpan = document.createElement('span');
+            countSpan.className = 'prompt-count';
+            countSpan.textContent = skillCount;
+            categoryNameSpan.appendChild(countSpan);
+
+            if (skillCount > 0) {
+                li.classList.add('has-prompts');
+            }
+
+            li.appendChild(categoryNameSpan);
+
+            // Clique para ativar
+            li.addEventListener('click', (e) => {
+                if (e.target.closest('.delete-category-btn') ||
+                    e.target.closest('.drag-handle') ||
+                    e.target.tagName === 'INPUT') return;
+
+                switchSection('skills', name);
+            });
+
+            // Duplo clique no nome para renomear
+            categoryNameSpan.addEventListener('dblclick', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (e.target.closest('.delete-category-btn') || e.target.closest('.drag-handle')) return;
+                enterCategoryEditMode(li, name, 'skills');
+            });
+
+            // Botão Deletar Categoria
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('delete-category-btn');
+            deleteBtn.innerHTML = `<svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>`;
+            deleteBtn.title = `Delete "${name}" category and its skills`;
+
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm(`Delete "${name}" and all its skills?`)) {
+                    skills = skills.filter(s => s.category !== name);
+                    skillCategories = skillCategories.filter(c => c.name !== name);
+                    if (activeSkillCategory === name) {
+                        activeSkillCategory = skillCategories.length > 0 ? skillCategories[0].name : null;
+                    }
+                    saveSkillCategories();
+                    saveSkills();
+                    renderCategorySelect();
+                    renderSkillCategoriesUI();
+                    if (currentSection === 'skills') renderItems();
+                }
+            });
+
+            li.appendChild(deleteBtn);
+
+            if (currentSection === 'skills' && name === activeSkillCategory) {
+                li.classList.add('active');
+            }
+
+            skillCategoryList.appendChild(li);
+        });
+
+        makeCategoriesDraggable(skillCategoryList, skillCategories, () => {
+            saveSkillCategories();
+            renderCategorySelect();
+        });
+    }
+
+    // ====== MODO DE EDIÇÃO DE NOME DE CATEGORIA ======
+    function enterCategoryEditMode(liElement, oldName, type) {
+        const nameSpan = liElement.querySelector('.category-name');
+        if (!nameSpan) return;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = oldName;
+        input.className = 'edit-category-input';
+        input.style.width = '85%';
+
+        nameSpan.innerHTML = '';
+        nameSpan.appendChild(input);
+
+        setTimeout(() => {
+            input.focus();
+            input.select();
+        }, 50);
+
+        const save = () => {
+            const newName = input.value.trim();
+            if (document.body.contains(input)) {
+                if (newName && newName !== oldName) {
+                    if (type === 'prompts') {
+                        promptCategories = promptCategories.map(c => c.name === oldName ? { ...c, name: newName } : c);
+                        prompts = prompts.map(p => p.category === oldName ? { ...p, category: newName } : p);
+                        if (activePromptCategory === oldName) activePromptCategory = newName;
+                        savePromptCategories();
+                        savePrompts();
+                        renderPromptCategoriesUI();
+                    } else {
+                        skillCategories = skillCategories.map(c => c.name === oldName ? { ...c, name: newName } : c);
+                        skills = skills.map(s => s.category === oldName ? { ...s, category: newName } : s);
+                        if (activeSkillCategory === oldName) activeSkillCategory = newName;
+                        saveSkillCategories();
+                        saveSkills();
+                        renderSkillCategoriesUI();
+                    }
+                    renderCategorySelect();
+                    renderItems();
+                } else {
+                    if (type === 'prompts') renderPromptCategoriesUI();
+                    else renderSkillCategoriesUI();
+                }
+            }
+        };
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                save();
+            }
+            if (e.key === 'Escape') {
+                if (type === 'prompts') renderPromptCategoriesUI();
+                else renderSkillCategoriesUI();
+            }
+        });
+
+        input.addEventListener('blur', () => {
+            setTimeout(save, 100);
+        });
+    }
+
+    // ====== ADICIONAR NOVA CATEGORIA (PROMPTS) ======
+    if (addPromptCategoryBtn && newPromptCategoryInput) {
+        addPromptCategoryBtn.addEventListener('click', () => {
+            const newCategory = newPromptCategoryInput.value.trim();
+            const newColor = promptCategoryColorInput ? promptCategoryColorInput.value : DEFAULT_COLORS[0];
+
+            if (newCategory) {
+                if (!promptCategories.some(c => c.name.toLowerCase() === newCategory.toLowerCase())) {
+                    promptCategories.push({ name: newCategory, color: newColor });
+                    savePromptCategories();
+                    newPromptCategoryInput.value = '';
+                    switchSection('prompts', newCategory);
+                } else {
+                    alert('Category already exists in Prompts!');
+                }
+            }
+        });
+
+        newPromptCategoryInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addPromptCategoryBtn.click();
+            }
+        });
+    }
+
+    // ====== ADICIONAR NOVA CATEGORIA (SKILLS) ======
+    if (addSkillCategoryBtn && newSkillCategoryInput) {
+        addSkillCategoryBtn.addEventListener('click', () => {
+            const newCategory = newSkillCategoryInput.value.trim();
+            const newColor = skillCategoryColorInput ? skillCategoryColorInput.value : DEFAULT_COLORS[1];
+
+            if (newCategory) {
+                if (!skillCategories.some(c => c.name.toLowerCase() === newCategory.toLowerCase())) {
+                    skillCategories.push({ name: newCategory, color: newColor });
+                    saveSkillCategories();
+                    newSkillCategoryInput.value = '';
+                    switchSection('skills', newCategory);
+                } else {
+                    alert('Category already exists in Skills!');
+                }
+            }
+        });
+
+        newSkillCategoryInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addSkillCategoryBtn.click();
+            }
+        });
+    }
+
+    // ====== TOGGLE DOS ACCORDIONS ======
+    if (promptsAccordionHeader) {
+        promptsAccordionHeader.addEventListener('click', () => {
+            const isOpen = promptsAccordionContent.classList.contains('open');
+            if (isOpen && currentSection === 'prompts') {
+                promptsAccordionContent.classList.remove('open');
+                promptsAccordionHeader.classList.remove('active');
+                promptsAccordionHeader.setAttribute('aria-expanded', 'false');
+            } else {
+                switchSection('prompts');
+            }
+        });
+    }
+
+    if (skillsAccordionHeader) {
+        skillsAccordionHeader.addEventListener('click', () => {
+            const isOpen = skillsAccordionContent.classList.contains('open');
+            if (isOpen && currentSection === 'skills') {
+                skillsAccordionContent.classList.remove('open');
+                skillsAccordionHeader.classList.remove('active');
+                skillsAccordionHeader.setAttribute('aria-expanded', 'false');
+            } else {
+                switchSection('skills');
+            }
+        });
+    }
+
+    // ====== RENDERIZAÇÃO DE ITENS (PROMPTS OU SKILLS) ======
+    function renderItems() {
+        if (!promptDisplay) return;
+        promptDisplay.innerHTML = '';
+
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+
+        if (currentSection === 'prompts') {
+            renderPromptsList(searchTerm);
+        } else {
+            renderSkillsList(searchTerm);
+        }
+    }
+
+    // Renderiza lista de Prompts
+    function renderPromptsList(searchTerm) {
+        if (!activePromptCategory) {
+            promptDisplay.innerHTML = '<p class="no-prompts-message">Select a category or add new prompts.</p>';
+            return;
+        }
+
+        let categoryPrompts = prompts.filter(p => p.category === activePromptCategory);
+
         if (searchTerm) {
             categoryPrompts = categoryPrompts.filter(p =>
                 p.text && p.text.toLowerCase().includes(searchTerm)
             );
         }
-        // 💡 NOVA LINHA CRÍTICA: INVERTE A ORDEM DO ARRAY
-        // Isso garante que os prompts mais recentes (que têm maior ID/timestamp) apareçam primeiro.
+
         categoryPrompts.reverse();
 
         if (categoryPrompts.length === 0) {
-            // 3. ATUALIZA A MENSAGEM
             if (searchTerm) {
-                promptDisplay.innerHTML = `<p class="no-prompts-message">No prompts found matching "${searchTerm}" in this category.</p>`;
+                promptDisplay.innerHTML = `<p class="no-prompts-message">No prompts found matching "${searchTerm}" in "${activePromptCategory}".</p>`;
             } else {
-                promptDisplay.innerHTML = '<p class="no-prompts-message">No prompts in this category yet.</p>';
+                promptDisplay.innerHTML = `<p class="no-prompts-message">No prompts in "${activePromptCategory}" yet.</p>`;
             }
             return;
         }
 
-        console.log(`Prompts encontrados para renderizar: ${categoryPrompts.length}`); // NOVO LOG
         categoryPrompts.forEach(prompt => {
             const card = document.createElement('div');
             card.className = 'prompt-card';
 
-            // BOTÃO DE EXPANDIR CARD
             card.addEventListener('click', (e) => {
                 const target = e.target;
-
-                // 2. Verifica se o clique ocorreu em um elemento de AÇÃO ou EDIÇÃO
-                // Se o clique foi em um destes elementos, a função retorna (ignora a expansão)
                 if (
-                    // Verifica se o clique foi em um dos wrappers de ações (Copy/Delete)
                     target.closest('.prompt-actions') ||
-
-                    // Verifica se o clique foi no textarea (no modo edição)
                     target.tagName === 'TEXTAREA' ||
-
-                    // Verifica se o clique foi nos botões de edição (Save/Cancel)
                     target.closest('.save-edit-btn') ||
                     target.closest('.cancel-edit-btn')
-                ) {
-                    // Ignora a expansão e permite que a ação de controle aconteça
-                    return;
-                }
+                ) return;
 
-                // 3. Se o clique foi em uma área segura, alterna a classe 'expanded'
                 card.classList.toggle('expanded');
-                // BOTÃO DE EXPANDIR CARD FIM
             });
-            // 1. Prepara o texto para exibição (com highlight)
-            let text = prompt.text
+
+            const textWithHighlights = prompt.text
                 .replace(/\[/g, '<span class="placeholder-highlight">[')
                 .replace(/\]/g, ']</span>');
 
-            // 2. CRÍTICO: Prepara o texto para o atributo data-text. 
-            // Implementa o escape robusto.
             const safeTextForAttribute = prompt.text
-                .replace(/"/g, '&quot;') // Escapa aspas duplas
-                .replace(/'/g, '&#39;'); // Escapa aspas simples
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
 
             card.innerHTML = `
-            <div class="prompt-header-info">
-                <span class="date-added">${prompt.dateAdded || 'N/A'}</span>
-            </div>
-            <p>${text}</p>
-            <div class="prompt-actions">
-                <button class="copy-prompt-btn" data-text="${safeTextForAttribute}" title="Copy">
-                    <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
-                        <path d="M5.25 1.75C5.25 .784 6.034 0 7 0h7.25C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11H7c-.966 0-1.75-.784-1.75-1.75v-7.5Z"></path>
-                    </svg>
-                </button>
-                <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete">
-                    <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                        <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
-                    </svg>
-                </button>
-            </div>
-        `;
+                <div class="prompt-header-info">
+                    <span class="date-added">${prompt.dateAdded || 'N/A'}</span>
+                </div>
+                <p>${textWithHighlights}</p>
+                <div class="prompt-actions">
+                    <button class="copy-prompt-btn" data-text="${safeTextForAttribute}" title="Copy Prompt">
+                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
+                            <path d="M5.25 1.75C5.25 .784 6.034 0 7 0h7.25C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11H7c-.966 0-1.75-.784-1.75-1.75v-7.5Z"></path>
+                        </svg>
+                    </button>
+                    <button class="delete-prompt-btn" data-id="${prompt.id}" title="Delete Prompt">
+                        <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
 
             const pElement = card.querySelector('p');
             if (pElement) {
@@ -284,194 +618,352 @@ document.addEventListener('DOMContentLoaded', () => {
                     enterEditModePrompt(card, prompt.id, prompt.text);
                 });
             }
+
             promptDisplay.appendChild(card);
         });
     }
 
-    addCategoryBtn.addEventListener('click', () => {
-        const newCategory = newCategoryInput.value.trim();
-
-        // NOVO: Pega o valor da cor
-        const newColor = categoryColorInput ? categoryColorInput.value : DEFAULT_COLORS[0];
-
-        // Verifica se a categoria já existe (checando a propriedade .name)
-        if (newCategory && !categories.some(c => c.name.toLowerCase() === newCategory.toLowerCase())) {
-
-            // Salva como OBJETO (nome + cor)
-            categories.push({ name: newCategory, color: newColor });
-
-            saveCategories();
-            newCategoryInput.value = '';
-
-            // Define o activeCategory usando o nome
-            activeCategory = newCategory;
-
-            renderCategories();
-        } else if (newCategory) {
-            alert('Category already exists!');
+    // Renderiza lista de Skills
+    function renderSkillsList(searchTerm) {
+        if (!activeSkillCategory) {
+            promptDisplay.innerHTML = '<p class="no-prompts-message">Select a skill category or add new skills.</p>';
+            return;
         }
-    });
 
-    // ====== DELEGAÇÃO DE EVENTOS PARA PROMPTS (COPY/DELETE) ======
-    promptDisplay.addEventListener('click', (event) => {
-        const targetButton = event.target.closest('button');
+        let categorySkills = skills.filter(s => s.category === activeSkillCategory);
 
-        if (!targetButton) return;
+        if (searchTerm) {
+            categorySkills = categorySkills.filter(s =>
+                (s.title && s.title.toLowerCase().includes(searchTerm)) ||
+                (s.text && s.text.toLowerCase().includes(searchTerm))
+            );
+        }
 
-        // Lógica de DELETAR
-        if (targetButton.classList.contains('delete-prompt-btn')) {
-            const promptId = targetButton.dataset.id;
+        categorySkills.reverse();
 
-            // Verifica se o usuário realmente quer deletar
-            if (confirm('Tem certeza que deseja deletar este prompt?')) {
-                deletePrompt(promptId);
+        if (categorySkills.length === 0) {
+            if (searchTerm) {
+                promptDisplay.innerHTML = `<p class="no-prompts-message">No skills found matching "${searchTerm}" in "${activeSkillCategory}".</p>`;
+            } else {
+                promptDisplay.innerHTML = `<p class="no-prompts-message">No skills in "${activeSkillCategory}" yet.</p>`;
             }
-
-            // Lógica de COPIAR
-        } else if (targetButton.classList.contains('copy-prompt-btn')) {
-            const textToCopy = targetButton.dataset.text;
-            navigator.clipboard.writeText(textToCopy);
-            // showToast('Prompt copiado!', 'success');
+            return;
         }
-    });
 
-    addPromptBtn.addEventListener('click', () => {
-        const promptText = newPromptText.value.trim();
-        const selectedCategory = promptCategorySelect.value;
+        categorySkills.forEach(skill => {
+            const card = document.createElement('div');
+            card.className = 'prompt-card skill-card';
 
-        if (promptText && selectedCategory) {
-            // 1. Cria a data formatada
-            const currentDate = new Date(Date.now());
-            const formattedDate = currentDate.toLocaleDateString('pt-BR', {
-                day: '2-digit', month: '2-digit', year: 'numeric',
-                hour: '2-digit', minute: '2-digit'
+            card.addEventListener('click', (e) => {
+                const target = e.target;
+                if (
+                    target.closest('.prompt-actions') ||
+                    target.tagName === 'TEXTAREA' ||
+                    target.tagName === 'INPUT' ||
+                    target.closest('.save-edit-btn') ||
+                    target.closest('.cancel-edit-btn')
+                ) return;
+
+                card.classList.toggle('expanded');
             });
 
-            const newPrompt = {
-                id: Date.now(),
-                text: promptText,
-                category: selectedCategory,
-                // 2. SALVA A DATA FORMATADA NO PROMPT
-                dateAdded: formattedDate
-            };
-            prompts.push(newPrompt);
-            savePrompts();
-            newPromptText.value = '';
+            const textWithHighlights = skill.text
+                .replace(/\[/g, '<span class="placeholder-highlight">[')
+                .replace(/\]/g, ']</span>');
 
-            if (selectedCategory === activeCategory) {
-                renderPrompts();
+            const safeTextForAttribute = skill.text
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+
+            card.innerHTML = `
+                <div class="prompt-header-info">
+                    <span class="date-added">${skill.dateAdded || 'N/A'}</span>
+                </div>
+                <div class="skill-card-content">
+                    <h3 class="skill-card-title">
+                        <i class="material-icons">psychology</i>
+                        <span>${skill.title}</span>
+                    </h3>
+                    <p>${textWithHighlights}</p>
+                </div>
+                <div class="prompt-actions">
+                    <button class="copy-prompt-btn" data-text="${safeTextForAttribute}" title="Copy Skill Instructions">
+                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
+                            <path d="M5.25 1.75C5.25 .784 6.034 0 7 0h7.25C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11H7c-.966 0-1.75-.784-1.75-1.75v-7.5Z"></path>
+                        </svg>
+                    </button>
+                    <button class="delete-prompt-btn" data-id="${skill.id}" title="Delete Skill">
+                        <svg class="octicon octicon-trash" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+
+            const contentDiv = card.querySelector('.skill-card-content');
+            if (contentDiv) {
+                contentDiv.addEventListener('dblclick', (e) => {
+                    e.stopPropagation();
+                    enterEditModeSkill(card, skill.id, skill.title, skill.text);
+                });
             }
-        } else {
-            alert('Please enter a prompt and select a category.');
-        }
-    });
 
-    // ====== FUNÇÃO DE DELETAR PROMPT ======
-    function deletePrompt(id) {
-        // CRÍTICO: Converte a string ID para número para garantir a comparação correta.
-        const promptIdToDelete = parseFloat(id);
-
-        console.log('--- DELETANDO PROMPT ---'); // LOG 1
-        console.log('ID a ser deletado (Number):', promptIdToDelete); // LOG 2
-        console.log('IDs do Array ANTES:', prompts.map(p => p.id)); // LOG 3
-
-        prompts = prompts.filter(p => p.id !== promptIdToDelete);
-        console.log('IDs do Array DEPOIS:', prompts.map(p => p.id)); // LOG 4
-        savePrompts();
-        renderCategories(); // Rerenderiza categorias para atualizar a contagem
+            promptDisplay.appendChild(card);
+        });
     }
 
-    function downloadData() {
-        // 1. VERIFICAÇÃO
-        if (prompts.length === 0) {
-            // showToast('No prompts to download!', 'info'); // descomente se tiver showToast
-            console.warn('Nenhum prompt para download. Sair.');
-            return;
-        }
+    // ====== ADICIONAR NOVO ITEM (PROMPT OU SKILL) ======
+    if (addPromptBtn) {
+        addPromptBtn.addEventListener('click', () => {
+            const selectedCategory = promptCategorySelect ? promptCategorySelect.value : '';
+            const textContent = newPromptText.value.trim();
 
-        // 2. SERIALIZAÇÃO E CRIAÇÃO DO ARQUIVO (BLOB)
-        const dataStr = JSON.stringify(prompts, null, 2);
-        const blob = new Blob([dataStr], { type: 'application/json' });
-
-        // 3. CRIAÇÃO DO LINK E DOWNLOAD
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-
-        // Configurações do link
-        a.href = url;
-        a.download = 'prompt_organizer_data.json'; // Nome do arquivo de saída
-
-        // Dispara o download
-        document.body.appendChild(a);
-        a.click();
-
-        // 4. LIMPEZA
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-
-        // showToast('Prompts baixados com sucesso!'); // descomente se tiver showToast
-        console.log('Download disparado!');
-    }
-
-    function handleUpload(event) {
-        const file = event.target.files[0];
-
-        // Se nenhum arquivo foi selecionado ou se a leitura não for bem-sucedida, saia
-        if (!file) {
-            // showToast('Nenhum arquivo selecionado.', 'info');
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            try {
-                // Tenta analisar o conteúdo do arquivo como JSON
-                const uploadedData = JSON.parse(e.target.result);
-
-                // Verifica se o arquivo JSON é uma lista válida de prompts (o formato que esperamos)
-                if (!Array.isArray(uploadedData) || uploadedData.some(p => !p.text || !p.category)) {
-                    // showToast('Arquivo inválido: formato incorreto.', 'error');
+            if (currentSection === 'prompts') {
+                if (!textContent || !selectedCategory) {
+                    alert('Please enter a prompt and select a category.');
                     return;
                 }
 
-                // 1. GARANTIR UNICIDADE DE IDS: Mapeia os dados, criando novos IDs para evitar conflitos
-                const newPrompts = uploadedData.map(p => ({
-                    id: Date.now() + Math.random(), // Novo ID único
-                    text: p.text,
-                    category: p.category
-                }));
+                const currentDate = new Date();
+                const formattedDate = currentDate.toLocaleDateString('pt-BR', {
+                    day: '2-digit', month: '2-digit', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
 
-                // 2. ATUALIZA CATEGORIAS: Coleta todas as categorias novas e existentes
-                const newCategories = newPrompts.map(p => p.category);
-                // Usa 'Set' para garantir que não haja duplicatas
-                const combinedCategories = [...new Set([...categories, ...newCategories])];
-                categories = combinedCategories;
-                saveCategories();
+                const newPrompt = {
+                    id: Date.now(),
+                    text: textContent,
+                    category: selectedCategory,
+                    dateAdded: formattedDate
+                };
 
-                // 3. ATUALIZA PROMPTS: Adiciona os prompts novos ao final da lista existente
-                prompts.push(...newPrompts);
+                prompts.push(newPrompt);
                 savePrompts();
+                newPromptText.value = '';
+                newPromptText.style.height = 'auto';
 
-                // 4. RENDERIZA TUDO
-                renderCategories(); // Redesenha categorias e, por consequência, prompts
+                renderPromptCategoriesUI();
+                renderItems();
 
-                // showToast('Dados importados com sucesso! Verifique todas as categorias.', 'success');
+            } else if (currentSection === 'skills') {
+                const title = skillTitleInput ? skillTitleInput.value.trim() : '';
 
-            } catch (error) {
-                // showToast('Erro ao processar o arquivo. Verifique se é um JSON válido.', 'error');
-                console.error('Erro ao processar arquivo:', error);
+                if (!title) {
+                    alert('Please enter a title for the skill.');
+                    if (skillTitleInput) skillTitleInput.focus();
+                    return;
+                }
+
+                if (!textContent || !selectedCategory) {
+                    alert('Please enter skill instructions and select a category.');
+                    return;
+                }
+
+                const currentDate = new Date();
+                const formattedDate = currentDate.toLocaleDateString('pt-BR', {
+                    day: '2-digit', month: '2-digit', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+
+                const newSkill = {
+                    id: Date.now(),
+                    title: title,
+                    text: textContent,
+                    category: selectedCategory,
+                    dateAdded: formattedDate
+                };
+
+                skills.push(newSkill);
+                saveSkills();
+                if (skillTitleInput) skillTitleInput.value = '';
+                newPromptText.value = '';
+                newPromptText.style.height = 'auto';
+
+                renderSkillCategoriesUI();
+                renderItems();
             }
-        };
-
-        // Inicia a leitura do arquivo como texto
-        reader.readAsText(file);
+        });
     }
 
-    // ====== DRAG & DROP ======
+    // ====== DELEGAÇÃO DE EVENTOS PARA COPY / DELETE ======
+    if (promptDisplay) {
+        promptDisplay.addEventListener('click', (event) => {
+            const targetButton = event.target.closest('button');
+            if (!targetButton) return;
+
+            // Deletar Item
+            if (targetButton.classList.contains('delete-prompt-btn')) {
+                const itemId = parseFloat(targetButton.dataset.id);
+                if (currentSection === 'prompts') {
+                    if (confirm('Tem certeza que deseja deletar este prompt?')) {
+                        prompts = prompts.filter(p => p.id !== itemId);
+                        savePrompts();
+                        renderPromptCategoriesUI();
+                        renderItems();
+                    }
+                } else {
+                    if (confirm('Tem certeza que deseja deletar esta skill?')) {
+                        skills = skills.filter(s => s.id !== itemId);
+                        saveSkills();
+                        renderSkillCategoriesUI();
+                        renderItems();
+                    }
+                }
+
+            // Copiar Item
+            } else if (targetButton.classList.contains('copy-prompt-btn')) {
+                const textToCopy = targetButton.dataset.text;
+                navigator.clipboard.writeText(textToCopy);
+
+                // Feedback visual sutil no botão
+                const originalHtml = targetButton.innerHTML;
+                targetButton.innerHTML = `<span style="font-size: 14px; font-weight: bold; color: #4CAF50;">✓</span>`;
+                setTimeout(() => {
+                    targetButton.innerHTML = originalHtml;
+                }, 1200);
+            }
+        });
+    }
+
+    // ====== MODO DE EDIÇÃO INLINE: PROMPTS ======
+    function enterEditModePrompt(card, promptId, currentText) {
+        const pElement = card.querySelector('p');
+        const actionsDiv = card.querySelector('.prompt-actions');
+        const headerInfo = card.querySelector('.prompt-header-info');
+
+        if (card.querySelector('.prompt-edit-textarea')) return;
+
+        const textarea = document.createElement('textarea');
+        textarea.value = currentText;
+        textarea.classList.add('prompt-edit-textarea');
+        textarea.rows = 5;
+
+        const saveButton = document.createElement('button');
+        saveButton.textContent = 'SAVE';
+        saveButton.classList.add('md-button', 'save-edit-btn');
+
+        const cancelButton = document.createElement('button');
+        cancelButton.textContent = 'CANCEL';
+        cancelButton.classList.add('md-button', 'cancel-edit-btn');
+
+        const leftColumnWrapper = document.createElement('div');
+        leftColumnWrapper.classList.add('edit-left-column');
+        leftColumnWrapper.appendChild(saveButton);
+        leftColumnWrapper.appendChild(cancelButton);
+
+        const rightColumnWrapper = document.createElement('div');
+        rightColumnWrapper.classList.add('edit-right-column');
+        if (headerInfo) rightColumnWrapper.appendChild(headerInfo);
+        rightColumnWrapper.appendChild(textarea);
+
+        if (actionsDiv) actionsDiv.style.display = 'none';
+        pElement.remove();
+
+        card.prepend(rightColumnWrapper);
+        card.prepend(leftColumnWrapper);
+
+        textarea.focus();
+
+        saveButton.addEventListener('click', () => {
+            const newText = textarea.value.trim();
+            if (newText) {
+                const promptIndex = prompts.findIndex(p => p.id == promptId);
+                if (promptIndex !== -1) {
+                    prompts[promptIndex].text = newText;
+                    savePrompts();
+                    renderItems();
+                }
+            } else {
+                alert('Prompt text cannot be empty.');
+            }
+        });
+
+        cancelButton.addEventListener('click', () => {
+            renderItems();
+        });
+    }
+
+    // ====== MODO DE EDIÇÃO INLINE: SKILLS ======
+    function enterEditModeSkill(card, skillId, currentTitle, currentText) {
+        const contentDiv = card.querySelector('.skill-card-content');
+        const actionsDiv = card.querySelector('.prompt-actions');
+        const headerInfo = card.querySelector('.prompt-header-info');
+
+        if (card.querySelector('.prompt-edit-textarea')) return;
+
+        const titleInput = document.createElement('input');
+        titleInput.type = 'text';
+        titleInput.value = currentTitle;
+        titleInput.classList.add('skill-edit-title-input');
+        titleInput.placeholder = 'Skill Title';
+
+        const textarea = document.createElement('textarea');
+        textarea.value = currentText;
+        textarea.classList.add('prompt-edit-textarea');
+        textarea.rows = 5;
+
+        const saveButton = document.createElement('button');
+        saveButton.textContent = 'SAVE';
+        saveButton.classList.add('md-button', 'save-edit-btn');
+
+        const cancelButton = document.createElement('button');
+        cancelButton.textContent = 'CANCEL';
+        cancelButton.classList.add('md-button', 'cancel-edit-btn');
+
+        const leftColumnWrapper = document.createElement('div');
+        leftColumnWrapper.classList.add('edit-left-column');
+        leftColumnWrapper.appendChild(saveButton);
+        leftColumnWrapper.appendChild(cancelButton);
+
+        const rightColumnWrapper = document.createElement('div');
+        rightColumnWrapper.classList.add('edit-right-column');
+        if (headerInfo) rightColumnWrapper.appendChild(headerInfo);
+        rightColumnWrapper.appendChild(titleInput);
+        rightColumnWrapper.appendChild(textarea);
+
+        if (actionsDiv) actionsDiv.style.display = 'none';
+        contentDiv.remove();
+
+        card.prepend(rightColumnWrapper);
+        card.prepend(leftColumnWrapper);
+
+        titleInput.focus();
+
+        saveButton.addEventListener('click', () => {
+            const newTitle = titleInput.value.trim();
+            const newText = textarea.value.trim();
+
+            if (!newTitle) {
+                alert('Skill title cannot be empty.');
+                titleInput.focus();
+                return;
+            }
+
+            if (!newText) {
+                alert('Skill instructions cannot be empty.');
+                textarea.focus();
+                return;
+            }
+
+            const skillIndex = skills.findIndex(s => s.id == skillId);
+            if (skillIndex !== -1) {
+                skills[skillIndex].title = newTitle;
+                skills[skillIndex].text = newText;
+                saveSkills();
+                renderItems();
+            }
+        });
+
+        cancelButton.addEventListener('click', () => {
+            renderItems();
+        });
+    }
+
+    // ====== DRAG & DROP PARA CATEGORIAS ======
     let draggedItem = null;
-    function makeCategoriesDraggable() {
-        const items = document.querySelectorAll('#categoryList li');
+    function makeCategoriesDraggable(listElement, categoriesArray, onOrderChanged) {
+        const items = listElement.querySelectorAll('li');
         items.forEach(item => {
             item.draggable = true;
             item.addEventListener('dragstart', () => {
@@ -480,182 +972,235 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             item.addEventListener('dragend', () => {
                 setTimeout(() => {
-                    draggedItem.classList.remove('dragging');
+                    if (draggedItem) draggedItem.classList.remove('dragging');
                     draggedItem = null;
-                    saveCategoryOrder();
+                    if (onOrderChanged) onOrderChanged();
                 }, 0);
             });
-            item.addEventListener('dragover', e => { e.preventDefault(); item.classList.add('drag-over'); });
+            item.addEventListener('dragover', e => {
+                e.preventDefault();
+                item.classList.add('drag-over');
+            });
             item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
             item.addEventListener('drop', e => {
                 e.preventDefault();
-                if (draggedItem && draggedItem !== item) {
-                    const all = [...document.querySelectorAll('#categoryList li')];
+                if (draggedItem && draggedItem !== item && draggedItem.parentElement === listElement) {
+                    const all = [...listElement.querySelectorAll('li')];
                     const from = all.indexOf(draggedItem);
                     const to = all.indexOf(item);
-                    const [moved] = categories.splice(from, 1);
-                    categories.splice(to, 0, moved);
-                    if (activeCategory === draggedItem.dataset.category) activeCategory = moved;
-                    renderCategories();
+                    const [moved] = categoriesArray.splice(from, 1);
+                    categoriesArray.splice(to, 0, moved);
+                    if (onOrderChanged) onOrderChanged();
+                    renderPromptCategoriesUI();
+                    renderSkillCategoriesUI();
                 }
                 item.classList.remove('drag-over');
             });
         });
     }
 
-    function saveCategoryOrder() {
-        saveCategories();
+    // ====== DOWNLOAD / EXPORT DATA ======
+    function downloadData() {
+        if (prompts.length === 0 && skills.length === 0) {
+            alert('Nenhum dado para exportar.');
+            return;
+        }
+
+        const exportData = {
+            version: '2.0',
+            exportDate: new Date().toISOString(),
+            promptCategories: promptCategories,
+            prompts: prompts,
+            skillCategories: skillCategories,
+            skills: skills
+        };
+
+        const dataStr = JSON.stringify(exportData, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+
+        a.href = url;
+        a.download = 'prompt_and_skill_organizer_data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 
-    // ====== TEXTAREA RESIZE COM HANDLE ======
-    const textareaWrapper = newPromptText.parentElement;
-    const resizeHandle = textareaWrapper.querySelector('.resize-handle');
-    let isResizing = false;
-    let startY, startHeight;
+    // ====== UPLOAD / IMPORT DATA ======
+    function handleUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
 
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            try {
+                const uploadedData = JSON.parse(e.target.result);
+
+                // Caso 1: Versão 2.0 (Objeto com prompts e skills)
+                if (uploadedData && typeof uploadedData === 'object' && !Array.isArray(uploadedData)) {
+                    if (Array.isArray(uploadedData.promptCategories)) {
+                        uploadedData.promptCategories.forEach(cat => {
+                            const catObj = typeof cat === 'string' ? { name: cat, color: DEFAULT_COLORS[0] } : cat;
+                            if (!promptCategories.some(c => c.name.toLowerCase() === catObj.name.toLowerCase())) {
+                                promptCategories.push(catObj);
+                            }
+                        });
+                    }
+
+                    if (Array.isArray(uploadedData.prompts)) {
+                        const newPrompts = uploadedData.prompts.map(p => ({
+                            id: Date.now() + Math.random(),
+                            text: p.text,
+                            category: p.category,
+                            dateAdded: p.dateAdded || new Date().toLocaleDateString('pt-BR')
+                        }));
+                        prompts.push(...newPrompts);
+
+                        // Garante que todas as categorias dos prompts existam
+                        newPrompts.forEach(p => {
+                            if (!promptCategories.some(c => c.name.toLowerCase() === p.category.toLowerCase())) {
+                                promptCategories.push({ name: p.category, color: DEFAULT_COLORS[promptCategories.length % DEFAULT_COLORS.length] });
+                            }
+                        });
+                    }
+
+                    if (Array.isArray(uploadedData.skillCategories)) {
+                        uploadedData.skillCategories.forEach(cat => {
+                            const catObj = typeof cat === 'string' ? { name: cat, color: DEFAULT_COLORS[1] } : cat;
+                            if (!skillCategories.some(c => c.name.toLowerCase() === catObj.name.toLowerCase())) {
+                                skillCategories.push(catObj);
+                            }
+                        });
+                    }
+
+                    if (Array.isArray(uploadedData.skills)) {
+                        const newSkills = uploadedData.skills.map(s => ({
+                            id: Date.now() + Math.random(),
+                            title: s.title || 'Untitled Skill',
+                            text: s.text,
+                            category: s.category,
+                            dateAdded: s.dateAdded || new Date().toLocaleDateString('pt-BR')
+                        }));
+                        skills.push(...newSkills);
+
+                        // Garante que todas as categorias das skills existam
+                        newSkills.forEach(s => {
+                            if (!skillCategories.some(c => c.name.toLowerCase() === s.category.toLowerCase())) {
+                                skillCategories.push({ name: s.category, color: DEFAULT_COLORS[skillCategories.length % DEFAULT_COLORS.length] });
+                            }
+                        });
+                    }
+
+                    saveAll();
+                    switchSection(currentSection);
+                    alert('Dados importados com sucesso!');
+                    return;
+                }
+
+                // Caso 2: Formato Legado (Array de Prompts)
+                if (Array.isArray(uploadedData) && uploadedData.some(p => p.text && p.category)) {
+                    const newPrompts = uploadedData.map(p => ({
+                        id: Date.now() + Math.random(),
+                        text: p.text,
+                        category: p.category,
+                        dateAdded: p.dateAdded || new Date().toLocaleDateString('pt-BR')
+                    }));
+
+                    newPrompts.forEach(p => {
+                        if (!promptCategories.some(c => c.name.toLowerCase() === p.category.toLowerCase())) {
+                            promptCategories.push({ name: p.category, color: DEFAULT_COLORS[promptCategories.length % DEFAULT_COLORS.length] });
+                        }
+                    });
+
+                    prompts.push(...newPrompts);
+                    savePromptCategories();
+                    savePrompts();
+                    switchSection('prompts');
+                    alert('Prompts legados importados com sucesso!');
+                    return;
+                }
+
+                alert('Arquivo JSON com formato inválido ou não reconhecido.');
+            } catch (err) {
+                console.error('Erro ao processar arquivo:', err);
+                alert('Erro ao processar o arquivo JSON.');
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    if (downloadDataBtn) {
+        downloadDataBtn.addEventListener('click', downloadData);
+    }
+    if (uploadDataBtn && uploadFileInput) {
+        uploadDataBtn.addEventListener('click', () => uploadFileInput.click());
+    }
+    if (uploadFileInput) {
+        uploadFileInput.addEventListener('change', handleUpload);
+    }
+
+    // ====== PESQUISA ======
+    if (searchInput) {
+        searchInput.addEventListener('input', renderItems);
+    }
+
+    // ====== AUTO-RESIZE DO TEXTAREA ======
     function autoResize() {
+        if (!newPromptText) return;
         newPromptText.style.height = 'auto';
         const max = 400;
         const newH = Math.min(newPromptText.scrollHeight, max);
         newPromptText.style.height = newH + 'px';
     }
 
-    newPromptText.addEventListener('input', autoResize);
+    if (newPromptText) {
+        newPromptText.addEventListener('input', autoResize);
+        const textareaWrapper = newPromptText.parentElement;
+        const resizeHandle = textareaWrapper ? textareaWrapper.querySelector('.resize-handle') : null;
+        let isResizing = false;
+        let startY, startHeight;
 
-    if (resizeHandle) { // <--- PROTEÇÃO ADICIONADA
-        resizeHandle.addEventListener('mousedown', e => {
-            isResizing = true;
-            startY = e.clientY;
-            startHeight = newPromptText.offsetHeight;
-            e.preventDefault();
-        });
-    }
-    document.addEventListener('mousemove', e => {
-        if (!isResizing) return;
-        const diff = e.clientY - startY;
-        const newH = Math.max(80, Math.min(startHeight + diff, 400));
-        newPromptText.style.height = newH + 'px';
-    });
-
-    document.addEventListener('mouseup', () => { isResizing = false; });
-
-    setTimeout(autoResize, 100);
-
-    if (downloadDataBtn) {
-        downloadDataBtn.addEventListener('click', downloadData);
-    }
-
-    // <--- LISTENER 1: Botão clica no Input de arquivo (uploadDataBtn -> uploadFileInput) --->
-    if (uploadDataBtn && uploadFileInput) {
-        uploadDataBtn.addEventListener('click', () => {
-            uploadFileInput.click();
-        });
-    }
-
-    // <--- LISTENER 2: Processa o arquivo quando o usuário o seleciona (uploadFileInput -> handleUpload) --->
-    if (uploadFileInput) {
-        uploadFileInput.addEventListener('change', handleUpload);
-    }
-
-    // ====== FUNÇÃO PARA ENTRAR NO MODO DE EDIÇÃO DE PROMPT ======
-    function enterEditModePrompt(card, promptId, currentText) {
-        // 1. Elementos existentes
-        const pElement = card.querySelector('p');
-        const actionsDiv = card.querySelector('.prompt-actions');
-        const headerInfo = card.querySelector('.prompt-header-info'); // O elemento da data
-
-        if (card.querySelector('.prompt-edit-textarea')) return;
-
-        // 2. Criação dos novos elementos
-
-        // A. Textarea
-        const textarea = document.createElement('textarea');
-        textarea.value = currentText;
-        textarea.classList.add('prompt-edit-textarea');
-        textarea.rows = 5;
-
-        // B. Botões (Salvar e Cancelar)
-        const saveButton = document.createElement('button');
-        saveButton.textContent = 'SAVE'; // Usando caixa alta para estética
-        saveButton.classList.add('md-button', 'save-edit-btn');
-
-        const cancelButton = document.createElement('button');
-        cancelButton.textContent = 'CANCEL';
-        cancelButton.classList.add('md-button', 'cancel-edit-btn');
-
-        // C. Wrapper para os botões (Coluna Esquerda)
-        const leftColumnWrapper = document.createElement('div');
-        leftColumnWrapper.classList.add('edit-left-column');
-
-        // D. Wrapper para o Textarea e Data (Coluna Direita)
-        const rightColumnWrapper = document.createElement('div');
-        rightColumnWrapper.classList.add('edit-right-column');
-
-        // 3. Montagem da Nova Estrutura
-
-        // Esconde as ações antigas
-        if (actionsDiv) actionsDiv.style.display = 'none';
-
-        // Coluna Esquerda: Botões empilhados
-        leftColumnWrapper.appendChild(saveButton);
-        leftColumnWrapper.appendChild(cancelButton);
-
-        // Coluna Direita: Data e Textarea
-        if (headerInfo) rightColumnWrapper.appendChild(headerInfo);
-        rightColumnWrapper.appendChild(textarea);
-
-        // Insere no Card: remove o <p>
-        pElement.remove(); // Remove o parágrafo original
-
-        // Adiciona os wrappers ao card
-        card.prepend(rightColumnWrapper);
-        card.prepend(leftColumnWrapper);
-
-        textarea.focus();
-
-        // 4. Lógica de Salvar e Cancelar (CRÍTICO: Adicionar os Listeners)
-        saveButton.addEventListener('click', () => {
-            const newText = textarea.value.trim();
-            if (newText) {
-                const promptIndex = prompts.findIndex(p => p.id == promptId);
-                if (promptIndex !== -1) {
-                    prompts[promptIndex].text = newText;
-                    savePrompts();
-                    renderPrompts();
-                }
-            } else {
-                alert('Prompt text cannot be empty.');
-            }
-        });
-        cancelButton.addEventListener('click', () => {
-            renderPrompts(); // Renderiza para sair do modo de edição
-        });
-    }
-
-    // ====== FUNÇÃO DE FEEDBACK VISUAL SIMPLES (para o JS) ======
-    function showSuccessFlash(cardElement) {
-        if (cardElement) {
-            cardElement.classList.add('flash-success');
-
-            // Remove a classe após 0.6 segundos (um pouco mais que a duração da animação)
-            setTimeout(() => {
-                cardElement.classList.remove('flash-success');
-            }, 600);
+        if (resizeHandle) {
+            resizeHandle.addEventListener('mousedown', e => {
+                isResizing = true;
+                startY = e.clientY;
+                startHeight = newPromptText.offsetHeight;
+                e.preventDefault();
+            });
         }
+
+        document.addEventListener('mousemove', e => {
+            if (!isResizing) return;
+            const diff = e.clientY - startY;
+            const newH = Math.max(80, Math.min(startHeight + diff, 400));
+            newPromptText.style.height = newH + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isResizing = false;
+        });
+
+        setTimeout(autoResize, 100);
     }
 
-    // ====== INICIALIZAÇÃO ======
+    // ====== INICIALIZAÇÃO DA APLICAÇÃO ======
     function initApp() {
-        console.log('Iniciando aplicação...');
-        renderCategories();
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener('input', renderPrompts);
+        console.log('Iniciando Prompt & Skill Organizer...');
+        switchSection('prompts');
     }
 
     initApp();
 
-    // Debug
-    window.appDebug = { categories, prompts, activeCategory: () => activeCategory, renderCategories, renderPrompts };
+    // Debugging global
+    window.appDebug = {
+        promptCategories: () => promptCategories,
+        prompts: () => prompts,
+        skillCategories: () => skillCategories,
+        skills: () => skills,
+        currentSection: () => currentSection,
+        switchSection,
+        renderItems
+    };
 });
